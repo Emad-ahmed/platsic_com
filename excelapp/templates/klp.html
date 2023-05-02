@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @page {
+            background: url(http://127.0.0.1:8000/media/images/KLP.jpg);
+
+           
+        }
+
+       
+    </style>
+</head>
+<body>
+    {% load math_tags %}
+    <p>.</p>
+    <br>
+    <table >
+        <tr>
+            <td>
+                <p style="margin-left: 12.7rem;">{{subcompany.head_company.name}}</p>
+                <p style="margin-left: 12.7rem;">{{subcompany.head_company.line1}}</p>
+                <p style="margin-left: 12.7rem;">{{subcompany.head_company.line2}}</p>
+                <p style="margin-left: 12.7rem;">{{subcompany.head_company.line3}}</p>
+                <p style="margin-left: 12.7rem;">{{subcompany.head_company.line4}}</p>
+            </td>
+            <td>
+                <br>
+                <br>
+                <p style="margin-left: 13rem;">Ivoice Number: <span>  {{subcompany.Invoicenumber}}</span></p>
+                <p style="margin-left: 13rem;">Invoice Ref: <span>    New Horizon</span></p>
+                <p></p>
+            </td>
+        </tr>
+    </table>
+
+    <table style="margin-top: 9.7rem;">
+        <tr>
+            <td><p style="margin-left: 48rem;">{{subcompany.weight}}</p></td>
+            <td><p style="margin-left: 28.3rem;">£{{subcompany.head_company.unit_price}}</p></td>
+            <td><p style="margin-left: 8.4rem;">
+                {% with a=subcompany.weight b=subcompany.head_company.unit_price %}
+            
+        
+                £{{a|mul:b}}       
+         
+        {% endwith %}
+            </p></td>
+        </tr>
+    </table>
+
+    <p style="margin-top: 20.4rem; margin-left: 48.5rem;">{% with a=subcompany.weight b=subcompany.head_company.unit_price %}
+            
+        
+        £{{a|mul:b}}       
+ 
+{% endwith %}</p>
+    <p style="margin-top: 5.2rem; margin-left: 48.5rem;">{% with a=subcompany.weight b=subcompany.head_company.unit_price %}
+            
+        
+        £{{a|mul:b}}       
+ 
+{% endwith %}</p>
+</body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @page {
+            background: url(http://127.0.0.1:8000/media/images/Revolution.jpg);
+
+           
+        }
+
+       
+    </style>
+</head>
+<body>
+    {% load math_tags %}
+    <p>.</p>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <table>
+        <tr>
+            <td>
+                <p style="margin-left: 11.6rem;">{{subcompany.name}}</p>
+                <p style="margin-left: 11.6rem;">{{subcompany.line1}}</p>
+                <p style="margin-left: 11.6rem;">{{subcompany.line2}}</p>
+                <p style="margin-left: 11.6rem;">{{subcompany.line3}}</p>
+                <p style="margin-left: 11.6rem;">{{subcompany.line4}}</p>
+            </td>
+            <td>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <p style="margin-left: 26rem;">{{subcompany.invoicedate}}</p>
+                <p style="margin-left: 27rem; margin-top: 3rem;">{{subcompany.Invoicenumber}}</p>
+            </td>
+        </tr>
+    </table>
+
+    <table style="margin-top: 10.7rem;">
+        <tr>
+            <td>
+                <p style="margin-left: 3.5rem;">{{subcompany.head_company.name}}</p>
+                <p style="margin-left: 3.5rem;">{{subcompany.head_company.line1}}</p>
+                <p style="margin-left: 3.5rem;">{{subcompany.head_company.line2}}</p>
+                <p style="margin-left: 3.5rem;">{{subcompany.head_company.line3}}</p>
+                <p style="margin-left: 3.5rem;">{{subcompany.head_company.line4}}</p>
+            </td>
+        </tr>
+    </table>
+
+    <table style="margin-top: 12.7rem;">
+        <tr>
+            <td><p style="margin-left: 7rem;">{{subcompany.head_company.description}}</p></td>
+            <td><p style="margin-left: 15rem;">{{subcompany.weight}}</p></td>
+            <td><p style="margin-left: 10rem;">£{{subcompany.head_company.unit_price}}</p></td>
+            <td><p style="margin-left: 5.5rem;">{% with a=subcompany.weight b=subcompany.head_company.unit_price %}
+            
+        
+                £{{a|mul:b}}       
+         
+        {% endwith %}</p></td>
+        </tr>
+    </table>
+
+    <p style="margin-top: 18.8rem; margin-left: 32rem;">{{subcompany.weight}}</p>
+    <p style="margin-left: 63rem;  margin-top: 1.6rem; font-weight:bolder;">{% with a=subcompany.weight b=subcompany.head_company.unit_price %}
+            
+        
+        £{{a|mul:b}}       
+ 
+{% endwith %}</p>
+  
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @page {
+            background: url(http://127.0.0.1:8000/media/images/newplastic.jpg);
+
+           
+        }
+
+       
+    </style>
+</head>
+<body>
+    {% load math_tags %}
+    <div>.</div>
+    <div><p style="margin-left: 470pt; margin-top: 80pt; margin-bottom: 60pt;">{{clientcompany.invoicedate}}</p></div>
+
+    
+    <table>
+        <tr>
+            <td>
+                <p></p>
+                <p style="margin-top: 200pt !important; margin-left: 79pt;">{{clientcompany.head_company.name}}</p>
+                <p style="margin-top: 200pt !important; margin-left: 79pt;">{{clientcompany.head_company.line1}}</p>
+                <p style="margin-left: 79pt;">{{clientcompany.head_company.line2}}</p>
+                <p style="margin-left: 79pt;">{{clientcompany.head_company.line3}}</p>
+                <p style="margin-left: 79pt;">{{clientcompany.head_company.line4}}</p>
+            </td>
+            <td>
+                <p></p>
+                <p></p>
+                <p style="margin-top: 170pt !important; margin-left: -62pt;">{{clientcompany.name}}</p>
+                <p style="margin-left: -62pt;">{{clientcompany.line1}}</p>
+                <p style="margin-left: -62pt;">{{clientcompany.line2}}</p>
+                <p style="margin-left: -62pt;">{{clientcompany.line3}}</p>
+                <p style="margin-left: -62pt;">{{clientcompany.line4}}</p>
+            </td>
+        </tr>
+    </table>
+
+    <table style="margin-top: 86pt;">
+        <tr>
+            <td><p style="margin-left: 130pt;">{{clientcompany.head_company.description}}</p></td>
+            <td> <p style="margin-left: 240pt;">{{clientcompany.weight}}</p> </td>
+            <td><p style="margin-left: 140pt;">£{{clientcompany.head_company.unit_price}}</p></td>
+            <td><p style="margin-left: 55pt;">{% with a=clientcompany.weight b=clientcompany.head_company.unit_price %}
+                £{{a|mul:b}}       
+    
+            {% endwith %}</p></td>
+        </tr>
+    </table>
+   
+    <p style="margin-top: 173pt; margin-left: 500pt;">{% with a=clientcompany.weight b=clientcompany.head_company.unit_price %}
+            
+        
+        £{{a|mul:b}}       
+     
+    {% endwith %}</p>
+    <p style="margin-top: 15pt; margin-left: 500pt;">£8960</p>
+    <p style="margin-top: 26pt; margin-left: 500pt;">{% with a=clientcompany.weight b=8960 %}
+            
+        
+        £{{a|add:b}}       
+     
+    {% endwith %}</p>
+</body>
+</html>

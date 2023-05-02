@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}  
+
+<style>
+  img{
+    width:5rem;
+    height:5rem;
+  }
+</style>
+
+<div class="container mt-4 text-center">
+    <h1>Company</h1>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST">
+            {% csrf_token %}
+            {% for fm in form  %}
+              {{fm.label_tag}} {{fm}} <br>
+            {% endfor %}
+            <div class="text-center">
+            <button type="submit" class="btn btn-info col-6">Add</button>
+          </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+
+<div class="container companytable tableview">
+
+    <button type="button " class="btn btn-primary ms-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Add Company
+    </button>
+    <a  href="/exportcompany" class="btn btn-primary" >
+        Export
+    </a>
+      
+  <table data-replace="jtable" id="example" aria-label="JS Datatable" data-locale="en" data-search="true">
+    <div class="serviceadd">
+    <div id="errormessage"></div>
+    <div id="successmessage"></div>
+    </div>
+            <thead>
+                <tr>
+                    <th>Sno. <i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Name <i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Short Name	 <i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Line1	<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Line2	<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Line3	<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Line4	<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Description<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Unit Price<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Image<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for all in  head %}
+                    <tr>
+                        <td id='first'>{{all.id}}</td>
+                        <td id='first'>{{all.name}}</td>
+                        <td id='first'>{{all.short_name}}</td>
+                        <td id='first'>{{all.line1}}</td>
+                        <td id='first'>{{all.line2}}</td>
+                        <td id='first'>{{all.line3}}</td>
+                        <td id='first'>{{all.line4}}</td>
+                        <td id='first'>{{all.description}}</td>
+                        <td id='first'>{{all.unit_price}}</td>
+                        <td id='first'><img src="{{all.image.url}}" alt=""></td>
+                      
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+
+    </div>
+   
+{% endblock %}
+

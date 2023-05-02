@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @page {
+            background: url(http://127.0.0.1:8000/media/images/wp.jpg);
+
+           
+        }
+
+       
+    </style>
+</head>
+<body>
+    {% load math_tags %}
+    <p>.</p>
+
+    <table style="margin-top: 13rem; margin-left: 11.6rem; margin-bottom: 11rem;">
+        <tr>
+            <td>
+                
+                <p>{{subcompany.name}}</p>
+                <p>{{subcompany.line1}}</p>
+                <p>{{subcompany.line2}}</p>
+                <p>{{subcompany.line3}}</p>
+                <p>{{subcompany.line4}}</p>
+                
+            
+            </td>
+            <td>
+                <p style="margin-left:6.4rem; color:white;">{{subcompany.Invoicenumber}}</p>
+            </td>
+           
+        </tr>
+    </table>
+
+    <table>
+        <td>
+            <p style="margin-left: 11.6rem;">{{subcompany.head_company.name}}</p>
+            <p style="margin-left: 11.6rem;">{{subcompany.head_company.line1}}</p>
+            <p style="margin-left: 11.6rem;">{{subcompany.head_company.line2}}</p>
+            <p style="margin-left: 11.6rem;">{{subcompany.head_company.line3}}</p>
+            <p style="margin-left: 11.6rem;">{{subcompany.head_company.line4}}</p>
+        </td>
+        
+        <td>
+            <p style="margin-left: 20rem;">{{subcompany.invoicedate}}</p>
+        </td>
+    </table>
+
+    <table style="margin-top: 8.4rem;">
+        <tr>
+            <td><p style="margin-left: 12rem;">{{subcompany.head_company.description}}</p></td>
+            <td><p style="margin-left: 22rem;">{{subcompany.weight}}</p></td>
+            <td><p style="margin-left: 10.4rem;">£{{subcompany.head_company.unit_price}}</p></td>
+            <td><p>{% with a=subcompany.weight b=subcompany.head_company.unit_price %}
+            
+        
+                £{{a|mul:b}}       
+         
+        {% endwith %}</p></td>
+        </tr>
+    </table>
+
+    <p style="margin-top: 22.6rem; margin-left: 40rem; color:white; font-weight:bolder">£{{subcompany.weight}}</p>
+    <p style="margin-left: 55rem; margin-top: 1.5rem; color:white; font-weight:bolder">{% with a=subcompany.weight b=subcompany.head_company.unit_price %}
+            
+        
+        £{{a|mul:b}}       
+     
+    {% endwith %}</p>
+
+</body>
+</html>

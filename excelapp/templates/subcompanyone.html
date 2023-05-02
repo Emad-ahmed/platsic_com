@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}  
+
+<style>
+    table{
+        width:100%;
+    }
+    .activebutton
+    {
+      background: #0DCAF0;
+      color:white;
+    }
+</style>
+
+<div class="d-flex companyviewbutton mt-4 ms-4">
+      <a href="{% url 'subcompanyone' myid %}" class="btn btn-outline-info me-3 activebutton">Subcompany</a>
+      <a href="{% url 'clientcompanyone' myid %}" class="btn btn-outline-warning">Clientcompany</a>
+</div>
+
+<div class="container mt-4 text-center mb-4">
+    <h1>Sub Company</h1>
+  </div>
+  
+ 
+
+  <div class="container formneed">
+  <form action="{% url 'updatesub' myid %}" method="post">
+    {% csrf_token %}
+      <input type="number" name="upadtenumber" placeholder="Weight">
+      <select aria-label="Default select example" name="numberview">
+        <option value="50">All</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+       
+      </select>
+      <button type="submit" class="btn btn-info">Update</button>
+  </form>
+  </div>
+
+<div class="container mt-4 tableview">
+
+    <a  href="/exportsubcompany" class="btn btn-primary" >
+        Export
+    </a>
+
+  <table data-replace="jtable" id="example" aria-label="JS Datatable" data-locale="en" data-search="true">
+    
+    </div>
+            <thead>
+                <tr>
+                    <th>Sno. <i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Name<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Line1<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Line2<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Line3<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Line4<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Weight<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Invoicenumber<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Invoicedate<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Date<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+
+                    <th>Action<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Split<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sub in  subview %}
+                <tr>
+                    <td>{{sub.id}}</td>
+                    <td>{{sub.name}}</td>
+                    <td>{{sub.line1}}</td>
+                    <td>{{sub.line2}}</td>
+                    <td>{{sub.line3}}</td>
+                    <td>{{sub.line4}}</td>
+                   
+                    <td>{{sub.weight}}</td>
+                    
+                    
+                    <td>{{sub.Invoicenumber}}</td>
+                    <td>{{sub.invoicedate}}</td>
+                    <td>{{sub.date}}</td>
+                    
+                    <td><div class="dropdown">
+                      <button class="dropbtn">PDF</button>
+                      <div class="dropdown-content">
+                        <a href="{% url 'createpdfsub' sub.id %}">S&S Management</a>
+                        <a href="{% url 'createpdfsub_one' sub.id %}">WP Services</a>
+                        <a href="{% url 'createpdfsub_two' sub.id %}">Bina Solutions</a>
+                        <a href="{% url 'createpdfsub_three' sub.id %}">D&G Solutions</a>
+                        <a href="{% url 'createpdfsub_four' sub.id %}">KLP Constructions</a>
+                        <a href="{% url 'createpdfsub_five' sub.id %}">KT Plastic</a>
+                        <a href="{% url 'createpdfsub_six' sub.id %}">Revolution</a>
+                        <a href="{% url 'createpdfsub_seven' sub.id %}">PWR</a>
+                      </div>
+                    </div></td>
+                    <td><a href="{% url 'subcompnaysplit' sub.id %}">Split</a></td>
+                {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    </div>
+
+
+
+    <div style="margin-bottom: 10rem;"></div>
+
+
+
+{% endblock %}
+

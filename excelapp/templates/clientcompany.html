@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+
+{% block content %}  
+
+<style>
+    table{
+        width:100%;
+    }
+</style>
+<div class="container mt-4 text-center">
+    <h1>Client Company</h1>
+  </div>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Client Company</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST">
+            {% csrf_token %}
+            {% for fm in form  %}
+              {{fm.label_tag}} {{fm}} <br>
+            {% endfor %}
+            <div class="text-center">
+                <button type="submit" class="btn btn-info col-6">Add</button>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ 
+
+
+<div class="container mt-4 tableview">
+
+    <button type="button " class="btn btn-primary ms-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+        Add Client Company
+    </button>
+    <a  href="/exportclientcompany" class="btn btn-primary" >
+        Export
+    </a>
+
+  <table data-replace="jtable" id="example" aria-label="JS Datatable" data-locale="en" data-search="true">
+    
+    </div>
+            <thead>
+                <tr>
+                    <th>Sno. <i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Name<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Line1<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Line2<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Line3<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Line4<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Weight<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Invoicenumber<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Invoicedate<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Date<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+
+                    <th>Action<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for sub in  subview %}
+                <tr>
+                    <td>{{sub.id}}</td>
+                    <td>{{sub.name}}</td>
+                    <td>{{sub.line1}}</td>
+                    <td>{{sub.line2}}</td>
+                    <td>{{sub.line3}}</td>
+                    <td>{{sub.line4}}</td>
+                   
+                    <td>{{sub.weight}}</td>
+                    
+                    
+                    <td>{{sub.Invoicenumber}}</td>
+                    <td>{{sub.invoicedate}}</td>
+                    <td>{{sub.date}}</td>
+                    
+                    <td><div class="dropdown">
+                        <button class="dropbtn">PDF</button>
+                        <div class="dropdown-content">
+                          <a href="{% url 'createpdfclient' sub.id %}">Template 1</a>
+                          <a href="{% url 'createpdfclient_one' sub.id %}">Template 2</a>
+                          <a href="{% url 'createpdfclient' sub.id %}">Template 3</a>
+                        </div>
+                      </div></td>
+                    
+                {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    </div>
+
+       
+   
+{% endblock %}
+

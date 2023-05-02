@@ -1,0 +1,594 @@
+from django.shortcuts import render, redirect
+from django.views import View
+from excelapp.models import HeadCompany, SubCompany, ClientCompany, SplitCompnay
+from django.http import HttpResponse
+from .resources import HeadCompanyModelResource, SubCompanyModelResource, ClientCompanyModelResource, SplitCompanyModelResource
+from .forms import HeadForm, SubcompanyForm, ClientCompanyForm
+from django.shortcuts import get_object_or_404, redirect
+from xhtml2pdf import pisa
+from django.template.loader import get_template
+from django.utils.decorators import method_decorator
+import random
+from datetime import date
+from django.utils import timezone
+from math import floor
+from datetime import datetime, timedelta
+import xlwt
+
+# Create your views here.
+class HomeView(View):
+    def get(self, request):
+        headcom = HeadCompany.objects.all()
+        return render(request, "index.html", {'head' : headcom})
+
+
+class HeadCompanyView(View):
+    def get(self, request):
+        headform  = HeadForm()
+        HeadCompanyview = HeadCompany.objects.filter()
+        return render(request, "company.html", {'head' : HeadCompanyview, 'form' : headform})
+
+    def post(self, request):
+        form = HeadForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('headcompany')
+        else:
+            return redirect('headcompany')
+
+
+def export_data_to_excel_headcompany(request):
+    your_model_resource = HeadCompanyModelResource()
+    dataset = your_model_resource.export()
+    response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="headcompany.xls"'
+    return response
+
+
+class SubCompanyView(View):
+    def get(self, request):
+        subform = SubcompanyForm()
+        subview = SubCompany.objects.all()
+        return render(request, "subcompany.html", {'subview' :subview, 'form' : subform})
+    def post(self, request):
+        form = SubcompanyForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/subcompany')
+        else:
+            return redirect('/subcompany')
+        
+
+
+        
+
+def export_data_to_excel_subcompany(request):
+    your_model_resource = SubCompanyModelResource()
+    dataset = your_model_resource.export()
+    response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="subcompany.xls"'
+    return response
+
+
+def render_pdf_view_s_anda_s_management(request, id):
+    subcompany = SubCompany.objects.get(id=id)
+    name = subcompany.name
+    print(subcompany.head_company.image.url)
+    subcompany_price = subcompany.weight * subcompany.head_company.unit_price
+
+    # clientcompany = ClientCompany.objects.get(name=name)
+
+    # client_price = clientcompany.weight * clientcompany.head_company.unit_price
+
+    # total = subcompany_price + client_price
+
+    template_path = 'S&S_managemnet.html'
+
+    context = {'subcompany': subcompany}
+
+    response = HttpResponse(content_type='application/pdf')
+
+    response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
+
+    template = get_template(template_path)
+
+    html = template.render(context)
+
+    
+    pisa_status = pisa.CreatePDF(html, dest=response)
+   
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+
+
+
+
+def render_pdf_view_wp(request, id):
+    subcompany = SubCompany.objects.get(id=id)
+    name = subcompany.name
+    
+    template_path = 'wp.html'
+
+    context = {'subcompany': subcompany}
+
+    response = HttpResponse(content_type='application/pdf')
+
+    response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
+
+    template = get_template(template_path)
+
+    html = template.render(context)
+
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+   
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+
+def render_pdf_view_bina(request, id):
+    subcompany = SubCompany.objects.get(id=id)
+    name = subcompany.name
+    
+    template_path = 'bina.html'
+
+    context = {'subcompany': subcompany}
+
+    response = HttpResponse(content_type='application/pdf')
+
+    response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
+
+    template = get_template(template_path)
+
+    html = template.render(context)
+
+    
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+   
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+
+def render_pdf_view_ds(request, id):
+    subcompany = SubCompany.objects.get(id=id)
+    name = subcompany.name
+    
+    template_path = 'ds.html'
+
+    context = {'subcompany': subcompany}
+
+    response = HttpResponse(content_type='application/pdf')
+
+    response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
+
+    template = get_template(template_path)
+
+    html = template.render(context)
+
+    
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+   
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+
+def render_pdf_view_klp(request, id):
+    subcompany = SubCompany.objects.get(id=id)
+    name = subcompany.name
+    
+    template_path = 'klp.html'
+
+    context = {'subcompany': subcompany}
+
+    response = HttpResponse(content_type='application/pdf')
+
+    response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
+
+    template = get_template(template_path)
+
+    html = template.render(context)
+
+    
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+   
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+
+def render_pdf_view_kt(request, id):
+    subcompany = SubCompany.objects.get(id=id)
+    name = subcompany.name
+    
+    template_path = 'kt.html'
+
+    context = {'subcompany': subcompany}
+
+    response = HttpResponse(content_type='application/pdf')
+
+    response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
+
+    template = get_template(template_path)
+
+    html = template.render(context)
+
+    
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+   
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+
+def render_pdf_view_Revolution(request, id):
+    subcompany = SubCompany.objects.get(id=id)
+    name = subcompany.name
+    
+    template_path = 'Revolution.html'
+
+    context = {'subcompany': subcompany}
+
+    response = HttpResponse(content_type='application/pdf')
+
+    response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
+
+    template = get_template(template_path)
+
+    html = template.render(context)
+
+    
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+   
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+
+def render_pdf_view_PWR(request, id):
+    subcompany = SubCompany.objects.get(id=id)
+    name = subcompany.name
+    
+    template_path = 'pwr.html'
+
+    context = {'subcompany': subcompany}
+
+    response = HttpResponse(content_type='application/pdf')
+
+    response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
+
+    template = get_template(template_path)
+
+    html = template.render(context)
+
+    
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+   
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+
+def export_data_to_excel_subcompany(request):
+    # your_model_resource = SubCompanyModelResource()
+    # dataset = your_model_resource.export()
+    # response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
+    # response['Content-Disposition'] = 'attachment; filename="subcompany.xls"'
+    # return response
+
+    instances = SubCompany.objects.filter()
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="subcompany.xls"'
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Sheet1')
+    row_num = 0
+    columns = ['name', 'line1', 'line2', 'line3', 'line4', 'weight', 'Invoicenumber', 'date', 'invoicedate']
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title)
+    # Write the data rows to the Excel file
+    for instance in instances:
+        if instance.invoicedate:
+            invoice = instance.invoicedate.strftime('%d-%m-%Y')
+        date = instance.date.strftime('%d-%m-%Y')
+        row_num += 1
+        row = [instance.name,  instance.line1, instance.line2, instance.line3, instance.line4, instance.weight, instance.Invoicenumber, date, invoice]
+        for col_num, cell_value in enumerate(row):
+            ws.write(row_num, col_num, cell_value)
+    wb.save(response)
+    return response
+
+
+
+# def export_data_to_excel_splitcompany(request, id):
+#     subcomnapy = SubCompany.objects.get(id = id)
+#     your_model_resource = SplitCompanyModelResource(sub_company=subcomnapy)
+#     dataset = your_model_resource.export()
+#     response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
+#     response['Content-Disposition'] = 'attachment; filename="Splitcompany.xls"'
+#     return response
+
+
+def export_data_to_excel_splitcompany(request, id):
+    subcom = SubCompany.objects.get(id=id)
+    instances = SplitCompnay.objects.filter(sub_company=subcom)
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = f'attachment; filename="{subcom.name}aplit.xls"'
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Sheet1')
+    row_num = 0
+    columns = ['date_time', 'drop_time', 'vehicle', 'drop', 'weight']
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title)
+    # Write the data rows to the Excel file
+    for instance in instances:
+        my_date = instance.date_time.strftime('%d-%m-%Y')
+        time = instance.drop_time.strftime('%H:%M')
+        row_num += 1
+        row = [my_date,  time, instance.vehicle, instance.drop, instance.weight]
+        for col_num, cell_value in enumerate(row):
+            ws.write(row_num, col_num, cell_value)
+    wb.save(response)
+    return response
+
+
+
+
+
+
+def updatesubview(request, id):
+    number = request.POST.get("upadtenumber")
+    numberview = request.POST.get("numberview")
+    filternumber = int(numberview)
+    headcom = HeadCompany.objects.get(id = id)
+    mynum = int(number)
+    number_to_divide = mynum
+    my_instances = SubCompany.objects.filter(head_company = headcom)[:filternumber]
+    part_sizes = []
+    mul = 1; 
+
+    for i in my_instances:
+        sumprint = mul * 4
+        part_sizes.append(sumprint)
+        mul+=1 
+
+
+    part_sizes.reverse()
+    total_size = sum(part_sizes)
+    
+    
+
+    for instance, item2 in zip(my_instances, part_sizes):
+        number = random.randint(200, 300)
+        part = (item2 / total_size) * number_to_divide
+        instance.weight = part
+        instance.Invoicenumber = number
+        instance.invoicedate = date.today()
+        instance.save()
+    
+    return redirect(f'/subcompanyone/{id}/')
+
+
+
+
+
+class SubCompanyOneView(View):
+    def get(self, request, id):
+        myid = id
+        headcom = HeadCompany.objects.get(id=id)
+        subview = SubCompany.objects.filter(head_company = headcom)
+        return render(request, "subcompanyone.html", {'subview' :subview, 'myid' : id})
+
+
+
+
+class ClientCompanyView(View):
+    def get(self, request):
+        subform = ClientCompanyForm()
+        subview = ClientCompany.objects.all()
+        return render(request, "clientcompany.html", {'subview' :subview, 'form' : subform})
+    def post(self, request):
+        form = ClientCompanyForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('/clientcompany')
+        else:
+            return redirect('/clientcompany')
+
+
+class ClientCompanyOneView(View):
+    def get(self, request, id):
+        myid = id
+        headcom = HeadCompany.objects.get(id=id)
+        clientview = ClientCompany.objects.filter(head_company = headcom)
+        return render(request, "clientcompanyone.html", {'clientview' : clientview, 'myid' : myid})
+
+
+
+class SubCompanySplit(View):
+    def get(self, request, id):
+        splitcompany = SubCompany.objects.get(id = id)
+        subsplitview = SplitCompnay.objects.filter(sub_company = splitcompany)
+        return render(request, "splitsubcompany.html", {'splitcompany' : splitcompany, 'subsplitview' : subsplitview})
+
+    def post(self, request, id):
+        current_time = timezone.now()
+        splitcompany = SubCompany.objects.get(id = id)
+        valuenumber = splitcompany.weight
+        rangenumber = request.POST.get("rangenumber")
+        rangenumbermin = request.POST.get("rangenumbermin")
+        date = request.POST.get("date")
+        date = str(date)
+        totalfetch = int(valuenumber)/float(rangenumber)
+        totalfetch = floor(totalfetch)
+
+        placelist = ["BT1 1AA", "BT1 1AL", "BT1 1AR", "BT1 1BG", "BT1 1BW", "BT1 1DA", "BT1 1DJ", "BT1 1DN", "BT1 1FF", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH", "BT1 1DN", "BT1 1FF", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH"]
+
+        value = int(valuenumber)
+        num_parts = totalfetch
+
+        import random
+
+        total = value
+        n = num_parts
+        range_min = float(rangenumbermin)
+        range_max = float(rangenumber)
+
+        # Generate n-1 random numbers within the range
+        numbers = []
+        for i in range(n):
+            num = random.uniform(range_min, range_max)
+            numbers.append(num)
+
+        # Calculate the last number to make the total add up to 100
+        numbers.append(total - sum(numbers))
+
+
+        print(sum(numbers))
+        mynumber = len(numbers)
+        # Round each number to two decimal places
+        numbers = [round(num, 2) for num in numbers]
+
+        # Display the values
+        numbers = numbers
+
+        
+
+    
+        splitcompanyview = SplitCompnay.objects.filter(sub_company = splitcompany).count()
+      
+        my_models_to_delete = SplitCompnay.objects.filter(sub_company = splitcompany).order_by('id')[:splitcompanyview]
+
+        my_date = datetime.strptime(date, '%Y-%m-%d').date()
+        for my_model in my_models_to_delete:
+            my_model.delete()
+
+        drop = 0
+        for i in range(mynumber):
+            if drop <= 5:
+                drop+=1
+                
+            else:
+                my_date = my_date + timedelta(days=int(1))
+                drop = 1
+           
+            
+            
+
+            
+            # my_delta = timedelta(days=int(1))
+            # new_date = my_date + my_delta
+
+            my_model_instance = SplitCompnay()
+            my_model_instance.sub_company = splitcompany
+            my_model_instance.date_time = my_date
+            my_model_instance.drop_time = current_time
+            my_model_instance.vehicle = placelist[i]
+            my_model_instance.drop = drop
+            my_model_instance.weight = numbers[i]
+            my_model_instance.status = True
+            my_model_instance.save()
+           
+                
+
+    
+        return redirect(f"/subcompnaysplit/{id}/")
+
+
+
+def updateclientview(request, id):
+    number = request.POST.get("upadtenumber")
+    numberview = request.POST.get("numberview")
+    filternumber = int(numberview)
+    headcom = HeadCompany.objects.get(id = id)
+    mynum = int(number)
+    number_to_divide = mynum
+    my_instances = ClientCompany.objects.filter(head_company = headcom)[:filternumber]
+
+    part_sizes = []  
+
+    mul = 1; 
+
+    for i in my_instances:
+        sumprint = mul * 4
+        part_sizes.append(sumprint)
+        mul+=1
+    
+    total_size = sum(part_sizes)
+    
+    for instance, item2 in zip(my_instances, part_sizes):
+        number = random.randint(200, 300)
+        part = (item2 / total_size) * number_to_divide
+        instance.weight = part
+        instance.Invoicenumber = number
+        instance.invoicedate = date.today()
+        instance.save()
+    
+    return redirect(f'/clientcompanyone/{id}/')
+
+def export_data_to_excel_clientcompany(request):
+    your_model_resource = ClientCompanyModelResource()
+    dataset = your_model_resource.export()
+    response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="clientcompany.xls"'
+    return response
+
+
+def render_pdf_view_clientcompany(request, id):
+    clientcompany = ClientCompany.objects.get(id=id)
+    name = clientcompany.name
+
+    template_path = 'maintemplate.html'
+
+    context = {'clientcompany': clientcompany}
+
+    response = HttpResponse(content_type='application/pdf')
+
+    response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
+
+    template = get_template(template_path)
+
+    html = template.render(context)
+
+    
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+   
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
+
+
+
+def render_pdf_view_clientcompany_one(request, id):
+    clientcompany = ClientCompany.objects.get(id=id)
+    name = clientcompany.name
+
+    template_path = 'clientcompanypdf1.html'
+
+    context = {'clientcompany': clientcompany}
+
+    response = HttpResponse(content_type='application/pdf')
+
+    response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
+
+    template = get_template(template_path)
+
+    html = template.render(context)
+
+    
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+   
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response

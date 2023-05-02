@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @page {
+            background: url(http://127.0.0.1:8000/media/images/Kt.jpg);
+
+           
+        }
+
+       
+    </style>
+</head>
+<body>
+    {% load math_tags %}
+    <p>.</p>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+<table style="margin-bottom: 11.4rem;">
+    <tr>
+        <td>
+            <p style="margin-left: 10rem;">{{subcompany.head_company.name}}</p>
+            <p style="margin-left: 10rem;">{{subcompany.head_company.line1}}</p>
+            <p style="margin-left: 10rem;">{{subcompany.head_company.line2}}</p>
+            <p style="margin-left: 10rem;">{{subcompany.head_company.line3}}</p>
+            <p style="margin-left: 10rem;">{{subcompany.head_company.line4}}</p>
+        </td>
+        <td>
+            <p style="margin-left: 9.6rem;">Date: {{subcompany.invoicedate}}</p>
+            <p style="margin-left: 9.6rem;">Invoice: {{subcompany.Invoicenumber}}</p>
+            <p style="margin-left: 9.6rem;">Customer ID: NHP</p>
+        </td>
+    </tr>
+</table>
+
+<table>
+    <td><p style="margin-left: 20rem;"><span>HDPE</span></p></td>
+    <td><p style="margin-left: 29.4rem;">{{subcompany.weight}}</p></td>
+    <td><p style="margin-left: 17.4rem;">£{{subcompany.head_company.unit_price}}</p></td>
+    <td><p style="margin-left: 4.5rem;">
+        {% with a=subcompany.weight b=subcompany.head_company.unit_price %}
+            
+        
+                £{{a|mul:b}}       
+         
+        {% endwith %}
+    </p></td>
+</table>
+
+    <p style="margin-top: 31.4rem; margin-left: 64rem;">{% with a=subcompany.weight b=subcompany.head_company.unit_price %}
+            
+        
+        £{{a|mul:b}}       
+ 
+{% endwith %}</p>
+    <p style="margin-left: 64rem; margin-top: 2rem;">20</p>
+    <p style="margin-left: 64rem; margin-top:1.2rem;">{% with a=subcompany.weight b=subcompany.head_company.unit_price %}
+            
+        
+        £{{a|mul:b}}       
+ 
+{% endwith %}</p>
+</body>
+</html>
