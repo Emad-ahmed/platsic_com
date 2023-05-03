@@ -26,15 +26,17 @@ class HeadForm(forms.ModelForm):
 class SubcompanyForm(forms.ModelForm):
     class Meta:
         model = SubCompany
-        fields = ('head_company',  'name', 'line1', 'line2', 'line3', 'line4')
+        fields = ('head_company',  'name', 'line1', 'line2', 'line3', 'line4', 'rangemin', 'rangemax')
 
         widgets = {
             'head_company': forms.Select(attrs={'class': 'form-control'}),
-            'name': forms.TextInput(attrs={'class': 'form-control'}),
-            'line1': forms.TextInput(attrs={'class': 'form-control'}),
-            'line2': forms.TextInput(attrs={'class': 'form-control'}),
-            'line3': forms.TextInput(attrs={'class': 'form-control'}),
-            'line4': forms.TextInput(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder' : 'Name'}),
+            'line1': forms.TextInput(attrs={'class': 'form-control', 'placeholder' : 'line1'}),
+            'line2': forms.TextInput(attrs={'class': 'form-control', 'placeholder' : 'line2'}),
+            'line3': forms.TextInput(attrs={'class': 'form-control', 'placeholder' : 'line3'}),
+            'line4': forms.TextInput(attrs={'class': 'form-control', 'placeholder' : 'line4'}),
+            'rangemin': forms.NumberInput(attrs={'class': 'form-control', 'placeholder' : 'Min'}),
+            'rangemax': forms.NumberInput(attrs={'class': 'form-control',  'placeholder' : 'Max'}),
         }
 
 class ClientCompanyForm(forms.ModelForm):

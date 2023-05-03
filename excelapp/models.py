@@ -25,7 +25,12 @@ class SubCompany(models.Model):
     Invoicenumber = models.IntegerField(null=True, blank=True)
     date = models.DateField(auto_now_add=True)
     invoicedate = models.DateField(null=True, blank=True)
+    rangemin = models.FloatField(null=True, blank=True)
+    rangemax = models.FloatField(null=True, blank=True)
 
+
+    def __str__(self):
+        return self.name
 
 class ClientCompany(models.Model):
     head_company = models.ForeignKey(HeadCompany, on_delete=models.CASCADE)
@@ -39,6 +44,8 @@ class ClientCompany(models.Model):
     date = models.DateField(auto_now_add=True)
     invoicedate = models.DateField(null=True, blank=True)
 
+    def __str__(self):
+        return self.name
 
 class SplitCompnay(models.Model):
     sub_company = models.ForeignKey(SubCompany, on_delete=models.CASCADE)
