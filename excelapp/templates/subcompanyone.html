@@ -15,7 +15,7 @@
     }
 </style>
 
-<div class="d-flex companyviewbutton mt-4 ms-4">
+<div class="companyviewbutton mt-4 ms-4">
       <a href="{% url 'subcompanyone' myid %}" class="btn btn-outline-info me-3 activebutton">Subcompany</a>
       <a href="{% url 'clientcompanyone' myid %}" class="btn btn-outline-warning">Clientcompany</a>
 </div>
@@ -50,7 +50,7 @@
 
 <div class="container mt-4 tableview">
 
-    <a  href="/exportsubcompany" class="btn btn-primary" >
+    <a  href="/exportsubcompany" class="btn btn-primary exportbtn" >
         Export
     </a>
 
@@ -92,7 +92,7 @@
                     <td>{{sub.date}}</td>
                     
                     <td><div class="dropdown">
-                      <button class="dropbtn">PDF</button>
+                      <button class="dropbtn">Invoice</button>
                       <div class="dropdown-content">
                         <a href="{% url 'createpdfsub' sub.id %}">S&S Management</a>
                         <a href="{% url 'createpdfsub_one' sub.id %}">WP Services</a>

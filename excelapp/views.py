@@ -510,6 +510,98 @@ class SubCompanySplit(View):
 
 
 
+class ClientCompanySplit(View):
+    def get(self, request, id):
+        # splitcompany = SubCompany.objects.get(id = id)
+        # subsplitview = SplitCompnay.objects.filter(sub_company = splitcompany)
+        # return render(request, "splitsubcompany.html", {'splitcompany' : splitcompany, 'subsplitview' : subsplitview})
+
+        current_time = timezone.now()
+        splitcompany = ClientCompany.objects.get(id = id)
+        valuenumber = splitcompany.weight
+        rangenumber = splitcompany.rangemin
+        rangenumbermin = splitcompany.rangemax
+        date = splitcompany.invoicedate
+        date = str(date)
+        totalfetch = int(valuenumber)/float(rangenumber)
+        totalfetch = floor(totalfetch)
+
+        placelist = ["BT1 1AA", "BT1 1AL", "BT1 1AR", "BT1 1BG", "BT1 1BW", "BT1 1DA", "BT1 1DJ", "BT1 1DN", "BT1 1FF", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH", "BT1 1DN", "BT1 1FF", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH"]
+
+        response = HttpResponse(content_type='application/ms-excel')
+
+        response['Content-Disposition'] = f'attachment; filename="{splitcompany.name}aplit.xls"'
+        wb = xlwt.Workbook(encoding='utf-8')
+        ws = wb.add_sheet('Sheet1')
+        row_num = 0
+        columns = ['date_time', 'drop_time', 'vehicle', 'drop', 'weight']
+        for col_num, column_title in enumerate(columns):
+            ws.write(row_num, col_num, column_title)
+        value = int(valuenumber)
+        num_parts = totalfetch
+
+        import random
+
+        total = value
+        n = num_parts
+        range_min = float(rangenumbermin)
+        range_max = float(rangenumber)
+
+        # Generate n-1 random numbers within the range
+        numbers = []
+        for i in range(n):
+            num = random.uniform(range_min, range_max)
+            print(num)
+            numbers.append(num)
+        
+        # Calculate the last number to make the total add up to 100
+        numbers.append(total - sum(numbers))
+
+        print(numbers)
+
+        mynumber = len(numbers)
+        # Round each number to two decimal places
+        numbers = [round(num, 2) for num in numbers]
+
+        # Display the values
+        numbers = numbers
+
+        
+
+    
+
+
+        my_date = datetime.strptime(date, '%Y-%m-%d').date()
+       
+
+        drop = 0
+        for i in range(n+1):
+            if drop <= 5:
+                drop+=1
+                
+            else:
+                my_date = my_date + timedelta(days=int(1))
+                drop = 1
+           
+            
+            sub_company = splitcompany.name
+            date_time = my_date
+            drop_time = current_time
+            vehicle = placelist[i]
+            drop = drop
+            weight = numbers[i]
+            new_date = date_time.strftime('%d-%m-%Y')
+            new_time = drop_time.strftime('%H:%M')
+            row_num += 1
+            row = [new_date, new_time, vehicle, drop, weight]
+            for col_num, cell_value in enumerate(row):
+                ws.write(row_num, col_num, cell_value)
+
+        wb.save(response)
+        return response
+
+
+
 
     # def post(self, request, id):
     #     current_time = timezone.now()

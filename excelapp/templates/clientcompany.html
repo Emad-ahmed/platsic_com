@@ -45,10 +45,10 @@
 
 <div class="container mt-4 tableview">
 
-    <button type="button " class="btn btn-primary ms-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    <button type="button " class="btn btn-primary ms-4 addcom" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Add Client Company
     </button>
-    <a  href="/exportclientcompany" class="btn btn-primary" >
+    <a  href="/exportclientcompany" class="btn btn-primary exportbtn" >
         Export
     </a>
 
@@ -89,13 +89,11 @@
                     <td>{{sub.date}}</td>
                     
                     <td><div class="dropdown">
-                        <button class="dropbtn">PDF</button>
-                        <div class="dropdown-content">
-                          <a href="{% url 'createpdfclient' sub.id %}">Template 1</a>
-                          <a href="{% url 'createpdfclient_one' sub.id %}">Template 2</a>
-                          <a href="{% url 'createpdfclient' sub.id %}">Template 3</a>
-                        </div>
-                      </div></td>
+                      <button class="dropbtn">Invoice</button>
+                      <div class="dropdown-content">
+                        <a href="{% url 'createpdfclient' sub.id %}">Template 1</a>
+                      </div>
+                    </div></td>
                     
                 {% endfor %}
                 </tr>

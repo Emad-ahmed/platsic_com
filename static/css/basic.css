@@ -7,6 +7,11 @@ body {
   a{
     text-decoration: none !important;
   }
+
+  .companyviewbutton
+  {
+    display: flex !important;
+  }
   
   .topnav {
     overflow: hidden;
@@ -173,6 +178,52 @@ body {
     text-align: center;
   }
   
+
+  @media only screen and (max-width: 1000px) {
+    .tableview
+    {
+      overflow-x: auto !important;
+    }
+    .companyviewbutton
+    {
+      display: block !important;
+    }
+
+    .companyviewbutton a
+    {
+      margin-bottom:    1rem !important;
+      width: 90% !important;
+      margin-left: 0rem !important;
+    }
+    .formneed form input, select{
+      display: block !important;
+      margin-bottom: 1rem;
+      width: 90% !important;
+    }
+    .numberview
+    {
+      width: 40rem !important;
+    }
+    .exportbtn
+    {
+      margin-bottom: 1rem;
+    }
+    .companytable .btn{
+      margin-top: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .addcom
+    {
+      margin-bottom: 1rem;
+    }
+
+    .exportbtn
+    {
+      margin-bottom: 1rem;
+    }
+    
+  }
+
   /* Media query for small screens */
   @media only screen and (max-width: 600px) {
     #modal-content {
@@ -214,3 +265,5 @@ body {
       top: 0;
     }
   }/*# sourceMappingURL=index.css.map */
+
+ 

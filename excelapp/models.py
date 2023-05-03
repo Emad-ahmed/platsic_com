@@ -43,6 +43,8 @@ class ClientCompany(models.Model):
     Invoicenumber = models.IntegerField(null=True, blank=True)
     date = models.DateField(auto_now_add=True)
     invoicedate = models.DateField(null=True, blank=True)
+    rangemin = models.FloatField(null=True, blank=True)
+    rangemax = models.FloatField(null=True, blank=True)
 
     def __str__(self):
         return self.name

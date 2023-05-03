@@ -43,7 +43,7 @@
  
 
 
-<div class="container mt-4 tableview">
+<div class="container companytable mt-4 tableview">
 
     <button type="button " class="btn btn-primary ms-4" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Add Company
@@ -90,7 +90,7 @@
                     
                     <td>  
                       <div class="dropdown">
-                        <button class="dropbtn">PDF</button>
+                        <button class="dropbtn">Invoice</button>
                         <div class="dropdown-content">
                           <a href="{% url 'createpdfsub' sub.id %}">S&S Management</a>
                           <a href="{% url 'createpdfsub_one' sub.id %}">WP Services</a>
