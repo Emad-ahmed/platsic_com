@@ -3,7 +3,7 @@ from django.views import View
 from excelapp.models import HeadCompany, SubCompany, ClientCompany, SplitCompnay
 from django.http import HttpResponse
 from .resources import HeadCompanyModelResource, SubCompanyModelResource, ClientCompanyModelResource, SplitCompanyModelResource
-from .forms import HeadForm, SubcompanyForm, ClientCompanyForm
+from .forms import HeadForm, SubcompanyForm, ClientCompanyForm, SubcompanyUpdateForm, ClientcompanyUpdateForm
 from django.shortcuts import get_object_or_404, redirect
 from xhtml2pdf import pisa
 from django.template.loader import get_template
@@ -372,7 +372,6 @@ def updatesubview(request, id):
         part = (item2 / total_size) * number_to_divide
         instance.weight = part
         instance.Invoicenumber = number
-        instance.invoicedate = date.today()
         instance.save()
     
     return redirect(f'/subcompanyone/{id}/')
@@ -388,6 +387,22 @@ class SubCompanyOneView(View):
         subview = SubCompany.objects.filter(head_company = headcom)
         return render(request, "subcompanyone.html", {'subview' :subview, 'myid' : id})
 
+
+
+class SubcompanyUpdateView(View):
+    def get(self, request, id, id2):
+        pi = SubCompany.objects.get(id=id)
+        form = SubcompanyUpdateForm(instance=pi)
+        return render(request, 'update_subcompany.html', {'form': form})
+    
+    def post(self, request, id, id2):
+        pi = SubCompany.objects.get(id=id)
+        form = SubcompanyUpdateForm(request.POST, instance=pi)
+        if form.is_valid():
+            form.save()
+            return redirect(f'/subcompanyone/{id2}/')
+      
+       
 
 
 
@@ -412,6 +427,19 @@ class ClientCompanyOneView(View):
         clientview = ClientCompany.objects.filter(head_company = headcom)
         return render(request, "clientcompanyone.html", {'clientview' : clientview, 'myid' : myid})
 
+
+class ClientcompanyUpdateView(View):
+    def get(self, request, id, id2):
+        pi = ClientCompany.objects.get(id=id)
+        form = ClientcompanyUpdateForm(instance=pi)
+        return render(request, 'update_clientcompany.html', {'form': form})
+    
+    def post(self, request, id, id2):
+        pi = ClientCompany.objects.get(id=id)
+        form = ClientcompanyUpdateForm(request.POST, instance=pi)
+        if form.is_valid():
+            form.save()
+            return redirect(f'/clientcompanyone/{id2}/')
 
 
 class SubCompanySplit(View):
@@ -713,7 +741,6 @@ def updateclientview(request, id):
         part = (item2 / total_size) * number_to_divide
         instance.weight = part
         instance.Invoicenumber = number
-        instance.invoicedate = date.today()
         instance.save()
     
     return redirect(f'/clientcompanyone/{id}/')

@@ -7,7 +7,9 @@ urlpatterns = [
     path('headcompany/', HeadCompanyView.as_view(), name="headcompany"),
     path('subcompany/', SubCompanyView.as_view(), name="subcompany"),
     path('clientcompany/', ClientCompanyView.as_view(), name="clientcompany"),
-
+    
+    path('subcompanyupdate/<int:id>/<int:id2>/', SubcompanyUpdateView.as_view(), name="subcompanyupdate"),
+    path('clientcompanyupdate/<int:id>/<int:id2>/', ClientcompanyUpdateView.as_view(), name="clientcompanyupdate"),
 
     path('createpdfsub/<int:id>/', render_pdf_view_s_anda_s_management, name="createpdfsub"),
     path('createpdfsub_one/<int:id>/', render_pdf_view_wp, name="createpdfsub_one"),

@@ -72,6 +72,7 @@
 
                     <th>Action<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
                     <th>Split<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Edit<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
                 </tr>
             </thead>
             <tbody>
@@ -104,7 +105,8 @@
                         <a href="{% url 'createpdfsub_seven' sub.id %}">PWR</a>
                       </div>
                     </div></td>
-                    <td><a href="{% url 'subcompnaysplit' sub.id %}">Split</a></td>
+                    <td><a href="{% url 'subcompnaysplit' sub.id %}" class="btn btn-warning">Split</a></td>
+                    <td><a href="{% url 'subcompanyupdate' id=sub.id id2=myid %}" class="btn btn-info">Edit</a></td>
                 {% endfor %}
                 </tr>
             </tbody>

@@ -73,6 +73,7 @@
                       <th>Date<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
                       <th>Action<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
                       <th>Split<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                      <th>Edit<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
                   </tr>
               </thead>
               <tbody>
@@ -98,7 +99,8 @@
                           <a href="{% url 'createpdfclient' sub.id %}">Template 1</a>
                         </div>
                       </div></td>
-                      <td><a href="{% url 'clientcompnaysplit' sub.id %}">Split</a></td>
+                      <td><a href="{% url 'clientcompnaysplit' sub.id %}" class="btn btn-warning">Split</a></td>
+                      <td><a href="{% url 'clientcompanyupdate' id=sub.id id2=myid %}" class="btn btn-info">Edit</a></td>
                   {% endfor %}
                   </tr>
               </tbody>
