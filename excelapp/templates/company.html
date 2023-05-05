@@ -82,7 +82,9 @@
                         <td id='first'>{{all.line4}}</td>
                         <td id='first'>{{all.description}}</td>
                         <td id='first'>{{all.unit_price}}</td>
-                        <td id='first'><img src="{{all.image.url}}" alt=""></td>
+                        {% if all.image %}
+                          <td id='first'><img src="{{all.image.url}}" alt=""></td>
+                        {% endif %}
                       
                     </tr>
                 {% endfor %}

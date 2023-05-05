@@ -73,7 +73,7 @@ def export_data_to_excel_subcompany(request):
 def render_pdf_view_s_anda_s_management(request, id):
     subcompany = SubCompany.objects.get(id=id)
     name = subcompany.name
-    print(subcompany.head_company.image.url)
+  
     subcompany_price = subcompany.weight * subcompany.head_company.unit_price
 
     # clientcompany = ClientCompany.objects.get(name=name)
