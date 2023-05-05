@@ -8,8 +8,6 @@
     <style>
         @page {
             background: url(http://127.0.0.1:8000/media/images/wp.jpg);
-
-           
         }
 
        
@@ -68,10 +66,9 @@
 
     <p style="margin-top: 22.6rem; margin-left: 40rem; color:white; font-weight:bolder">£{{subcompany.weight}}</p>
     <p style="margin-left: 55rem; margin-top: 1.5rem; color:white; font-weight:bolder">{% with a=subcompany.weight b=subcompany.head_company.unit_price %}
-            
-        
+
         £{{a|mul:b}}       
-     
+
     {% endwith %}</p>
 
 </body>
