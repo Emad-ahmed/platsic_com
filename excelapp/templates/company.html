@@ -68,6 +68,7 @@
                     <th>Description<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
                     <th>Unit Price<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
                     <th>Image<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    <th>Action<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
                 </tr>
             </thead>
             <tbody>
@@ -85,6 +86,7 @@
                         {% if all.image %}
                           <td id='first'><img src="{{all.image.url}}" alt=""></td>
                         {% endif %}
+                        <td id='first'><a href="{% url 'edithead' all.id %}" class="btn btn-info">Edit</a></td>
                       
                     </tr>
                 {% endfor %}

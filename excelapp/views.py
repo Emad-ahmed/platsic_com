@@ -60,7 +60,19 @@ class SubCompanyView(View):
         
 
 
-        
+class EditHeadCompany(View):
+    def get(self, request, id):
+        pi = HeadCompany.objects.get(id=id)
+        form = HeadForm(instance=pi)
+        return render(request, 'update_headcompany.html', {'form': form})
+    
+    def post(self, request, id):
+        pi = HeadCompany.objects.get(id=id)
+        form = HeadForm(request.POST, instance=pi)
+        if form.is_valid():
+            form.save()
+            return redirect(f'/headcompany')
+            
 
 def export_data_to_excel_subcompany(request):
     your_model_resource = SubCompanyModelResource()

@@ -10,6 +10,7 @@ urlpatterns = [
     
     path('subcompanyupdate/<int:id>/<int:id2>/', SubcompanyUpdateView.as_view(), name="subcompanyupdate"),
     path('clientcompanyupdate/<int:id>/<int:id2>/', ClientcompanyUpdateView.as_view(), name="clientcompanyupdate"),
+    path('edithead/<int:id>/', EditHeadCompany.as_view(), name="edithead"),
 
     path('createpdfsub/<int:id>/', render_pdf_view_s_anda_s_management, name="createpdfsub"),
     path('createpdfsub_one/<int:id>/', render_pdf_view_wp, name="createpdfsub_one"),

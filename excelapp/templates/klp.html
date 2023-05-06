@@ -19,7 +19,7 @@
     <table >
         <tr>
             <td>
-                <p style="margin-left: 12.7rem;">{{subcompany.head_company.name}}</p>
+                <p style="margin-left: 12.7rem; color:blue; font-weight:bolder;">{{subcompany.head_company.name}}</p>
                 <p style="margin-left: 12.7rem;">{{subcompany.head_company.line1}}</p>
                 <p style="margin-left: 12.7rem;">{{subcompany.head_company.line2}}</p>
                 <p style="margin-left: 12.7rem;">{{subcompany.head_company.line3}}</p>
@@ -28,8 +28,8 @@
             <td>
                 <br>
                 <br>
-                <p style="margin-left: 13rem;">Ivoice Number: <span>  {{subcompany.Invoicenumber}}</span></p>
-                <p style="margin-left: 13rem;">Invoice Ref: <span>    New Horizon</span></p>
+                <p style="margin-left: 13rem; font-weight:bolder">Ivoice Number: <span>{{subcompany.Invoicenumber}}</span></p>
+                <p style="margin-left: 13rem; font-weight:bolder">Invoice Ref: <span>New Horizon</span></p>
                 <p></p>
             </td>
         </tr>
@@ -50,13 +50,13 @@
         </tr>
     </table>
 
-    <p style="margin-top: 20.4rem; margin-left: 48.5rem;">{% with a=subcompany.weight b=subcompany.head_company.unit_price %}
+    <p style="margin-top: 20.4rem; margin-left: 48.5rem; font-weight:bolder">{% with a=subcompany.weight b=subcompany.head_company.unit_price %}
             
         
         £{{a|mul:b}}       
  
 {% endwith %}</p>
-    <p style="margin-top: 5.2rem; margin-left: 48.5rem;">{% with a=subcompany.weight b=subcompany.head_company.unit_price %}
+    <p style="margin-top: 5.2rem; margin-left: 48.5rem; font-weight:bolder">{% with a=subcompany.weight b=subcompany.head_company.unit_price %}
             
         
         £{{a|mul:b}}       
