@@ -177,6 +177,32 @@ body {
   .clientviewcompany h1{
     text-align: center;
   }
+
+  .exportbtn
+  {
+    background: #13a59b !important;
+    color: rgb(238, 235, 235) !important;
+    width: 10rem;
+    border: none !important;
+    transition: 0.4s;
+  }
+
+  .exportbtn:hover{
+    background: #016B64 !important;
+  }
+
+  .addcom
+  {
+    background: #806B9D !important;
+    border: none !important;
+    transition: 0.4s;
+  }
+
+  .addcom:hover{
+    background: #DD7973 !important;
+    color: white !important;
+  }
+
   
 
   @media only screen and (max-width: 1000px) {

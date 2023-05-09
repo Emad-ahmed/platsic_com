@@ -320,6 +320,30 @@ def export_data_to_excel_subcompany(request):
     return response
 
 
+def export_data_to_excel_subcompany_head(request,id):
+    headcompany = HeadCompany.objects.get(id=id)
+    instances = SubCompany.objects.filter(head_company = headcompany)
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="subcompany.xls"'
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Sheet1')
+    row_num = 0
+    columns = ['name', 'line1', 'line2', 'line3', 'line4', 'weight', 'Invoicenumber', 'date', 'invoicedate']
+    for col_num, column_title in enumerate(columns):
+        ws.write(row_num, col_num, column_title)
+    # Write the data rows to the Excel file
+    for instance in instances:
+        if instance.invoicedate:
+            invoice = instance.invoicedate.strftime('%d-%m-%Y')
+        date = instance.date.strftime('%d-%m-%Y')
+        row_num += 1
+        row = [instance.name,  instance.line1, instance.line2, instance.line3, instance.line4, instance.weight, instance.Invoicenumber, date, invoice]
+        for col_num, cell_value in enumerate(row):
+            ws.write(row_num, col_num, cell_value)
+    wb.save(response)
+    return response
+
+
 
 # def export_data_to_excel_splitcompany(request, id):
 #     subcomnapy = SubCompany.objects.get(id = id)

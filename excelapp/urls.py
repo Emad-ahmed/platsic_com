@@ -29,6 +29,7 @@ urlpatterns = [
     path('exportsubcompany/', export_data_to_excel_subcompany, name="exportsubcompany"),
     path('exportclientcompany/', export_data_to_excel_clientcompany, name="exportclientcompany"),
     path('exportsplitcompany/<int:id>/', export_data_to_excel_splitcompany, name="exportsplitcompany"),
+    path('exportsubcompanyhead/<int:id>/', export_data_to_excel_subcompany_head, name="exportsubcompanyhead"),
 
     path('updatesub/<int:id>/', updatesubview, name="updatesub"),
     path('updateclient/<int:id>/', updateclientview, name="updateclient"),
