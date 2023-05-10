@@ -19,16 +19,17 @@
     />
     <link rel="stylesheet" href="{% static 'css/basic.css' %}" />
     <title>{% block title %} {% endblock %}</title>
+    
   </head>
   <body>
     <nav class="topnav" id="topnav">
         <a href="/" class="logo">
           <img src="https://static.thenounproject.com/png/603655-200.png" alt="Logo">
         </a>
-        <a href="/" class="active">Home</a>
-        <a href="/headcompany">Company</a>
-        <a href="/subcompany">Sub Company</a>
-        <a href="/clientcompany">Client Company</a>
+        <a href="/" class="activehome">Home</a>
+        <a href="/headcompany" class="activecom">Company</a>
+        <a href="/subcompany" class="activesub">Sub Company</a>
+        <a href="/clientcompany" class="activeclient">Client Company</a>
         
         <button class="icon" onclick="toggle()"><i class="fa fa-bars"></i></button>
       </nav>
