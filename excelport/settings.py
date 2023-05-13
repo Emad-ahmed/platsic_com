@@ -90,8 +90,8 @@ else:
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'plasticdb',
-        'USER': 'emad',
-        'PASSWORD': 'amadking123',
+        'USER': 'blog_admin',
+        'PASSWORD': 'testing123',
         'HOST': 'localhost',
         'PORT': '',
     }
