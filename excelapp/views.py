@@ -19,8 +19,7 @@ from django.conf import settings
 # Create your views here.
 class HomeView(View):
     def get(self, request):
-        
-
+    
         database_name = settings.DATABASES['default']['NAME']
         database_user = settings.DATABASES['default']['USER']
         database_password = settings.DATABASES['default']['PASSWORD']
@@ -39,7 +38,7 @@ class HeadCompanyView(View):
         return render(request, "company.html", {'head' : HeadCompanyview, 'form' : headform})
 
     def post(self, request):
-        form = HeadForm(request.POST)
+        form = HeadForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return redirect('headcompany')

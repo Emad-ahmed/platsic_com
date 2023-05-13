@@ -10,7 +10,7 @@ class HeadCompany(models.Model):
     line4 = models.CharField(max_length=150, null=True, blank=True, default="main")
     description = models.CharField(max_length=200, null=True, blank=True, default="main")
     unit_price = models.IntegerField(null=True, blank=True, default=1)
-    image = models.ImageField(upload_to='images/', blank=True, null=True)
+    image = models.ImageField(upload_to='images/', null=True, blank=True)
     def __str__(self):
         return self.name
     
