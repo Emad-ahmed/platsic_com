@@ -89,7 +89,7 @@ else:
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'ExcelPort',
-        'USER': 'shak12',
+        'USER': 'Emad',
         'PASSWORD': 'shak12',
         'HOST': 'localhost',
         'PORT': '',
