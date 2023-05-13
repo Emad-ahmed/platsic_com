@@ -12,7 +12,12 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 import os
-# import dj_database_url
+import dj_database_url
+import environ
+
+env = environ.Env()
+
+environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -28,7 +33,7 @@ SECRET_KEY = 'django-insecure-$*uz*%swgi5m$i-x_i11t&-zv$eiun&990gq0r!%^h$p@&&y5g
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["142.93.43.114"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -78,30 +83,32 @@ WSGI_APPLICATION = 'excelport.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-if DEBUG:
-    DATABASES = {
-            'default': {
-                'ENGINE': 'django.db.backends.sqlite3',
-                'NAME': BASE_DIR / 'db.sqlite3',
-            }
-    }
-else:
-    DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ExcelPort',
-        'USER': 'emad',
-        'PASSWORD': 'amadking123',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
-
-# import os
-
-# DATABASES = {
-#     "default" : dj_database_url.parse(os.environ.get("DATABASE_URL"))
+# if DEBUG:
+#     DATABASES = {
+#             'default': {
+#                 'ENGINE': 'django.db.backends.sqlite3',
+#                 'NAME': BASE_DIR / 'db.sqlite3',
+#             }
+#     }
+# else:
+#     DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'ExcelPort',
+#         'USER': 'emad',
+#         'PASSWORD': 'amadking123',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
 # }
+
+
+
+
+
+DATABASES = {
+    "default" : dj_database_url.parse(os.environ.get("DATABASE_URL"))
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
