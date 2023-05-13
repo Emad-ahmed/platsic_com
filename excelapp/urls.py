@@ -39,4 +39,6 @@ urlpatterns = [
     
     path('subcompnaysplit/<int:id>/', SubCompanySplit.as_view(), name="subcompnaysplit"),
     path('clientcompnaysplit/<int:id>/', ClientCompanySplit.as_view(), name="clientcompnaysplit"),
+
+    
 ]

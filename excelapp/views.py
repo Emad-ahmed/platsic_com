@@ -520,6 +520,7 @@ class SubCompanySplit(View):
         for i in range(n):
             num = random.uniform(range_min, range_max)
             print(num)
+            
             numbers.append(num)
         
         # Calculate the last number to make the total add up to 100
@@ -560,7 +561,7 @@ class SubCompanySplit(View):
             drop_time = current_time
             vehicle = placelist[i]
             drop = drop
-            weight = numbers[i]
+            weight = num
             new_date = date_time.strftime('%d-%m-%Y')
             new_time = drop_time.strftime('%H:%M')
             row_num += 1
@@ -653,7 +654,7 @@ class ClientCompanySplit(View):
             drop_time = current_time
             vehicle = placelist[i]
             drop = drop
-            weight = numbers[i]
+            weight = num
             new_date = date_time.strftime('%d-%m-%Y')
             new_time = drop_time.strftime('%H:%M')
             row_num += 1
@@ -838,3 +839,4 @@ def render_pdf_view_clientcompany_one(request, id):
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
+

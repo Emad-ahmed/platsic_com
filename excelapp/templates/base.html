@@ -13,6 +13,7 @@
       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
       crossorigin="anonymous"
     />
+    
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
@@ -26,8 +27,10 @@
         <a href="/" class="logo">
           <img src="https://static.thenounproject.com/png/603655-200.png" alt="Logo">
         </a>
+        
         <a href="/" class="activehome">Home</a>
-        <a href="/headcompany" class="activecom">Company</a>
+      
+        <a href="/headcompany/" class="activecom" id="ajax-link">Company</a>
         <a href="/subcompany" class="activesub">Sub Company</a>
         <a href="/clientcompany" class="activeclient">Client Company</a>
         
@@ -37,12 +40,38 @@
       
 
       
-    {% block content %} {% endblock %}
+    {% block content %}    {% endblock %}
 
     <!-- Optional JavaScript; choose one of the two! -->
     <script src="{% static 'js/nav.js' %}"></script>
     <script src="{% static 'js/datatable.min.js' %}"></script>
     <script src="{% static 'js/jquery-3.6.4.js' %}"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+    $(document).ready(function() {
+        $('#ajax-link').click(function(event) {
+            event.preventDefault();  // Prevent the default anchor tag behavior
+    
+            $.ajax({
+                url: $(this).attr('href'),
+                type: 'GET',
+                success: function(response) {
+                    // Process the response or perform any necessary operations
+                    // You can update the page content, redirect, or handle the response as needed
+                    console.log('AJAX request successful');
+                    console.log(response);
+    
+                    // Example: Redirect to the other page
+                    window.location.href = '/headcompany/';
+                },
+                error: function() {
+                    console.log('AJAX request error');
+                }
+            });
+        });
+    });
+    </script>
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
