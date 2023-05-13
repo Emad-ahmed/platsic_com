@@ -26,7 +26,7 @@ LOGS_DIR.mkdir(parents=True, exist_ok=True)
 SECRET_KEY = 'django-insecure-$*uz*%swgi5m$i-x_i11t&-zv$eiun&990gq0r!%^h$p@&&y5g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["142.93.43.114"]
 
