@@ -26,7 +26,7 @@ LOGS_DIR.mkdir(parents=True, exist_ok=True)
 SECRET_KEY = 'django-insecure-$*uz*%swgi5m$i-x_i11t&-zv$eiun&990gq0r!%^h$p@&&y5g'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["142.93.43.114"]
 
@@ -143,10 +143,11 @@ USE_TZ = True
 
 
 STATIC_URL = 'static/'
+MEDIA_URL = '/media/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_URL = '/media/'
+
 
 
 
