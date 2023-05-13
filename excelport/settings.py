@@ -88,8 +88,8 @@ else:
     DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ExcelPort',
-        'USER': 'Emad',
+        'NAME': 'plastic',
+        'USER': 'shak12',
         'PASSWORD': 'shak12',
         'HOST': 'localhost',
         'PORT': '',
