@@ -7,7 +7,6 @@ class HeadCompanyAdmin(ImportExportModelAdmin):
     pass
 
 
-
 @admin.register(SubCompany)
 class SubCompanyAdmin(ImportExportModelAdmin):
     pass

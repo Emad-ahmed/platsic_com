@@ -1,7 +1,6 @@
 from django import forms
 from django.forms import fields, widgets
 from django.core import validators
-
 from excelapp.models import HeadCompany,SubCompany, ClientCompany
 
 
@@ -22,7 +21,6 @@ class HeadForm(forms.ModelForm):
             'image': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
 
-
 class SubcompanyForm(forms.ModelForm):
     class Meta:
         model = SubCompany
@@ -40,7 +38,6 @@ class SubcompanyForm(forms.ModelForm):
             'invoicedate': forms.DateInput(attrs={'type' :'date',  'class': 'form-control',  'placeholder' : 'Max'}),
 
         }
-
 
 class SubcompanyUpdateForm(forms.ModelForm):
     class Meta:

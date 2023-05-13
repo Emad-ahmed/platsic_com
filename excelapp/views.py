@@ -97,12 +97,7 @@ def render_pdf_view_s_anda_s_management(request, id):
   
     subcompany_price = subcompany.weight * subcompany.head_company.unit_price
 
-    # clientcompany = ClientCompany.objects.get(name=name)
-
-    # client_price = clientcompany.weight * clientcompany.head_company.unit_price
-
-    # total = subcompany_price + client_price
-
+  
     template_path = 'S&S_managemnet.html'
 
     context = {'subcompany': subcompany}
@@ -301,12 +296,7 @@ def render_pdf_view_PWR(request, id):
 
 
 def export_data_to_excel_subcompany(request):
-    # your_model_resource = SubCompanyModelResource()
-    # dataset = your_model_resource.export()
-    # response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
-    # response['Content-Disposition'] = 'attachment; filename="subcompany.xls"'
-    # return response
-
+    
     instances = SubCompany.objects.filter()
     response = HttpResponse(content_type='application/ms-excel')
     response['Content-Disposition'] = 'attachment; filename="subcompany.xls"'
@@ -316,7 +306,7 @@ def export_data_to_excel_subcompany(request):
     columns = ['name', 'line1', 'line2', 'line3', 'line4', 'weight', 'Invoicenumber', 'date', 'invoicedate']
     for col_num, column_title in enumerate(columns):
         ws.write(row_num, col_num, column_title)
-    # Write the data rows to the Excel file
+ 
     for instance in instances:
         if instance.invoicedate:
             invoice = instance.invoicedate.strftime('%d-%m-%Y')
@@ -340,7 +330,7 @@ def export_data_to_excel_subcompany_head(request,id):
     columns = ['name', 'line1', 'line2', 'line3', 'line4', 'weight', 'Invoicenumber', 'date', 'invoicedate']
     for col_num, column_title in enumerate(columns):
         ws.write(row_num, col_num, column_title)
-    # Write the data rows to the Excel file
+
     for instance in instances:
         if instance.invoicedate:
             invoice = instance.invoicedate.strftime('%d-%m-%Y')
@@ -354,13 +344,6 @@ def export_data_to_excel_subcompany_head(request,id):
 
 
 
-# def export_data_to_excel_splitcompany(request, id):
-#     subcomnapy = SubCompany.objects.get(id = id)
-#     your_model_resource = SplitCompanyModelResource(sub_company=subcomnapy)
-#     dataset = your_model_resource.export()
-#     response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
-#     response['Content-Disposition'] = 'attachment; filename="Splitcompany.xls"'
-#     return response
 
 
 def export_data_to_excel_splitcompany(request, id):
@@ -489,10 +472,7 @@ class ClientcompanyUpdateView(View):
 
 class SubCompanySplit(View):
     def get(self, request, id):
-        # splitcompany = SubCompany.objects.get(id = id)
-        # subsplitview = SplitCompnay.objects.filter(sub_company = splitcompany)
-        # return render(request, "splitsubcompany.html", {'splitcompany' : splitcompany, 'subsplitview' : subsplitview})
-
+       
         current_time = timezone.now()
         splitcompany = SubCompany.objects.get(id = id)
         valuenumber = splitcompany.weight
@@ -524,7 +504,7 @@ class SubCompanySplit(View):
         range_min = float(rangenumbermin)
         range_max = float(rangenumber)
 
-        # Generate n-1 random numbers within the range
+     
         numbers = []
         for i in range(n):
             num = random.uniform(range_min, range_max)
@@ -532,16 +512,16 @@ class SubCompanySplit(View):
             
             numbers.append(num)
         
-        # Calculate the last number to make the total add up to 100
+       
         numbers.append(total - sum(numbers))
 
         print(numbers)
 
         mynumber = len(numbers)
-        # Round each number to two decimal places
+      
         numbers = [round(num, 2) for num in numbers]
 
-        # Display the values
+
         numbers = numbers
 
         
@@ -586,10 +566,7 @@ class SubCompanySplit(View):
 
 class ClientCompanySplit(View):
     def get(self, request, id):
-        # splitcompany = SubCompany.objects.get(id = id)
-        # subsplitview = SplitCompnay.objects.filter(sub_company = splitcompany)
-        # return render(request, "splitsubcompany.html", {'splitcompany' : splitcompany, 'subsplitview' : subsplitview})
-
+       
         current_time = timezone.now()
         splitcompany = ClientCompany.objects.get(id = id)
         valuenumber = splitcompany.weight
@@ -621,23 +598,23 @@ class ClientCompanySplit(View):
         range_min = float(rangenumbermin)
         range_max = float(rangenumber)
 
-        # Generate n-1 random numbers within the range
+  
         numbers = []
         for i in range(n):
             num = random.uniform(range_min, range_max)
             print(num)
             numbers.append(num)
         
-        # Calculate the last number to make the total add up to 100
+    
         numbers.append(total - sum(numbers))
 
         print(numbers)
 
         mynumber = len(numbers)
-        # Round each number to two decimal places
+      
         numbers = [round(num, 2) for num in numbers]
 
-        # Display the values
+      
         numbers = numbers
 
         
@@ -675,90 +652,6 @@ class ClientCompanySplit(View):
         return response
 
 
-
-
-    # def post(self, request, id):
-    #     current_time = timezone.now()
-    #     splitcompany = SubCompany.objects.get(id = id)
-    #     valuenumber = splitcompany.weight
-    #     rangenumber = request.POST.get("rangenumber")
-    #     rangenumbermin = request.POST.get("rangenumbermin")
-    #     date = request.POST.get("date")
-    #     date = str(date)
-    #     totalfetch = int(valuenumber)/float(rangenumber)
-    #     totalfetch = floor(totalfetch)
-
-    #     placelist = ["BT1 1AA", "BT1 1AL", "BT1 1AR", "BT1 1BG", "BT1 1BW", "BT1 1DA", "BT1 1DJ", "BT1 1DN", "BT1 1FF", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH", "BT1 1DN", "BT1 1FF", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH"]
-
-    #     value = int(valuenumber)
-    #     num_parts = totalfetch
-
-    #     import random
-
-    #     total = value
-    #     n = num_parts
-    #     range_min = float(rangenumbermin)
-    #     range_max = float(rangenumber)
-
-    #     # Generate n-1 random numbers within the range
-    #     numbers = []
-    #     for i in range(n+1):
-    #         num = random.uniform(range_min, range_max)
-    #         numbers.append(num)
-
-    #     # Calculate the last number to make the total add up to 100
-    #     numbers.append(total - sum(numbers))
-
-
-    #     print(sum(numbers))
-    #     mynumber = len(numbers)
-    #     # Round each number to two decimal places
-    #     numbers = [round(num, 2) for num in numbers]
-
-    #     # Display the values
-    #     numbers = numbers
-
-        
-
-    
-    #     splitcompanyview = SplitCompnay.objects.filter(sub_company = splitcompany).count()
-      
-    #     my_models_to_delete = SplitCompnay.objects.filter(sub_company = splitcompany).order_by('id')[:splitcompanyview]
-
-    #     my_date = datetime.strptime(date, '%Y-%m-%d').date()
-    #     for my_model in my_models_to_delete:
-    #         my_model.delete()
-
-    #     drop = 0
-    #     for i in range(mynumber):
-    #         if drop <= 5:
-    #             drop+=1
-                
-    #         else:
-    #             my_date = my_date + timedelta(days=int(1))
-    #             drop = 1
-           
-            
-            
-
-            
-    #         # my_delta = timedelta(days=int(1))
-    #         # new_date = my_date + my_delta
-
-    #         my_model_instance = SplitCompnay()
-    #         my_model_instance.sub_company = splitcompany
-    #         my_model_instance.date_time = my_date
-    #         my_model_instance.drop_time = current_time
-    #         my_model_instance.vehicle = placelist[i]
-    #         my_model_instance.drop = drop
-    #         my_model_instance.weight = numbers[i]
-    #         my_model_instance.status = True
-    #         my_model_instance.save()
-           
-                
-
-    
-    #     return redirect(f"/subcompnaysplit/{id}/")
 
 
 
