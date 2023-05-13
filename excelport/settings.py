@@ -92,7 +92,7 @@ else:
         'USER': 'emad',
         'PASSWORD': 'amadking123',
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': '',
     }
     }
 

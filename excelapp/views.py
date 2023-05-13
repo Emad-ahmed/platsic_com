@@ -14,10 +14,20 @@ from django.utils import timezone
 from math import floor
 from datetime import datetime, timedelta
 import xlwt
+from django.conf import settings
 
 # Create your views here.
 class HomeView(View):
     def get(self, request):
+        
+
+        database_name = settings.DATABASES['default']['NAME']
+        database_user = settings.DATABASES['default']['USER']
+        database_password = settings.DATABASES['default']['PASSWORD']
+
+        print(f"Database Name: {database_name}")
+        print(f"Database User: {database_user}")
+        print(f"Database Password: {database_password}")
         headcom = HeadCompany.objects.all()
         return render(request, "index.html", {'head' : headcom})
 
