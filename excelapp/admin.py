@@ -6,7 +6,6 @@ from import_export.admin import ImportExportModelAdmin
 class HeadCompanyAdmin(ImportExportModelAdmin):
     pass
 
-
 @admin.register(SubCompany)
 class SubCompanyAdmin(ImportExportModelAdmin):
     pass

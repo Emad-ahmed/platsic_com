@@ -20,13 +20,6 @@ from django.conf import settings
 class HomeView(View):
     def get(self, request):
     
-        database_name = settings.DATABASES['default']['NAME']
-        database_user = settings.DATABASES['default']['USER']
-        database_password = settings.DATABASES['default']['PASSWORD']
-
-        print(f"Database Name: {database_name}")
-        print(f"Database User: {database_user}")
-        print(f"Database Password: {database_password}")
         headcom = HeadCompany.objects.all()
         return render(request, "index.html", {'head' : headcom})
 
@@ -95,7 +88,7 @@ def render_pdf_view_s_anda_s_management(request, id):
     subcompany = SubCompany.objects.get(id=id)
     name = subcompany.name
   
-    subcompany_price = subcompany.weight * subcompany.head_company.unit_price
+    
 
   
     template_path = 'S&S_managemnet.html'
