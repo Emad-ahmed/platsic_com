@@ -18,7 +18,16 @@
 <div class="container mt-4 text-center">
     <h1>Company</h1>
   </div>
-  
+  {% if messages %}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <ul class="mb-0">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
   <!-- Modal -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -90,7 +99,7 @@
                         {% if all.image %}
                           <td id='first'><img src="{{all.image.url}}" alt=""></td>
                         {% endif %}
-                        <td id='first'><a href="{% url 'edithead' all.id %}" class="btn btn-info">Edit</a></td>
+                        <td id='first'><div class="d-flex"><a href="{% url 'edithead' all.id %}" class="btn btn-info me-2"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> <a href="{% url 'deletehead' all.id %}" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a></div></td>
                       
                     </tr>
                 {% endfor %}

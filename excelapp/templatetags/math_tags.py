@@ -12,7 +12,9 @@ def add(value, arg):
 @register.filter(name='mul')
 def mul(value, arg):
     try:
-        return int(value) * int(arg)
+        number = float(value) * float(arg)
+        formated_number = format(number, ",")
+        return formated_number
     except (ValueError, TypeError):
         return ""
     

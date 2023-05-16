@@ -30,41 +30,41 @@
     <table style="margin-bottom: 13rem;">
         <tr>
             <td>
-                <p style="margin-left: 7rem; font-weight:bolder;">{{subcompany.name}}</p>
-                <p style="margin-left: 7rem;">{{subcompany.line1}}</p>
-                <p style="margin-left: 7rem;">{{subcompany.line2}}</p>
-                <p style="margin-left: 7rem;">{{subcompany.line3}}</p>
-                <p style="margin-left: 7rem;">{{subcompany.line4}}</p>
+                <p style="margin-left: 4.3rem; font-weight:bolder; font-size:18px;">{{subcompany.name}}</p>
+                <p style="margin-left: 7rem; font-size:11px;">{{subcompany.line1}}</p>
+                <p style="margin-left: 7rem; font-size:11px;">{{subcompany.line2}}</p>
+                <p style="margin-left: 7rem; font-size:11px;">{{subcompany.line3}}</p>
+                <p style="margin-left: 7rem; font-size:11px;">{{subcompany.line4}}</p>
             </td>
             <td>
-                <p style="margin-left: 24rem; font-weight:bolder">{{subcompany.Invoicenumber}}</p>
+                <p style="margin-left: 20rem; font-weight:bolder; font-size:12px;">{{subcompany.Invoicenumber}}</p>
             </td>
             <td>
-                <p style="margin-left: 11.6rem; font-weight:bolder">{{subcompany.invoicedate}}</p>
+                <p style="margin-left: 7.5rem; font-weight:bolder; font-size:12px;">{{subcompany.invoicedate}}</p>
             </td>
            
         </tr>
 
     </table>
 
-    <table style="margin-bottom: 21.5rem;">
+    <table style="margin-bottom: 18rem;">
         <tr>
             <td>
-                <p style="margin-left: 7rem;">{{subcompany.head_company.name}}</p>
-                <p style="margin-left: 7rem;">{{subcompany.head_company.line1}}</p>
-                <p style="margin-left: 7rem;">{{subcompany.head_company.line2}}</p>
-                <p style="margin-left: 7rem;">{{subcompany.head_company.line3}}</p>
-                <p style="margin-left: 7rem;">{{subcompany.head_company.line4}}</p>
+                <p style="margin-left: 6.4rem; font-size:12px;">{{subcompany.head_company.name}}</p>
+                <p style="margin-left: 7rem; font-size:11px;">{{subcompany.head_company.line1}}</p>
+                <p style="margin-left: 7rem; font-size:11px;">{{subcompany.head_company.line2}}</p>
+                <p style="margin-left: 7rem; font-size:11px;">{{subcompany.head_company.line3}}</p>
+                <p style="margin-left: 7rem; font-size:11px;">{{subcompany.head_company.line4}}</p>
             </td>
         </tr>
     </table>
 
     <table>
         <tr>
-            <td style="margin-left: 7rem;">{{subcompany.head_company.description}}</td>
-            <td style="margin-left: 26.4rem;">{{subcompany.weight}}</td>
-            <td style="margin-left: 14.5rem;">£{{subcompany.head_company.unit_price}}</td>
-            <td style="margin-left: 6.1rem;">
+            <td style="margin-left: 6.5rem; font-size:12px;">{{subcompany.head_company.description}}</td>
+            <td style="margin-left: 21.5rem; font-size:12px;">{{subcompany.weight}}</td>
+            <td style="margin-left: 12.2rem; font-size:12px;">£{{subcompany.head_company.unit_price}}</td>
+            <td style="margin-left: 5.2rem; font-size:12px;">
                 {% with a=subcompany.weight b=subcompany.head_company.unit_price %}
             
         
@@ -75,8 +75,8 @@
         </tr>
     </table>
 
-    <p style="margin-top: 11.8rem; margin-left: 46rem;">£{{subcompany.weight}}</p>
-    <p style="margin-left: 65rem; margin-top: 1rem; font-weight:bolder">
+    <p style="margin-top: 8.3rem; margin-left: 38.5rem; font-size:12px; ">{{subcompany.weight}}</p>
+    <p style="margin-left: 41rem; margin-top: 1.4rem; font-weight:bolder; font-size:16px;">
         {% with a=subcompany.weight b=subcompany.head_company.unit_price %}
             
         

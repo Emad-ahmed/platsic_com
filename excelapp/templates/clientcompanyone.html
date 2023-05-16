@@ -20,6 +20,33 @@
 
 </style>
 
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="POST">
+          {% csrf_token %}
+          {% for fm in form  %}
+            {{fm.label_tag}} {{fm}} <br>
+          {% endfor %}
+          <div class="text-center">
+              <button type="submit" class="btn btn-info col-6">Add</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <div class="d-flex companyviewbutton mt-4 ms-4">
       <a href="{% url 'subcompanyone' myid %}" class="btn btn-outline-info me-3">Subcompany</a>
       <a href="{% url 'clientcompanyone' myid %}" class="btn btn-outline-warning activebutton">Clientcompany</a>
@@ -28,7 +55,16 @@
 <div class="clientviewcompany mb-4">
     <h1>Client Conpmany</h1>
   </div>
-  
+  {% if messages %}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    <ul class="mb-0">
+      {% for message in messages %}
+        <li>{{ message }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
 
   <div class="container formneed">
   <form action="{% url 'updateclient' myid %}" method="post">
@@ -48,6 +84,7 @@
         <option value="10">10</option>
        
       </select>
+      <input type="date" name="date" placeholder="Value Around">
       <button type="submit" class="btn btn-info">Update</button>
   </form>
   </div>
@@ -55,8 +92,10 @@
 
 
     
-    <div class="container mt-4 tableview mt-5">
-
+    <div class="container-fluid mt-4 tableview mt-5">
+      <button type="button " class="btn btn-primary ms-4 addcom" data-bs-toggle="modal" data-bs-target="#exampleModal">
+          Add Client Company
+      </button>
       <a  href="/exportclientcompany" class="btn btn-primary exportbtn" >
           Export
       </a>
@@ -76,7 +115,8 @@
                       <th>Invoicenumber<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
                       <th>Invoicedate<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
                       <th>Date<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
-                      <th>Action<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                      <th>Template<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                      <th>Choose Template<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
                       <th>Split<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
                       <th>Edit<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
                   </tr>
@@ -97,7 +137,7 @@
                       <td>{{sub.Invoicenumber}}</td>
                       <td>{{sub.invoicedate}}</td>
                       <td>{{sub.date}}</td>
-                      
+                      <td><a href="/{{sub.urlname}}/{{sub.id}}" class="btn btn-warning">Download</a></td>
                       <td><div class="dropdown">
                         <button class="dropbtn">Invoice</button>
                         <div class="dropdown-content">
@@ -105,7 +145,7 @@
                         </div>
                       </div></td>
                       <td><a href="{% url 'clientcompnaysplit' sub.id %}" class="btn btn-warning">Split</a></td>
-                      <td><a href="{% url 'clientcompanyupdate' id=sub.id id2=myid %}" class="btn btn-info">Edit</a></td>
+                      <td><div class="d-flex"><a href="{% url 'clientcompanyupdate' id=sub.id id2=myid %}" class="btn btn-info me-2"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a> <a href="{% url 'clientcompanydelete' id=sub.id id2=myid %}" class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a></div></td>
                   {% endfor %}
                   </tr>
               </tbody>

@@ -15,6 +15,7 @@ from math import floor
 from datetime import datetime, timedelta
 import xlwt
 from django.conf import settings
+from django.contrib import messages
 
 # Create your views here.
 class HomeView(View):
@@ -39,6 +40,15 @@ class HeadCompanyView(View):
             return redirect('headcompany')
 
 
+class DeleteHeadCompany(View):
+    def get(self, request, id):
+        pi = HeadCompany.objects.get(id=id)
+        pi.delete()
+        messages.error(request, "Deleted Successfully")
+        return redirect('/headcompany')
+
+
+
 def export_data_to_excel_headcompany(request):
     your_model_resource = HeadCompanyModelResource()
     dataset = your_model_resource.export()
@@ -47,18 +57,7 @@ def export_data_to_excel_headcompany(request):
     return response
 
 
-class SubCompanyView(View):
-    def get(self, request):
-        subform = SubcompanyForm()
-        subview = SubCompany.objects.all()
-        return render(request, "subcompany.html", {'subview' :subview, 'form' : subform})
-    def post(self, request):
-        form = SubcompanyForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/subcompany')
-        else:
-            return redirect('/subcompany')
+
         
 
 
@@ -369,6 +368,7 @@ def export_data_to_excel_splitcompany(request, id):
 def updatesubview(request, id):
     number = request.POST.get("upadtenumber")
     numberview = request.POST.get("numberview")
+    mydate = request.POST.get("date")
     filternumber = int(numberview)
     headcom = HeadCompany.objects.get(id = id)
     mynum = int(number)
@@ -393,6 +393,7 @@ def updatesubview(request, id):
         part = (item2 / total_size) * number_to_divide
         instance.weight = part
         instance.Invoicenumber = number
+        instance.invoicedate = mydate
         instance.save()
     
     return redirect(f'/subcompanyone/{id}/')
@@ -403,12 +404,18 @@ def updatesubview(request, id):
 
 class SubCompanyOneView(View):
     def get(self, request, id):
-        myid = id
+        subform = SubcompanyForm()
         headcom = HeadCompany.objects.get(id=id)
         subview = SubCompany.objects.filter(head_company = headcom)
-        return render(request, "subcompanyone.html", {'subview' :subview, 'myid' : id})
+        return render(request, "subcompanyone.html", {'subview' :subview, 'myid' : id, 'form' : subform})
 
-
+    def post(self, request, id):
+        form = SubcompanyForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Saved successfully')
+            return redirect(f'/subcompanyone/{id}')
+        
 
 class SubcompanyUpdateView(View):
     def get(self, request, id, id2):
@@ -421,33 +428,42 @@ class SubcompanyUpdateView(View):
         form = SubcompanyUpdateForm(request.POST, instance=pi)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Updated successfully')
             return redirect(f'/subcompanyone/{id2}/')
       
-       
+
+class SubcompanyDeleteView(View):
+    def get(self, request, id, id2):
+        pi = SubCompany.objects.get(id=id)
+        pi.delete()
+        messages.error(request, "Deleted Successfully")
+        return redirect(f'/subcompanyone/{id2}/')
 
 
+class ClientcompanyDeleteView(View):
+    def get(self, request, id, id2):
+        pi = ClientCompany.objects.get(id=id)
+        pi.delete()
+        messages.error(request, "Deleted Successfully")
+        return redirect(f'/clientcompanyone/{id2}/')
 
-class ClientCompanyView(View):
-    def get(self, request):
-        subform = ClientCompanyForm()
-        subview = ClientCompany.objects.all()
-        return render(request, "clientcompany.html", {'subview' :subview, 'form' : subform})
-    def post(self, request):
-        form = ClientCompanyForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('/clientcompany')
-        else:
-            return redirect('/clientcompany')
 
 
 class ClientCompanyOneView(View):
     def get(self, request, id):
         myid = id
+        subform = ClientCompanyForm()
         headcom = HeadCompany.objects.get(id=id)
         clientview = ClientCompany.objects.filter(head_company = headcom)
-        return render(request, "clientcompanyone.html", {'clientview' : clientview, 'myid' : myid})
+        return render(request, "clientcompanyone.html", {'clientview' : clientview, 'myid' : myid,'form' : subform})
 
+    def post(self, request, id):
+        form = ClientCompanyForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Saved successfully')
+            return redirect(f'/clientcompanyone/{id}')
+        
 
 class ClientcompanyUpdateView(View):
     def get(self, request, id, id2):
@@ -460,6 +476,7 @@ class ClientcompanyUpdateView(View):
         form = ClientcompanyUpdateForm(request.POST, instance=pi)
         if form.is_valid():
             form.save()
+            messages.success(request, 'Updated successfully')
             return redirect(f'/clientcompanyone/{id2}/')
 
 
@@ -502,10 +519,8 @@ class SubCompanySplit(View):
         for i in range(n):
             num = random.uniform(range_min, range_max)
             print(num)
-            
             numbers.append(num)
-        
-       
+
         numbers.append(total - sum(numbers))
 
         print(numbers)
@@ -517,9 +532,6 @@ class SubCompanySplit(View):
 
         numbers = numbers
 
-        
-
-    
         splitcompanyview = SplitCompnay.objects.filter(sub_company = splitcompany).count()
       
         my_models_to_delete = SplitCompnay.objects.filter(sub_company = splitcompany).order_by('id')[:splitcompanyview]
@@ -537,7 +549,6 @@ class SubCompanySplit(View):
                 my_date = my_date + timedelta(days=int(1))
                 drop = 1
            
-            
             sub_company = splitcompany.name
             date_time = my_date
             drop_time = current_time
@@ -610,14 +621,9 @@ class ClientCompanySplit(View):
       
         numbers = numbers
 
-        
-
-    
-
 
         my_date = datetime.strptime(date, '%Y-%m-%d').date()
        
-
         drop = 0
         for i in range(n+1):
             if drop <= 5:
@@ -651,6 +657,7 @@ class ClientCompanySplit(View):
 def updateclientview(request, id):
     number = request.POST.get("upadtenumber")
     numberview = request.POST.get("numberview")
+    mydate = request.POST.get("date")
     filternumber = int(numberview)
     headcom = HeadCompany.objects.get(id = id)
     mynum = int(number)
@@ -673,6 +680,7 @@ def updateclientview(request, id):
         part = (item2 / total_size) * number_to_divide
         instance.weight = part
         instance.Invoicenumber = number
+        instance.invoicedate = mydate
         instance.save()
     
     return redirect(f'/clientcompanyone/{id}/')
