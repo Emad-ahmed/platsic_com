@@ -55,9 +55,9 @@
     <table style="margin-top: 7.4rem;">
         <tr>
             <td><p style="margin-left: 12rem;">{{subcompany.head_company.description}}</p></td>
-            <td><p style="margin-left: 22rem;">{{subcompany.weight}}</p></td>
-            <td><p style="margin-left: 10.4rem;">£{{subcompany.head_company.unit_price}}</p></td>
-            <td><p>{% with a=subcompany.weight b=subcompany.head_company.unit_price %}
+            <td><p style="margin-left: 25rem;">{{subcompany.weight}}</p></td>
+            <td><p style="margin-left: 14.4rem;">£{{subcompany.head_company.unit_price}}</p></td>
+            <td><p style="margin-left: 2.5rem;">{% with a=subcompany.weight b=subcompany.head_company.unit_price %}
             
         
                 £{{a|mul:b}}       
@@ -67,7 +67,7 @@
     </table>
 
     <p style="margin-top: 20.6rem; margin-left: 37rem; color:white; font-weight:bolder; font-size:11px;">{{subcompany.weight}}</p>
-    <p style="margin-left: 51rem; margin-top: 1.2rem; color:white; font-weight:bolder; font-size:11px;">{% with a=subcompany.weight b=subcompany.head_company.unit_price %}
+    <p style="margin-left: 53rem; margin-top: 1.2rem; color:white; font-weight:bolder; font-size:11px;">{% with a=subcompany.weight b=subcompany.head_company.unit_price %}
 
         £{{a|mul:b}}       
 

@@ -25,7 +25,6 @@ class SubcompanyForm(forms.ModelForm):
     class Meta:
         model = SubCompany
         fields = ('head_company',  'name', 'line1', 'line2', 'line3', 'line4', 'invoicedate', 'rangemin', 'rangemax')
-
         widgets = {
             'head_company': forms.Select(attrs={'class': 'form-control'}),
             'name': forms.TextInput(attrs={'class': 'form-control', 'placeholder' : 'Name'}),

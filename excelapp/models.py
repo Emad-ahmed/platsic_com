@@ -22,7 +22,7 @@ class SubCompany(models.Model):
     line3 = models.CharField(max_length=150)
     line4 = models.CharField(max_length=150)
     urlname = models.CharField(max_length=150, null=True, blank=True)
-    weight = models.IntegerField(null=True, blank=True)
+    weight = models.DecimalField(max_digits=7,null=True, blank=True, decimal_places=2)
     Invoicenumber = models.IntegerField(null=True, blank=True)
     date = models.DateField(auto_now_add=True)
     invoicedate = models.DateField(null=True, blank=True)

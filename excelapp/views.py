@@ -4,7 +4,7 @@ from excelapp.models import HeadCompany, SubCompany, ClientCompany, SplitCompnay
 from django.http import HttpResponse
 from .resources import HeadCompanyModelResource, SubCompanyModelResource, ClientCompanyModelResource, SplitCompanyModelResource
 from .forms import HeadForm, SubcompanyForm, ClientCompanyForm, SubcompanyUpdateForm, ClientcompanyUpdateForm
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import  redirect
 from xhtml2pdf import pisa
 from django.template.loader import get_template
 from django.utils.decorators import method_decorator
@@ -16,11 +16,11 @@ from datetime import datetime, timedelta
 import xlwt
 from django.conf import settings
 from django.contrib import messages
+import pandas as pd
 
 # Create your views here.
 class HomeView(View):
     def get(self, request):
-    
         headcom = HeadCompany.objects.all()
         return render(request, "index.html", {'head' : headcom})
 
@@ -116,22 +116,14 @@ def render_pdf_view_s_anda_s_management(request, id):
 def render_pdf_view_wp(request, id):
     subcompany = SubCompany.objects.get(id=id)
     name = subcompany.name
-    
     template_path = 'wp.html'
-
     context = {'subcompany': subcompany}
-
     response = HttpResponse(content_type='application/pdf')
-
     response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
-
     template = get_template(template_path)
-
     html = template.render(context)
-
     pisa_status = pisa.CreatePDF(
        html, dest=response)
-   
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
@@ -140,20 +132,13 @@ def render_pdf_view_wp(request, id):
 def render_pdf_view_bina(request, id):
     subcompany = SubCompany.objects.get(id=id)
     name = subcompany.name
-    
     template_path = 'bina.html'
-
     context = {'subcompany': subcompany}
-
     response = HttpResponse(content_type='application/pdf')
-
     response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
-
     template = get_template(template_path)
-
     html = template.render(context)
 
-    
     pisa_status = pisa.CreatePDF(
        html, dest=response)
    
@@ -165,17 +150,11 @@ def render_pdf_view_bina(request, id):
 def render_pdf_view_ds(request, id):
     subcompany = SubCompany.objects.get(id=id)
     name = subcompany.name
-    
     template_path = 'ds.html'
-
     context = {'subcompany': subcompany}
-
     response = HttpResponse(content_type='application/pdf')
-
     response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
-
     template = get_template(template_path)
-
     html = template.render(context)
 
     
@@ -190,23 +169,15 @@ def render_pdf_view_ds(request, id):
 def render_pdf_view_klp(request, id):
     subcompany = SubCompany.objects.get(id=id)
     name = subcompany.name
-    
     template_path = 'klp.html'
-
     context = {'subcompany': subcompany}
-
     response = HttpResponse(content_type='application/pdf')
-
     response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
-
     template = get_template(template_path)
-
     html = template.render(context)
 
-    
     pisa_status = pisa.CreatePDF(
        html, dest=response)
-   
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
@@ -215,20 +186,13 @@ def render_pdf_view_klp(request, id):
 def render_pdf_view_kt(request, id):
     subcompany = SubCompany.objects.get(id=id)
     name = subcompany.name
-    
     template_path = 'kt.html'
-
     context = {'subcompany': subcompany}
-
     response = HttpResponse(content_type='application/pdf')
-
     response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
-
     template = get_template(template_path)
-
     html = template.render(context)
 
-    
     pisa_status = pisa.CreatePDF(
        html, dest=response)
    
@@ -240,42 +204,27 @@ def render_pdf_view_kt(request, id):
 def render_pdf_view_Revolution(request, id):
     subcompany = SubCompany.objects.get(id=id)
     name = subcompany.name
-    
     template_path = 'Revolution.html'
-
     context = {'subcompany': subcompany}
-
     response = HttpResponse(content_type='application/pdf')
-
     response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
-
     template = get_template(template_path)
-
     html = template.render(context)
 
-    
     pisa_status = pisa.CreatePDF(
        html, dest=response)
-   
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
 
-
 def render_pdf_view_PWR(request, id):
     subcompany = SubCompany.objects.get(id=id)
     name = subcompany.name
-    
     template_path = 'pwr.html'
-
     context = {'subcompany': subcompany}
-
     response = HttpResponse(content_type='application/pdf')
-
     response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
-
     template = get_template(template_path)
-
     html = template.render(context)
 
     
@@ -288,7 +237,6 @@ def render_pdf_view_PWR(request, id):
 
 
 def export_data_to_excel_subcompany(request):
-    
     instances = SubCompany.objects.filter()
     response = HttpResponse(content_type='application/ms-excel')
     response['Content-Disposition'] = 'attachment; filename="subcompany.xls"'
@@ -322,7 +270,6 @@ def export_data_to_excel_subcompany_head(request,id):
     columns = ['name', 'line1', 'line2', 'line3', 'line4', 'weight', 'Invoicenumber', 'date', 'invoicedate']
     for col_num, column_title in enumerate(columns):
         ws.write(row_num, col_num, column_title)
-
     for instance in instances:
         if instance.invoicedate:
             invoice = instance.invoicedate.strftime('%d-%m-%Y')
@@ -333,9 +280,6 @@ def export_data_to_excel_subcompany_head(request,id):
             ws.write(row_num, col_num, cell_value)
     wb.save(response)
     return response
-
-
-
 
 
 def export_data_to_excel_splitcompany(request, id):
@@ -361,10 +305,6 @@ def export_data_to_excel_splitcompany(request, id):
     return response
 
 
-
-
-
-
 def updatesubview(request, id):
     number = request.POST.get("upadtenumber")
     numberview = request.POST.get("numberview")
@@ -376,18 +316,13 @@ def updatesubview(request, id):
     my_instances = SubCompany.objects.filter(head_company = headcom)[:filternumber]
     part_sizes = []
     mul = 1; 
-
     for i in my_instances:
         sumprint = mul * 4
         part_sizes.append(sumprint)
         mul+=1 
 
-
     part_sizes.reverse()
     total_size = sum(part_sizes)
-    
-    
-
     for instance, item2 in zip(my_instances, part_sizes):
         number = random.randint(200, 300)
         part = (item2 / total_size) * number_to_divide
@@ -397,10 +332,6 @@ def updatesubview(request, id):
         instance.save()
     
     return redirect(f'/subcompanyone/{id}/')
-
-
-
-
 
 class SubCompanyOneView(View):
     def get(self, request, id):
@@ -431,7 +362,6 @@ class SubcompanyUpdateView(View):
             messages.success(request, 'Updated successfully')
             return redirect(f'/subcompanyone/{id2}/')
       
-
 class SubcompanyDeleteView(View):
     def get(self, request, id, id2):
         pi = SubCompany.objects.get(id=id)
@@ -446,8 +376,6 @@ class ClientcompanyDeleteView(View):
         pi.delete()
         messages.error(request, "Deleted Successfully")
         return redirect(f'/clientcompanyone/{id2}/')
-
-
 
 class ClientCompanyOneView(View):
     def get(self, request, id):
@@ -482,7 +410,6 @@ class ClientcompanyUpdateView(View):
 
 class SubCompanySplit(View):
     def get(self, request, id):
-       
         current_time = timezone.now()
         splitcompany = SubCompany.objects.get(id = id)
         valuenumber = splitcompany.weight
@@ -490,13 +417,10 @@ class SubCompanySplit(View):
         rangenumbermin = splitcompany.rangemax
         date = splitcompany.invoicedate
         date = str(date)
-        totalfetch = int(valuenumber)/float(rangenumber)
+        totalfetch = float(valuenumber)/float(rangenumber)
         totalfetch = floor(totalfetch)
-
         placelist = ["BT1 1AA", "BT1 1AL", "BT1 1AR", "BT1 1BG", "BT1 1BW", "BT1 1DA", "BT1 1DJ", "BT1 1DN", "BT1 1FF", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH", "BT1 1DN", "BT1 1FF", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH"]
-
         response = HttpResponse(content_type='application/ms-excel')
-
         response['Content-Disposition'] = f'attachment; filename="{splitcompany.name}aplit.xls"'
         wb = xlwt.Workbook(encoding='utf-8')
         ws = wb.add_sheet('Sheet1')
@@ -507,35 +431,22 @@ class SubCompanySplit(View):
         value = int(valuenumber)
         num_parts = totalfetch
 
-        import random
-
         total = value
         n = num_parts
         range_min = float(rangenumbermin)
         range_max = float(rangenumber)
-
      
         numbers = []
         for i in range(n):
             num = random.uniform(range_min, range_max)
-            print(num)
+            num = round(num, 2)
+
             numbers.append(num)
 
         numbers.append(total - sum(numbers))
-
-        print(numbers)
-
-        mynumber = len(numbers)
-      
         numbers = [round(num, 2) for num in numbers]
-
-
-        numbers = numbers
-
         splitcompanyview = SplitCompnay.objects.filter(sub_company = splitcompany).count()
-      
         my_models_to_delete = SplitCompnay.objects.filter(sub_company = splitcompany).order_by('id')[:splitcompanyview]
-
         my_date = datetime.strptime(date, '%Y-%m-%d').date()
         for my_model in my_models_to_delete:
             my_model.delete()
@@ -570,7 +481,6 @@ class SubCompanySplit(View):
 
 class ClientCompanySplit(View):
     def get(self, request, id):
-       
         current_time = timezone.now()
         splitcompany = ClientCompany.objects.get(id = id)
         valuenumber = splitcompany.weight
@@ -580,11 +490,8 @@ class ClientCompanySplit(View):
         date = str(date)
         totalfetch = int(valuenumber)/float(rangenumber)
         totalfetch = floor(totalfetch)
-
         placelist = ["BT1 1AA", "BT1 1AL", "BT1 1AR", "BT1 1BG", "BT1 1BW", "BT1 1DA", "BT1 1DJ", "BT1 1DN", "BT1 1FF", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH", "BT1 1DN", "BT1 1FF", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH"]
-
         response = HttpResponse(content_type='application/ms-excel')
-
         response['Content-Disposition'] = f'attachment; filename="{splitcompany.name}aplit.xls"'
         wb = xlwt.Workbook(encoding='utf-8')
         ws = wb.add_sheet('Sheet1')
@@ -594,36 +501,21 @@ class ClientCompanySplit(View):
             ws.write(row_num, col_num, column_title)
         value = int(valuenumber)
         num_parts = totalfetch
-
-        import random
-
+        
         total = value
         n = num_parts
         range_min = float(rangenumbermin)
         range_max = float(rangenumber)
 
-  
         numbers = []
         for i in range(n):
             num = random.uniform(range_min, range_max)
-            print(num)
             numbers.append(num)
         
-    
         numbers.append(total - sum(numbers))
-
-        print(numbers)
-
-        mynumber = len(numbers)
-      
         numbers = [round(num, 2) for num in numbers]
-
-      
         numbers = numbers
-
-
         my_date = datetime.strptime(date, '%Y-%m-%d').date()
-       
         drop = 0
         for i in range(n+1):
             if drop <= 5:
@@ -632,9 +524,6 @@ class ClientCompanySplit(View):
             else:
                 my_date = my_date + timedelta(days=int(1))
                 drop = 1
-           
-            
-            sub_company = splitcompany.name
             date_time = my_date
             drop_time = current_time
             vehicle = placelist[i]
@@ -646,43 +535,86 @@ class ClientCompanySplit(View):
             row = [new_date, new_time, vehicle, drop, weight]
             for col_num, cell_value in enumerate(row):
                 ws.write(row_num, col_num, cell_value)
-
         wb.save(response)
         return response
 
 
+class InvoiceDateUpdateView(View):
+    def post(self, request):
+        date = request.POST["date"]
+        id = request.POST["myid"]
+        my_instances = SubCompany.objects.get(id = id)
+        my_instances.invoicedate = date
+        my_instances.save()
+        return redirect(request.META.get('HTTP_REFERER', '/'))
 
+class InvoiceNumberUpdateView(View):
+    def post(self, request):
+        innumber = request.POST["invoicenumber"]
+        id = request.POST["myid"]
+        my_instances = SubCompany.objects.get(id = id)
+        my_instances.Invoicenumber = innumber
+        my_instances.save()
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+
+class UpdateClinetViewWeight(View):
+    def post(self, request):
+        myid = request.POST['myid']
+        weight = request.POST["weight"]
+        my_instances = ClientCompany.objects.get(id = myid)
+        my_instances.weight = weight
+        my_instances.save()
+        # if(request.POST["invoicenumber"]):
+        #     invoicenumber = request.POST["invoicenumber"]
+        #     my_instances = ClientCompany.objects.get(id = myid)
+        #     my_instances.Invoicenumber  = invoicenumber
+        #     my_instances.save()
+        # if(request.POST["invoicedate"]):
+        #     indate = request.POST["invoicedate"]
+        #     my_instances = ClientCompany.objects.get(id = myid)
+        #     my_instances.invoicedate = indate
+        #     my_instances.save()
+
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+class UpdateClinetViewWeight(View):
+    def post(self, request):
+        myid = request.POST['myid']
+        weight = request.POST["weight"]
+        my_instances = ClientCompany.objects.get(id = myid)
+        my_instances.weight = weight
+        my_instances.save()
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+class UpdateClinetViewInvoice(View):
+    def post(self, request):
+        myid = request.POST['myid']
+        invoicenumber = request.POST["invoicenumber"]
+        my_instances = ClientCompany.objects.get(id = myid)
+        my_instances.Invoicenumber  = invoicenumber
+        my_instances.save()
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+
+
+class UpdateClinetViewDate(View):
+    def post(self, request):
+        myid = request.POST['myid']
+        indate = request.POST["invoicedate"]
+        my_instances = ClientCompany.objects.get(id = myid)
+        my_instances.invoicedate = indate
+        my_instances.save()
+        return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
 def updateclientview(request, id):
-    number = request.POST.get("upadtenumber")
-    numberview = request.POST.get("numberview")
     mydate = request.POST.get("date")
-    filternumber = int(numberview)
     headcom = HeadCompany.objects.get(id = id)
-    mynum = int(number)
-    number_to_divide = mynum
-    my_instances = ClientCompany.objects.filter(head_company = headcom)[:filternumber]
-
-    part_sizes = []  
-
-    mul = 1; 
-
-    for i in my_instances:
-        sumprint = mul * 4
-        part_sizes.append(sumprint)
-        mul+=1
-    
-    total_size = sum(part_sizes)
-    
-    for instance, item2 in zip(my_instances, part_sizes):
-        number = random.randint(200, 300)
-        part = (item2 / total_size) * number_to_divide
-        instance.weight = part
-        instance.Invoicenumber = number
+    my_instances = ClientCompany.objects.filter(head_company = headcom)
+    for instance in my_instances:
         instance.invoicedate = mydate
         instance.save()
-    
     return redirect(f'/clientcompanyone/{id}/')
 
 def export_data_to_excel_clientcompany(request):
@@ -706,10 +638,7 @@ def render_pdf_view_clientcompany(request, id):
     response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
 
     template = get_template(template_path)
-
     html = template.render(context)
-
-    
     pisa_status = pisa.CreatePDF(
        html, dest=response)
    
@@ -722,20 +651,13 @@ def render_pdf_view_clientcompany(request, id):
 def render_pdf_view_clientcompany_one(request, id):
     clientcompany = ClientCompany.objects.get(id=id)
     name = clientcompany.name
-
     template_path = 'clientcompanypdf1.html'
-
     context = {'clientcompany': clientcompany}
-
     response = HttpResponse(content_type='application/pdf')
-
     response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
-
     template = get_template(template_path)
-
     html = template.render(context)
 
-    
     pisa_status = pisa.CreatePDF(
        html, dest=response)
    
@@ -743,3 +665,44 @@ def render_pdf_view_clientcompany_one(request, id):
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
 
+
+def import_excel(request):
+    if request.method == 'POST' and request.FILES['file']:
+        excel_file = request.FILES['file']
+        df = pd.read_excel(excel_file, engine='xlrd')
+        for index, row in df.iterrows():
+            column1_value = row['name']
+            column2_value = row['line1']
+            column3_value = row['line2']
+            column4_value = row['line3']
+            column5_value = row['line4']
+            column6_value = row['weight']
+            column7_value = row['Invoicenumber']
+            column8_value = row['date']
+            column9_value = row['invoicedate']
+
+            
+            try:
+                model_instance = SubCompany.objects.get(name=column1_value)
+                date_object = datetime.strptime(column8_value, '%d-%m-%Y')
+                django_date_format = date_object.strftime('%Y-%m-%d')
+
+                date_object_invoice = datetime.strptime(column9_value, '%d-%m-%Y')
+                django_date_format_invoice = date_object_invoice.strftime('%Y-%m-%d')
+
+                model_instance.name = column1_value
+                model_instance.line1 = column2_value
+                model_instance.line2 = column3_value
+                model_instance.line3 = column4_value
+                model_instance.line4 = column5_value
+                model_instance.weight = column6_value
+                model_instance.Invoicenumber = column7_value
+                model_instance.date = django_date_format
+                model_instance.invoicedate = django_date_format_invoice
+                model_instance.save()
+
+            except SubCompany.DoesNotExist:
+                pass
+            
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+    

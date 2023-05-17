@@ -17,7 +17,54 @@
     {
       background: #5ADBB5;
     }
+    
 </style>
+
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel1">Update Invoice Date</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'updateinvoicce_date' %}" method="POST">
+          {% csrf_token %}
+          <input type="hidden" id="myInput" name="myid">
+          <input type="date" name="date" id="date" class="form-control mb-3">
+          <div class="text-center">
+              <button type="submit" class="btn btn-info col-6">Update Invoice Date</button>
+          </div>
+        </form>
+      </div>
+    
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel2">Update Invoice Number</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'updateinvoicce_number' %}" method="POST">
+          {% csrf_token %}
+          <input type="hidden" id="myInputNumber" name="myid">
+          <input type="number" name="invoicenumber" id="invoicenumber" class="form-control mb-3">
+          <div class="text-center">
+              <button type="submit" class="btn btn-info col-6">Update Invoice Number</button>
+          </div>
+        </form>
+      </div>
+    
+    </div>
+  </div>
+</div>
+
 
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -98,6 +145,15 @@
         Export
     </a>
 
+    <form method="post" enctype="multipart/form-data" action="{% url 'import-excel-subcompany' %}" class="mb-3">
+      {% csrf_token %}
+      <div class="d-flex">
+        <input type="file" name="file" class="form-control w-50">
+        <input type="submit" value="Import" class="btn  btn-info ms-3">
+      </div>
+      
+    </form>
+
   <table data-replace="jtable" id="example" aria-label="JS Datatable" data-locale="en" data-search="true">
     
     </div>
@@ -111,7 +167,6 @@
                     <th>Weight<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
                     <th>Invoicenumber<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
                     <th>Invoicedate<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
-                    <th>Date<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
                     <th>Template<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
                     <th>Choose Template<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
                     <th>Split<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
@@ -131,9 +186,21 @@
                     <td>{{sub.weight}}</td>
                     
                     
-                    <td>{{sub.Invoicenumber}}</td>
-                    <td>{{sub.invoicedate}}</td>
-                    <td>{{sub.date}}</td>
+                    <td>{{sub.Invoicenumber}} <a
+                      href="#"
+                      class="btn btn-info"
+                      onclick="showModelwithNumber('{{sub.id}}')"
+                      >Edit</a
+                    >
+                    </td>
+                    <td> <span>{{sub.invoicedate}} <a
+                      href="#"
+                      class="btn btn-info"
+                      onclick="showModelwithDate('{{sub.id}}')"
+                      >Edit</a
+                    >
+                    </span>  </td>
+                 
                     <td><a href="/{{sub.urlname}}/{{sub.id}}" class="btn btn-warning">Download</a></td>
                     <td><div class="dropdown">
                       <button class="dropbtn">Invoice</button>
@@ -163,7 +230,25 @@
 
     <div style="margin-bottom: 10rem;"></div>
 
+    <script>
+      function showModelwithDate(myid) {
+        $("#exampleModal1").modal("show");
+        const inputField = document.getElementById('myInput');
+        inputField.value = myid;
+    
+      }
 
+     
+    </script>
+
+    <script>
+      function showModelwithNumber(myid) {
+        $("#exampleModal2").modal("show");
+        const inputField = document.getElementById('myInputNumber');
+        inputField.value = myid;
+    
+      }
+    </script>
 
 {% endblock %}
 

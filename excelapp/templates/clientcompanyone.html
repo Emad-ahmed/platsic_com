@@ -20,11 +20,80 @@
 
 </style>
 
+<div class="modal fade" id="exampleModal1" tabindex="-1" aria-labelledby="exampleModalLabel1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel1">Update Weight</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'updatemyclientweight' %}" method="POST">
+          {% csrf_token %}
+          <input type="hidden" id="myInputWeight" name="myid">
+          <input type="number" name="weight" id="weight" class="form-control mb-3">
+          <div class="text-center">
+              <button type="submit" class="btn btn-info col-6">Update Weight</button>
+          </div>
+        </form>
+      </div>
+    
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel2" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel2">Update Invoice Number</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'updatemyclientinvoice' %}" method="POST">
+          {% csrf_token %}
+          <input type="hidden" id="myInputNumber" name="myid">
+          <input type="number" name="invoicenumber" id="invoicenumber" class="form-control mb-3">
+          <div class="text-center">
+              <button type="submit" class="btn btn-info col-6">Update Invoice Number</button>
+          </div>
+        </form>
+      </div>
+    
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel3" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel3">Update Invoice Date</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{% url 'updatemyclientinvoicedate' %}" method="POST">
+          {% csrf_token %}
+          <input type="hidden" id="myInputDate" name="myid">
+          <input type="date" name="invoicedate" id="invoicedate" class="form-control mb-3">
+          <div class="text-center">
+              <button type="submit" class="btn btn-info col-6">Update Invoice Date</button>
+          </div>
+        </form>
+      </div>
+    
+    </div>
+  </div>
+</div>
+
+
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Add</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
@@ -69,21 +138,7 @@
   <div class="container formneed">
   <form action="{% url 'updateclient' myid %}" method="post">
     {% csrf_token %}
-      <input type="number" name="upadtenumber" placeholder="Weight">
-      <select aria-label="Default select example" name="numberview">
-        <option value="50">All</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-        <option value="8">8</option>
-        <option value="9">9</option>
-        <option value="10">10</option>
-       
-      </select>
+    
       <input type="date" name="date" placeholder="Value Around">
       <button type="submit" class="btn btn-info">Update</button>
   </form>
@@ -131,11 +186,26 @@
                       <td>{{sub.line3}}</td>
                       <td>{{sub.line4}}</td>
                      
-                      <td>{{sub.weight}}</td>
+                      <td>{{sub.weight}} <a
+                        href="#"
+                        class="btn btn-info"
+                        onclick="showModelwithWeight('{{sub.id}}')"
+                        >Edit</a
+                      ></td>
                       
                       
-                      <td>{{sub.Invoicenumber}}</td>
-                      <td>{{sub.invoicedate}}</td>
+                      <td>{{sub.Invoicenumber}} <a
+                        href="#"
+                        class="btn btn-info"
+                        onclick="showModelwithNumber('{{sub.id}}')"
+                        >Edit</a
+                      ></td>
+                      <td>{{sub.invoicedate}} <a
+                        href="#"
+                        class="btn btn-info"
+                        onclick="showModelwithDate('{{sub.id}}')"
+                        >Edit</a
+                      ></td>
                       <td>{{sub.date}}</td>
                       <td><a href="/{{sub.urlname}}/{{sub.id}}" class="btn btn-warning">Download</a></td>
                       <td><div class="dropdown">
@@ -153,6 +223,36 @@
       </div>
   
       </div>
+
+
+      <script>
+        function showModelwithWeight(myid) {
+          $("#exampleModal1").modal("show");
+          const inputField = document.getElementById('myInputWeight');
+          inputField.value = myid;
+      
+        }
+  
+       
+      </script>
+  
+      <script>
+        function showModelwithNumber(myid) {
+          $("#exampleModal2").modal("show");
+          const inputField = document.getElementById('myInputNumber');
+          inputField.value = myid;
+      
+        }
+      </script>
+
+      <script>
+        function showModelwithDate(myid) {
+          $("#exampleModal3").modal("show");
+          const inputField = document.getElementById('myInputDate');
+          inputField.value = myid;
+      
+        }
+      </script>
 
 {% endblock %}
 

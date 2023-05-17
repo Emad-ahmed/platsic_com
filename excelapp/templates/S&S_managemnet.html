@@ -22,8 +22,8 @@
 <body>
     {% load math_tags %}
     <p>.</p>
-    <p style="margin-top: 123pt; margin-left: 480pt; color:blue; font-weight:bolder">{{subcompany.invoicedate}}</p>
-    <p style="margin-top: 20pt; margin-left: 480pt; margin-bottom: 80pt; color:blue; font-weight:bolder">{{subcompany.Invoicenumber}}</p>
+    <p style="margin-top: 123pt; margin-left: 480pt; color:#06112b; font-weight:bolder">{{subcompany.invoicedate}}</p>
+    <p style="margin-top: 20pt; margin-left: 480pt; margin-bottom: 70pt; color:#06112b; font-weight:bolder">{{subcompany.Invoicenumber}}</p>
     
     <table>
         <tr >
@@ -35,20 +35,20 @@
                 <p style="margin-left: 15pt; color:#626262;">{{subcompany.line4}}</p>
             </td>
             <td>
-                <p style="margin-left: -135pt; font-weight:bolder">{{subcompany.head_company.name}}</p>
-                <p style="margin-left: -135pt; font-weight:bolder">{{subcompany.head_company.line1}}</p>
-                <p style="margin-left: -135pt; font-weight:bolder">{{subcompany.head_company.line2}}</p>
-                <p style="margin-left: -135pt; font-weight:bolder">{{subcompany.head_company.line3}}</p>
-                <p style="margin-left: -135pt; font-weight:bolder">{{subcompany.head_company.line4}}</p>
+                <p style="margin-left: -138pt; font-size:12px; margin-top: -2px;">{{subcompany.head_company.name}}</p>
+                <p style="margin-left: -138pt; font-size:12px; margin-top: -2px;">{{subcompany.head_company.line1}}</p>
+                <p style="margin-left: -138pt; font-size:12px; margin-top: -2px;">{{subcompany.head_company.line2}}</p>
+                <p style="margin-left: -138pt; font-size:12px; margin-top: -2px;">{{subcompany.head_company.line3}}</p>
+                <p style="margin-left: -138pt; font-size:12px; margin-top: -2px;">{{subcompany.head_company.line4}}</p>
             </td>
         </tr>
     </table>
 
-    <table style="margin-top: 5.9rem;">
+    <table style="margin-top: 4.9rem;">
         <tr>
-            <td><p style="margin-left: 20rem; font-size: 12px;">{{subcompany.head_company.description}}</p></td>
+            <td><p style="margin-left: 18.2rem; font-size: 12px;">{{subcompany.head_company.description}}</p></td>
             <td><p style="margin-left: 26rem; font-size: 12px;">{{subcompany.weight}}</p></td>
-            <td><p style="margin-left: 15rem; font-size: 12px;">£{{subcompany.head_company.unit_price}}</p></td>
+            <td><p style="margin-left: 15rem; font-size: 12px;">{{subcompany.head_company.unit_price}}</p></td>
             <td><p style="margin-left: 4rem; font-size: 12px;">
                 {% with a=subcompany.weight b=subcompany.head_company.unit_price %}
             
@@ -62,10 +62,10 @@
 
     <p style="margin-top: 16.3rem; margin-left: 384.5pt; font-size: 12px;">{{subcompany.weight}}</p>
 
-    <p style="margin-left: 480pt; font-weight:bolder; font-size: 16px;">{% with a=subcompany.weight b=subcompany.head_company.unit_price %}
+    <p style="margin-left: 495pt; font-weight:bolder; font-size: 16px;">{% with a=subcompany.weight b=subcompany.head_company.unit_price %}
             
         
-        £{{a|mul:b}}       
+        {{a|mul:b}}       
      
     {% endwith %}</p>
 

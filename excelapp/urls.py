@@ -36,9 +36,17 @@ urlpatterns = [
 
     path('subcompanyone/<int:id>/', SubCompanyOneView.as_view(), name="subcompanyone"),
     path('clientcompanyone/<int:id>/', ClientCompanyOneView.as_view(), name="clientcompanyone"),
-    
+
+    path('updateinvoicce_date', InvoiceDateUpdateView.as_view(), name="updateinvoicce_date"),
+    path('updateinvoicce_number', InvoiceNumberUpdateView.as_view(), name="updateinvoicce_number"),
     
     path('subcompnaysplit/<int:id>/', SubCompanySplit.as_view(), name="subcompnaysplit"),
-    path('clientcompnaysplit/<int:id>/', ClientCompanySplit.as_view(), name="clientcompnaysplit")
+    path('clientcompnaysplit/<int:id>/', ClientCompanySplit.as_view(), name="clientcompnaysplit"),
+
+    path('updatemyclientweight/', UpdateClinetViewWeight.as_view(), name="updatemyclientweight"),
+    path('updatemyclientinvoice/', UpdateClinetViewInvoice.as_view(), name="updatemyclientinvoice"),
+    path('updatemyclientinvoicedate/', UpdateClinetViewDate.as_view(), name="updatemyclientinvoicedate"),
+
+    path('import_subcompany/', import_excel, name='import-excel-subcompany'),
 
 ]

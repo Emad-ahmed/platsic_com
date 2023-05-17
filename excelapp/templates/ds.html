@@ -23,7 +23,7 @@
     <br>
     <br>
 
-    <table style="margin-bottom: 7rem;">
+    <table style="margin-bottom: 5.7rem;">
         <tr>
             <td>
                 <p style="margin-left: 3.8rem; font-size:16px; font-weight:bolder">{{subcompany.name}}</p>
@@ -35,38 +35,44 @@
             <td>
                 <br>
                 <br>
+                <br>
                 
-                <p style="margin-left: 20rem; margin-top: 10pt !important; font-size:12px; font-weight:bolder;">{{subcompany.Invoicenumber}}</p>
+                <p style="margin-left: 18rem; margin-top: 10pt !important; font-size:13px; font-weight:bolder;">{{subcompany.Invoicenumber}}</p>
             </td>
             <td>
                 <br>
                 <br>
-                
-                <p style="margin-left: 8.7rem; font-size:12px; font-weight:bolder;">{{subcompany.invoicedate}}</p>
+                <br>
+                <p style="margin-left: 8.7rem; font-size:13px; font-weight:bolder;">{{subcompany.invoicedate}}</p>
             </td>
            
         </tr>
 
     </table>
 
-    <table style="margin-bottom: 21.4rem;">
+    <table style="margin-bottom: 13rem;">
         <tr>
             <td>
-                <p style="margin-left: 5.2rem; font-size:12px;">{{subcompany.head_company.name}}</p>
-                <p style="margin-left: 5.2rem;font-size:12px;">{{subcompany.head_company.line1}}</p>
-                <p style="margin-left: 5.2rem;font-size:12px;">{{subcompany.head_company.line2}}</p>
-                <p style="margin-left: 5.2rem;font-size:12px;">{{subcompany.head_company.line3}}</p>
-                <p style="margin-left: 5.2rem;font-size:12px;">{{subcompany.head_company.line4}}</p>
+                <p style="margin-left: 4.9rem; font-size:12px;">{{subcompany.head_company.name}}</p>
+                <p style="margin-left: 4.9rem;font-size:12px;">{{subcompany.head_company.line1}}</p>
+                <p style="margin-left: 4.9rem;font-size:12px;">{{subcompany.head_company.line2}}</p>
+                <p style="margin-left: 4.9rem;font-size:12px;">{{subcompany.head_company.line3}}</p>
+                <p style="margin-left: 4.9rem;font-size:12px;">{{subcompany.head_company.line4}}</p>
             </td>
         </tr>
     </table>
-
+        <p style="margin-left: 4.5rem; font-size:15px;">{{subcompany.head_company.description}} PACKAGING</p>
+        <br>
+        <br>
+        <br>
+        <br>
+        
     <table>
         <tr>
-            <td style="margin-left: 6.2rem; font-size:12px;">{{subcompany.head_company.description}}</td>
-            <td style="margin-left: 22rem; font-size:12px;">{{subcompany.weight}}</td>
-            <td style="margin-left: 11rem; font-size:12px;">£{{subcompany.head_company.unit_price}}</td>
-            <td style="margin-left: 4.3rem; font-size:12px;">
+            <td style="margin-left: 5.9rem; font-size:12px;">{{subcompany.head_company.description}}</td>
+            <td style="margin-left: 21.5rem; font-size:12px;">{{subcompany.weight}}</td>
+            <td style="margin-left: 13.5rem; font-size:12px;">{{subcompany.head_company.unit_price|floatformat:2}}</td>
+            <td style="margin-left: 6.5rem; font-size:12px;">
                 {% with a=subcompany.weight b=subcompany.head_company.unit_price %}
             
         
@@ -77,8 +83,8 @@
         </tr>
     </table>
 
-    <p style="margin-top: 11.8rem; margin-left: 35rem; font-size:13px;">{{subcompany.weight}}</p>
-    <p style="margin-left: 40.5rem; margin-top: 1.7rem; font-size:16px; font-weight:bolder;">
+    <p style="margin-top: 11.5rem; margin-left: 35rem; font-size:13px;">{{subcompany.weight}}</p>
+    <p style="margin-left: 40.8rem; margin-top: 1.7rem; font-size:16px; font-weight:bolder;">
         {% with a=subcompany.weight b=subcompany.head_company.unit_price %}
             
         
