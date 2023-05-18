@@ -1,4 +1,3 @@
-
 from django.urls import path
 from .views import *
 
@@ -23,8 +22,10 @@ urlpatterns = [
     path('createpdfsub_five/<int:id>/', render_pdf_view_kt, name="createpdfsub_five"),
     path('createpdfsub_six/<int:id>/', render_pdf_view_Revolution, name="createpdfsub_six"),
     path('createpdfsub_seven/<int:id>/', render_pdf_view_PWR, name="createpdfsub_seven"),
+    path('createpdfsub_eight/<int:id>/', render_pdf_view_B9, name="createpdfsub_eight"),
+
     path('createpdfclient/<int:id>/', render_pdf_view_clientcompany, name="createpdfclient"),
-    path('createpdfclient_one/<int:id>/', render_pdf_view_clientcompany, name="createpdfclient_one"),
+
     path('exportcompany/', export_data_to_excel_headcompany, name="exportcompany"),
     path('exportsubcompany/', export_data_to_excel_subcompany, name="exportsubcompany"),
     path('exportclientcompany/', export_data_to_excel_clientcompany, name="exportclientcompany"),
@@ -32,7 +33,6 @@ urlpatterns = [
     path('exportsubcompanyhead/<int:id>/', export_data_to_excel_subcompany_head, name="exportsubcompanyhead"),
     path('updatesub/<int:id>/', updatesubview, name="updatesub"),
     path('updateclient/<int:id>/', updateclientview, name="updateclient"),
-
 
     path('subcompanyone/<int:id>/', SubCompanyOneView.as_view(), name="subcompanyone"),
     path('clientcompanyone/<int:id>/', ClientCompanyOneView.as_view(), name="clientcompanyone"),

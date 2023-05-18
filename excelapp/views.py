@@ -18,12 +18,11 @@ from django.conf import settings
 from django.contrib import messages
 import pandas as pd
 
-# Create your views here.
+
 class HomeView(View):
     def get(self, request):
         headcom = HeadCompany.objects.all()
         return render(request, "index.html", {'head' : headcom})
-
 
 class HeadCompanyView(View):
     def get(self, request):
@@ -47,18 +46,12 @@ class DeleteHeadCompany(View):
         messages.error(request, "Deleted Successfully")
         return redirect('/headcompany')
 
-
-
 def export_data_to_excel_headcompany(request):
     your_model_resource = HeadCompanyModelResource()
     dataset = your_model_resource.export()
     response = HttpResponse(dataset.xls, content_type='application/vnd.ms-excel')
     response['Content-Disposition'] = 'attachment; filename="headcompany.xls"'
     return response
-
-
-
-        
 
 
 class EditHeadCompany(View):
@@ -86,30 +79,16 @@ def export_data_to_excel_subcompany(request):
 def render_pdf_view_s_anda_s_management(request, id):
     subcompany = SubCompany.objects.get(id=id)
     name = subcompany.name
-  
-    
-
-  
     template_path = 'S&S_managemnet.html'
-
     context = {'subcompany': subcompany}
-
     response = HttpResponse(content_type='application/pdf')
-
     response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
-
     template = get_template(template_path)
-
     html = template.render(context)
-
-    
     pisa_status = pisa.CreatePDF(html, dest=response)
-   
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
-
-
 
 
 
@@ -138,7 +117,6 @@ def render_pdf_view_bina(request, id):
     response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
     template = get_template(template_path)
     html = template.render(context)
-
     pisa_status = pisa.CreatePDF(
        html, dest=response)
    
@@ -235,6 +213,22 @@ def render_pdf_view_PWR(request, id):
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
 
+
+def render_pdf_view_B9(request, id):
+    subcompany = SubCompany.objects.get(id=id)
+    name = subcompany.name
+    template_path = 'b9.html'
+    context = {'subcompany': subcompany}
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
+    template = get_template(template_path)
+    html = template.render(context)
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+   
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
 
 def export_data_to_excel_subcompany(request):
     instances = SubCompany.objects.filter()
@@ -369,7 +363,6 @@ class SubcompanyDeleteView(View):
         messages.error(request, "Deleted Successfully")
         return redirect(f'/subcompanyone/{id2}/')
 
-
 class ClientcompanyDeleteView(View):
     def get(self, request, id, id2):
         pi = ClientCompany.objects.get(id=id)
@@ -465,7 +458,8 @@ class SubCompanySplit(View):
             drop_time = current_time
             vehicle = placelist[i]
             drop = drop
-            weight = num
+            if numbers[i] > 0:
+                weight = numbers[i]
             new_date = date_time.strftime('%d-%m-%Y')
             new_time = drop_time.strftime('%H:%M')
             row_num += 1
@@ -475,9 +469,6 @@ class SubCompanySplit(View):
 
         wb.save(response)
         return response
-
-
-
 
 class ClientCompanySplit(View):
     def get(self, request, id):
@@ -501,12 +492,10 @@ class ClientCompanySplit(View):
             ws.write(row_num, col_num, column_title)
         value = int(valuenumber)
         num_parts = totalfetch
-        
         total = value
         n = num_parts
         range_min = float(rangenumbermin)
         range_max = float(rangenumber)
-
         numbers = []
         for i in range(n):
             num = random.uniform(range_min, range_max)
@@ -520,7 +509,6 @@ class ClientCompanySplit(View):
         for i in range(n+1):
             if drop <= 5:
                 drop+=1
-                
             else:
                 my_date = my_date + timedelta(days=int(1))
                 drop = 1
@@ -528,7 +516,8 @@ class ClientCompanySplit(View):
             drop_time = current_time
             vehicle = placelist[i]
             drop = drop
-            weight = num
+            if numbers[i] > 1:
+                weight = numbers[i]
             new_date = date_time.strftime('%d-%m-%Y')
             new_time = drop_time.strftime('%H:%M')
             row_num += 1
@@ -628,39 +617,14 @@ def export_data_to_excel_clientcompany(request):
 def render_pdf_view_clientcompany(request, id):
     clientcompany = ClientCompany.objects.get(id=id)
     name = clientcompany.name
-
     template_path = 'maintemplate.html'
-
-    context = {'clientcompany': clientcompany}
-
-    response = HttpResponse(content_type='application/pdf')
-
-    response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
-
-    template = get_template(template_path)
-    html = template.render(context)
-    pisa_status = pisa.CreatePDF(
-       html, dest=response)
-   
-    if pisa_status.err:
-        return HttpResponse('We had some errors <pre>' + html + '</pre>')
-    return response
-
-
-
-def render_pdf_view_clientcompany_one(request, id):
-    clientcompany = ClientCompany.objects.get(id=id)
-    name = clientcompany.name
-    template_path = 'clientcompanypdf1.html'
     context = {'clientcompany': clientcompany}
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
     template = get_template(template_path)
     html = template.render(context)
-
     pisa_status = pisa.CreatePDF(
        html, dest=response)
-   
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
@@ -681,7 +645,6 @@ def import_excel(request):
             column8_value = row['date']
             column9_value = row['invoicedate']
 
-            
             try:
                 model_instance = SubCompany.objects.get(name=column1_value)
                 date_object = datetime.strptime(column8_value, '%d-%m-%Y')

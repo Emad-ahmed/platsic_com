@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block title %} Home {% endblock %}
+{% block title %} Client Company {% endblock %}
 
 {% block content %}  
 
@@ -151,8 +151,16 @@
       <button type="button " class="btn btn-primary ms-4 addcom" data-bs-toggle="modal" data-bs-target="#exampleModal">
           Add Client Company
       </button>
-      <a  href="/exportclientcompany" class="btn btn-primary exportbtn" >
+      <a  href="/exportclientcompany" class="btn btn-primary exportbtn ms-4" >
           Export
+      </a>
+
+      <a  href="#" class="btn btn-primary exportbtn" onclick="openLinks(event)" >
+        All Pdf Download
+      </a>
+  
+      <a  href="#" class="btn btn-primary exportbtn me-4" onclick="openLinksSplit(event)" >
+        All Split Download
       </a>
   
     <table data-replace="jtable" id="example" aria-label="JS Datatable" data-locale="en" data-search="true">
@@ -251,6 +259,52 @@
           const inputField = document.getElementById('myInputDate');
           inputField.value = myid;
       
+        }
+      </script>
+
+
+      <script>
+        function openLinks(event) {
+          event.preventDefault();
+    
+          var links = [
+            "{% url 'createpdfclient' 1 %}",
+            "{% url 'createpdfclient' 6 %}",
+            "{% url 'createpdfclient' 7 %}",
+            "{% url 'createpdfclient' 8 %}",
+            "{% url 'createpdfclient' 9 %}",
+            "{% url 'createpdfclient' 10 %}",
+            "{% url 'createpdfclient' 11 %}",
+            "{% url 'createpdfclient' 12 %}",
+            "{% url 'createpdfclient' 13 %}"
+            // Add more URL patterns here
+          ];
+    
+          links.forEach(function(url) {
+            window.open(url, "_blank");
+          });
+        }
+      </script>
+  
+      <script>
+        function openLinksSplit(event) {
+          event.preventDefault();
+    
+          var links = [
+            "{% url 'clientcompnaysplit' 1 %}",
+            "{% url 'clientcompnaysplit' 6 %}",
+            "{% url 'clientcompnaysplit' 7 %}",
+            "{% url 'clientcompnaysplit' 8 %}",
+            "{% url 'clientcompnaysplit' 9 %}",
+            "{% url 'clientcompnaysplit' 10 %}",
+            "{% url 'clientcompnaysplit' 11 %}",
+            "{% url 'clientcompnaysplit' 12 %}"
+            // Add more URL patterns here
+          ];
+    
+          links.forEach(function(url) {
+            window.open(url, "_blank");
+          });
         }
       </script>
 

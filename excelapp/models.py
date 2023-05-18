@@ -31,7 +31,7 @@ class SubCompany(models.Model):
 
 
     def __str__(self):
-        return self.name
+        return f"{self.id} {self.name} {self.urlname}"
 
 class ClientCompany(models.Model):
     head_company = models.ForeignKey(HeadCompany, on_delete=models.CASCADE)

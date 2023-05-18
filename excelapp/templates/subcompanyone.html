@@ -141,7 +141,16 @@
   <button type="button " class="btn btn-primary ms-4 addcom" data-bs-toggle="modal" data-bs-target="#exampleModal">
     Add Sub Company
 </button>
-    <a  href="{% url 'exportsubcompanyhead' myid %}" class="btn btn-primary exportbtn" >
+
+    <a  href="#" class="btn btn-primary exportbtn" onclick="openLinks(event)" >
+      All Pdf Download
+    </a>
+
+    <a  href="#" class="btn btn-primary exportbtn me-4" onclick="openLinksSplit(event)" >
+      All Split Download
+    </a>
+
+    <a  href="{% url 'exportsubcompanyhead' myid %}" class="btn btn-primary exportbtn ms-4 me-4" >
         Export
     </a>
 
@@ -213,6 +222,7 @@
                         <a href="{% url 'createpdfsub_five' sub.id %}">KT Plastic</a>
                         <a href="{% url 'createpdfsub_six' sub.id %}">Revolution</a>
                         <a href="{% url 'createpdfsub_seven' sub.id %}">PWR</a>
+                        <a href="{% url 'createpdfsub_eight' sub.id %}">B9</a>
                       </div>
                     </div></td>
                     <td><a href="{% url 'subcompnaysplit' sub.id %}" class="btn btn-warning">Split</a></td>
@@ -247,6 +257,51 @@
         const inputField = document.getElementById('myInputNumber');
         inputField.value = myid;
     
+      }
+    </script>
+
+    <script>
+      function openLinks(event) {
+        event.preventDefault();
+  
+        var links = [
+          "{% url 'createpdfsub' 11 %}",
+          "{% url 'createpdfsub_one' 13 %}",
+          "{% url 'createpdfsub_two' 9 %}",
+          "{% url 'createpdfsub_three' 27 %}",
+          "{% url 'createpdfsub_four' 6 %}",
+          "{% url 'createpdfsub_five' 5 %}",
+          "{% url 'createpdfsub_six' 10 %}",
+          "{% url 'createpdfsub_seven' 12 %}",
+          "{% url 'createpdfsub_eight' 28 %}"
+          // Add more URL patterns here
+        ];
+  
+        links.forEach(function(url) {
+          window.open(url, "_blank");
+        });
+      }
+    </script>
+
+    <script>
+      function openLinksSplit(event) {
+        event.preventDefault();
+  
+        var links = [
+          "{% url 'subcompnaysplit' 11 %}",
+          "{% url 'subcompnaysplit' 13 %}",
+          "{% url 'subcompnaysplit' 9 %}",
+          "{% url 'subcompnaysplit' 27 %}",
+          "{% url 'subcompnaysplit' 6 %}",
+          "{% url 'subcompnaysplit' 5 %}",
+          "{% url 'subcompnaysplit' 10 %}",
+          "{% url 'subcompnaysplit' 12 %}"
+          // Add more URL patterns here
+        ];
+  
+        links.forEach(function(url) {
+          window.open(url, "_blank");
+        });
       }
     </script>
 
