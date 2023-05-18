@@ -421,7 +421,7 @@ class SubCompanySplit(View):
         columns = ['date_time', 'drop_time', 'vehicle', 'drop', 'weight']
         for col_num, column_title in enumerate(columns):
             ws.write(row_num, col_num, column_title)
-        value = int(valuenumber)
+        value = float(valuenumber)
         num_parts = totalfetch
 
         total = value
@@ -432,8 +432,7 @@ class SubCompanySplit(View):
         numbers = []
         for i in range(n):
             num = random.uniform(range_min, range_max)
-            num = round(num, 2)
-
+            num = round(num, 2)  
             numbers.append(num)
 
         numbers.append(total - sum(numbers))
@@ -453,7 +452,7 @@ class SubCompanySplit(View):
                 my_date = my_date + timedelta(days=int(1))
                 drop = 1
            
-            sub_company = splitcompany.name
+            
             date_time = my_date
             drop_time = current_time
             vehicle = placelist[i]
