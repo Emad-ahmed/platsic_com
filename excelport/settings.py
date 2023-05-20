@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.humanize',
     'excelapp',
     'import_export',
 ]
@@ -88,8 +89,8 @@ DATABASES = {
                 'NAME': BASE_DIR / 'db.sqlite3',
             }
     }
-# else:
-#     DATABASES = {
+
+# DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
 #         'NAME': 'ExcelPort',
@@ -100,6 +101,16 @@ DATABASES = {
 #     }
 # }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'ExcelPort',
+#         'USER': 'emad',
+#         'PASSWORD': 'amadking123',
+#         'HOST': 'postgres',  
+#         'PORT': '5432',  
+#     }
+# }
 
 
 

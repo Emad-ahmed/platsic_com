@@ -7,6 +7,14 @@ urlpatterns = [
     path('headcompany/', HeadCompanyView.as_view(), name="headcompany"),
     
     path('subcompanyupdate/<int:id>/<int:id2>/', SubcompanyUpdateView.as_view(), name="subcompanyupdate"),
+
+    path('previoussubcom/<int:id>/', PreviousSubCom.as_view(), name="previoussubcom"),
+    path('previousdelete/<int:id>/', PreviousSubComDelete.as_view(), name="previousdelete"),
+
+    path('previoussubclient/<int:id>/', PreviousSubClient.as_view(), name="previoussubclient"),
+    path('previousdelete_client/<int:id>/', PreviousSubClientDelete.as_view(), name="previousdelete_client"),
+
+
     path('subcompanydelete/<int:id>/<int:id2>/', SubcompanyDeleteView.as_view(), name="subcompanydelete"),
     path('clientcompanyupdate/<int:id>/<int:id2>/', ClientcompanyUpdateView.as_view(), name="clientcompanyupdate"),
     path('clientcompanydelete/<int:id>/<int:id2>/', ClientcompanyDeleteView.as_view(), name="clientcompanydelete"),
@@ -39,7 +47,7 @@ urlpatterns = [
 
     path('updateinvoicce_date', InvoiceDateUpdateView.as_view(), name="updateinvoicce_date"),
     path('updateinvoicce_number', InvoiceNumberUpdateView.as_view(), name="updateinvoicce_number"),
-    
+
     path('subcompnaysplit/<int:id>/', SubCompanySplit.as_view(), name="subcompnaysplit"),
     path('clientcompnaysplit/<int:id>/', ClientCompanySplit.as_view(), name="clientcompnaysplit"),
 

@@ -142,15 +142,19 @@
     Add Sub Company
 </button>
 
-    <a  href="#" class="btn btn-primary exportbtn" onclick="openLinks(event)" >
+    <a  href="{% url 'previoussubcom' myid %}" class="btn btn-primary exportbtn ms-4 me-4" >
+      Previous Data
+    </a>
+
+    <a  href="#" class="btn btn-info" onclick="openLinks(event)" >
       All Pdf Download
     </a>
 
-    <a  href="#" class="btn btn-primary exportbtn me-4" onclick="openLinksSplit(event)" >
+    <a  href="#" class="btn btn-warning me-4" onclick="openLinksSplit(event)" >
       All Split Download
     </a>
 
-    <a  href="{% url 'exportsubcompanyhead' myid %}" class="btn btn-primary exportbtn ms-4 me-4" >
+    <a  href="{% url 'exportsubcompanyhead' myid %}" class="btn btn-success text-white  ms-4 me-4" >
         Export
     </a>
 
@@ -265,15 +269,15 @@
         event.preventDefault();
   
         var links = [
-          "{% url 'createpdfsub' 11 %}",
-          "{% url 'createpdfsub_one' 13 %}",
-          "{% url 'createpdfsub_two' 9 %}",
-          "{% url 'createpdfsub_three' 27 %}",
-          "{% url 'createpdfsub_four' 6 %}",
-          "{% url 'createpdfsub_five' 5 %}",
-          "{% url 'createpdfsub_six' 10 %}",
-          "{% url 'createpdfsub_seven' 12 %}",
-          "{% url 'createpdfsub_eight' 28 %}"
+          "{% url 'createpdfsub' 6 %}",
+          "{% url 'createpdfsub_one' 8 %}",
+          "{% url 'createpdfsub_two' 4 %}",
+          "{% url 'createpdfsub_three' 1 %}",
+          "{% url 'createpdfsub_four' 3 %}",
+          "{% url 'createpdfsub_five' 2 %}",
+          "{% url 'createpdfsub_six' 5 %}",
+          "{% url 'createpdfsub_seven' 7 %}",
+          "{% url 'createpdfsub_eight' 9 %}"
           // Add more URL patterns here
         ];
   
@@ -288,14 +292,15 @@
         event.preventDefault();
   
         var links = [
-          "{% url 'subcompnaysplit' 11 %}",
-          "{% url 'subcompnaysplit' 13 %}",
-          "{% url 'subcompnaysplit' 9 %}",
-          "{% url 'subcompnaysplit' 27 %}",
           "{% url 'subcompnaysplit' 6 %}",
+          "{% url 'subcompnaysplit' 8 %}",
+          "{% url 'subcompnaysplit' 4 %}",
+          "{% url 'subcompnaysplit' 1 %}",
+          "{% url 'subcompnaysplit' 3 %}",
+          "{% url 'subcompnaysplit' 2 %}",
           "{% url 'subcompnaysplit' 5 %}",
-          "{% url 'subcompnaysplit' 10 %}",
-          "{% url 'subcompnaysplit' 12 %}"
+          "{% url 'subcompnaysplit' 7 %}",
+          "{% url 'subcompnaysplit' 9 %}"
           // Add more URL patterns here
         ];
   

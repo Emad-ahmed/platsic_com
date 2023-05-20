@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from excelapp.models import HeadCompany, SubCompany, ClientCompany, SplitCompnay
+from excelapp.models import HeadCompany, SubCompany, ClientCompany, SplitCompnay, PreviousDataSubCompany, PreviousDataClientCompany
+import zipfile
 from django.http import HttpResponse
 from .resources import HeadCompanyModelResource, SubCompanyModelResource, ClientCompanyModelResource, SplitCompanyModelResource
 from .forms import HeadForm, SubcompanyForm, ClientCompanyForm, SubcompanyUpdateForm, ClientcompanyUpdateForm
@@ -17,7 +18,11 @@ import xlwt
 from django.conf import settings
 from django.contrib import messages
 import pandas as pd
+import zipfile
 
+
+def add_pdf_to_zip(pdf_path, zip_file, zip_filename):
+    zip_file.write(pdf_path, zip_filename)
 
 class HomeView(View):
     def get(self, request):
@@ -88,6 +93,16 @@ def render_pdf_view_s_anda_s_management(request, id):
     pisa_status = pisa.CreatePDF(html, dest=response)
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    
+    zip_filename = f'{name}.zip'
+    with zipfile.ZipFile(zip_filename, 'w') as zip_file:
+        zip_file.writestr(f'{name}.pdf', response.content)
+
+    # Send the zip file as a response
+    with open(zip_filename, 'rb') as zip_file:
+        response = HttpResponse(zip_file.read(), content_type='application/zip')
+        response['Content-Disposition'] = f'attachment; filename="{name}.zip"'
+
     return response
 
 
@@ -105,6 +120,14 @@ def render_pdf_view_wp(request, id):
        html, dest=response)
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    zip_filename = f'{name}.zip'
+    with zipfile.ZipFile(zip_filename, 'w') as zip_file:
+        zip_file.writestr(f'{name}.pdf', response.content)
+
+    # Send the zip file as a response
+    with open(zip_filename, 'rb') as zip_file:
+        response = HttpResponse(zip_file.read(), content_type='application/zip')
+        response['Content-Disposition'] = f'attachment; filename="{name}.zip"'
     return response
 
 
@@ -122,6 +145,15 @@ def render_pdf_view_bina(request, id):
    
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    zip_filename = f'{name}.zip'
+    with zipfile.ZipFile(zip_filename, 'w') as zip_file:
+        zip_file.writestr(f'{name}.pdf', response.content)
+
+    # Send the zip file as a response
+    with open(zip_filename, 'rb') as zip_file:
+        response = HttpResponse(zip_file.read(), content_type='application/zip')
+        response['Content-Disposition'] = f'attachment; filename="{name}.zip"'
+
     return response
 
 
@@ -141,6 +173,15 @@ def render_pdf_view_ds(request, id):
    
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    
+    zip_filename = f'{name}.zip'
+    with zipfile.ZipFile(zip_filename, 'w') as zip_file:
+        zip_file.writestr(f'{name}.pdf', response.content)
+
+    # Send the zip file as a response
+    with open(zip_filename, 'rb') as zip_file:
+        response = HttpResponse(zip_file.read(), content_type='application/zip')
+        response['Content-Disposition'] = f'attachment; filename="{name}.zip"'
     return response
 
 
@@ -158,6 +199,15 @@ def render_pdf_view_klp(request, id):
        html, dest=response)
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    zip_filename = f'{name}.zip'
+    with zipfile.ZipFile(zip_filename, 'w') as zip_file:
+        zip_file.writestr(f'{name}.pdf', response.content)
+
+    # Send the zip file as a response
+    with open(zip_filename, 'rb') as zip_file:
+        response = HttpResponse(zip_file.read(), content_type='application/zip')
+        response['Content-Disposition'] = f'attachment; filename="{name}.zip"'
+
     return response
 
 
@@ -176,6 +226,16 @@ def render_pdf_view_kt(request, id):
    
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    
+    zip_filename = f'{name}.zip'
+    with zipfile.ZipFile(zip_filename, 'w') as zip_file:
+        zip_file.writestr(f'{name}.pdf', response.content)
+
+    # Send the zip file as a response
+    with open(zip_filename, 'rb') as zip_file:
+        response = HttpResponse(zip_file.read(), content_type='application/zip')
+        response['Content-Disposition'] = f'attachment; filename="{name}.zip"'
+
     return response
 
 
@@ -193,6 +253,14 @@ def render_pdf_view_Revolution(request, id):
        html, dest=response)
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    zip_filename = f'{name}.zip'
+    with zipfile.ZipFile(zip_filename, 'w') as zip_file:
+        zip_file.writestr(f'{name}.pdf', response.content)
+
+    # Send the zip file as a response
+    with open(zip_filename, 'rb') as zip_file:
+        response = HttpResponse(zip_file.read(), content_type='application/zip')
+        response['Content-Disposition'] = f'attachment; filename="{name}.zip"'
     return response
 
 def render_pdf_view_PWR(request, id):
@@ -211,6 +279,14 @@ def render_pdf_view_PWR(request, id):
    
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    zip_filename = f'{name}.zip'
+    with zipfile.ZipFile(zip_filename, 'w') as zip_file:
+        zip_file.writestr(f'{name}.pdf', response.content)
+
+    # Send the zip file as a response
+    with open(zip_filename, 'rb') as zip_file:
+        response = HttpResponse(zip_file.read(), content_type='application/zip')
+        response['Content-Disposition'] = f'attachment; filename="{name}.zip"'
     return response
 
 
@@ -228,6 +304,14 @@ def render_pdf_view_B9(request, id):
    
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    
+    zip_filename = f'{name}.zip'
+    with zipfile.ZipFile(zip_filename, 'w') as zip_file:
+        zip_file.writestr(f'{name}.pdf', response.content)
+
+    with open(zip_filename, 'rb') as zip_file:
+        response = HttpResponse(zip_file.read(), content_type='application/zip')
+        response['Content-Disposition'] = f'attachment; filename="{name}.zip"'
     return response
 
 def export_data_to_excel_subcompany(request):
@@ -287,7 +371,6 @@ def export_data_to_excel_splitcompany(request, id):
     columns = ['date_time', 'drop_time', 'vehicle', 'drop', 'weight']
     for col_num, column_title in enumerate(columns):
         ws.write(row_num, col_num, column_title)
-    # Write the data rows to the Excel file
     for instance in instances:
         my_date = instance.date_time.strftime('%d-%m-%Y')
         time = instance.drop_time.strftime('%H:%M')
@@ -309,8 +392,11 @@ def updatesubview(request, id):
     number_to_divide = mynum
     my_instances = SubCompany.objects.filter(head_company = headcom)[:filternumber]
     part_sizes = []
-    mul = 1; 
+    mul = 1
+
     for i in my_instances:
+        subcomadd = PreviousDataSubCompany(myid = i.id,head_company = i.head_company, name = i.name, line1 = i.line1, line2=i.line2, line3 = i.line3, line4 = i.line4, urlname = i.urlname, weight = i.weight, Invoicenumber = i.Invoicenumber, invoicedate = i.invoicedate, rangemin = i.rangemin, rangemax = i.rangemax)
+        subcomadd.save()
         sumprint = mul * 4
         part_sizes.append(sumprint)
         mul+=1 
@@ -528,10 +614,15 @@ class ClientCompanySplit(View):
 
 
 class InvoiceDateUpdateView(View):
+    
     def post(self, request):
+        
         date = request.POST["date"]
         id = request.POST["myid"]
         my_instances = SubCompany.objects.get(id = id)
+        subcomadd = PreviousDataSubCompany(myid = my_instances.id,head_company = my_instances.head_company, name = my_instances.name, line1 = my_instances.line1, line2=my_instances.line2, line3 = my_instances.line3, line4 = my_instances.line4, urlname = my_instances.urlname, weight = my_instances.weight, Invoicenumber = my_instances.Invoicenumber, invoicedate = my_instances.invoicedate, rangemin = my_instances.rangemin, rangemax = my_instances.rangemax)
+        subcomadd.save()
+        
         my_instances.invoicedate = date
         my_instances.save()
         return redirect(request.META.get('HTTP_REFERER', '/'))
@@ -541,6 +632,9 @@ class InvoiceNumberUpdateView(View):
         innumber = request.POST["invoicenumber"]
         id = request.POST["myid"]
         my_instances = SubCompany.objects.get(id = id)
+        subcomadd = PreviousDataSubCompany(myid = my_instances.id,head_company = my_instances.head_company, name = my_instances.name, line1 = my_instances.line1, line2=my_instances.line2, line3 = my_instances.line3, line4 = my_instances.line4, urlname = my_instances.urlname, weight = my_instances.weight, Invoicenumber = my_instances.Invoicenumber, invoicedate = my_instances.invoicedate, rangemin = my_instances.rangemin, rangemax = my_instances.rangemax)
+        subcomadd.save()
+
         my_instances.Invoicenumber = innumber
         my_instances.save()
         return redirect(request.META.get('HTTP_REFERER', '/'))
@@ -550,19 +644,10 @@ class UpdateClinetViewWeight(View):
         myid = request.POST['myid']
         weight = request.POST["weight"]
         my_instances = ClientCompany.objects.get(id = myid)
+        subcomadd = PreviousDataClientCompany(myid = my_instances.id,head_company = my_instances.head_company, name = my_instances.name, line1 = my_instances.line1, line2=my_instances.line2, line3 = my_instances.line3, line4 = my_instances.line4, urlname = my_instances.urlname, weight = my_instances.weight, Invoicenumber = my_instances.Invoicenumber, invoicedate = my_instances.invoicedate, rangemin = my_instances.rangemin, rangemax = my_instances.rangemax)
+        subcomadd.save()
         my_instances.weight = weight
         my_instances.save()
-        # if(request.POST["invoicenumber"]):
-        #     invoicenumber = request.POST["invoicenumber"]
-        #     my_instances = ClientCompany.objects.get(id = myid)
-        #     my_instances.Invoicenumber  = invoicenumber
-        #     my_instances.save()
-        # if(request.POST["invoicedate"]):
-        #     indate = request.POST["invoicedate"]
-        #     my_instances = ClientCompany.objects.get(id = myid)
-        #     my_instances.invoicedate = indate
-        #     my_instances.save()
-
         return redirect(request.META.get('HTTP_REFERER', '/'))
 
 
@@ -571,6 +656,8 @@ class UpdateClinetViewWeight(View):
         myid = request.POST['myid']
         weight = request.POST["weight"]
         my_instances = ClientCompany.objects.get(id = myid)
+        subcomadd = PreviousDataClientCompany(myid = my_instances.id,head_company = my_instances.head_company, name = my_instances.name, line1 = my_instances.line1, line2=my_instances.line2, line3 = my_instances.line3, line4 = my_instances.line4, urlname = my_instances.urlname, weight = my_instances.weight, Invoicenumber = my_instances.Invoicenumber, invoicedate = my_instances.invoicedate, rangemin = my_instances.rangemin, rangemax = my_instances.rangemax)
+        subcomadd.save()
         my_instances.weight = weight
         my_instances.save()
         return redirect(request.META.get('HTTP_REFERER', '/'))
@@ -581,6 +668,8 @@ class UpdateClinetViewInvoice(View):
         myid = request.POST['myid']
         invoicenumber = request.POST["invoicenumber"]
         my_instances = ClientCompany.objects.get(id = myid)
+        subcomadd = PreviousDataClientCompany(myid = my_instances.id,head_company = my_instances.head_company, name = my_instances.name, line1 = my_instances.line1, line2=my_instances.line2, line3 = my_instances.line3, line4 = my_instances.line4, urlname = my_instances.urlname, weight = my_instances.weight, Invoicenumber = my_instances.Invoicenumber, invoicedate = my_instances.invoicedate, rangemin = my_instances.rangemin, rangemax = my_instances.rangemax)
+        subcomadd.save()
         my_instances.Invoicenumber  = invoicenumber
         my_instances.save()
         return redirect(request.META.get('HTTP_REFERER', '/'))
@@ -591,6 +680,8 @@ class UpdateClinetViewDate(View):
         myid = request.POST['myid']
         indate = request.POST["invoicedate"]
         my_instances = ClientCompany.objects.get(id = myid)
+        subcomadd = PreviousDataClientCompany(myid = my_instances.id,head_company = my_instances.head_company, name = my_instances.name, line1 = my_instances.line1, line2=my_instances.line2, line3 = my_instances.line3, line4 = my_instances.line4, urlname = my_instances.urlname, weight = my_instances.weight, Invoicenumber = my_instances.Invoicenumber, invoicedate = my_instances.invoicedate, rangemin = my_instances.rangemin, rangemax = my_instances.rangemax)
+        subcomadd.save()
         my_instances.invoicedate = indate
         my_instances.save()
         return redirect(request.META.get('HTTP_REFERER', '/'))
@@ -626,6 +717,15 @@ def render_pdf_view_clientcompany(request, id):
        html, dest=response)
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    
+    zip_filename = f'{name}.zip'
+    with zipfile.ZipFile(zip_filename, 'w') as zip_file:
+        zip_file.writestr(f'{name}.pdf', response.content)
+
+    # Send the zip file as a response
+    with open(zip_filename, 'rb') as zip_file:
+        response = HttpResponse(zip_file.read(), content_type='application/zip')
+        response['Content-Disposition'] = f'attachment; filename="{name}.zip"'
     return response
 
 
@@ -667,4 +767,31 @@ def import_excel(request):
                 pass
             
         return redirect(request.META.get('HTTP_REFERER', '/'))
-    
+
+class PreviousSubCom(View):
+    def get(self, request, id):
+        headcom = HeadCompany.objects.get(id=id)
+        subview = PreviousDataSubCompany.objects.filter(head_company__id = id)
+        return render(request, 'previoussubcom.html', {'subview' : subview, 'myid' : id, 'name': headcom.name})
+
+
+class PreviousSubComDelete(View):
+    def get(self, request, id):
+        subview = PreviousDataSubCompany.objects.get(id = id)
+        subview.delete()
+        return redirect(f'/previoussubcom/{subview.head_company.id}/')
+
+
+
+class PreviousSubClient(View):
+    def get(self, request, id):
+        headcom = HeadCompany.objects.get(id=id)
+        subview = PreviousDataClientCompany.objects.filter(head_company__id = id)
+        return render(request, 'previoussubclient.html', {'subview' : subview, 'myid' : id, 'name': headcom.name})
+
+
+class PreviousSubClientDelete(View):
+    def get(self, request, id):
+        subview = PreviousDataClientCompany.objects.get(id = id)
+        subview.delete()
+        return redirect(f'/previoussubclient/{subview.head_company.id}/')

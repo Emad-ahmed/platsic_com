@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+{% load humanize %}
+{% block content %}  
+
+<style>
+    table{
+        width:100%;
+    }
+    .activebutton
+    {
+      background: #0DCAF0;
+      color:white;
+    }
+    .activesub
+    {
+      background: #5ADBB5;
+    }
+    
+</style>
+
+
+<div class="container formneed">
+  <div class="companyviewbutton mt-4 ms-4">
+    <a href="{% url 'subcompanyone' myid %}" class="btn btn-outline-info me-3 activebutton">Subcompany</a>
+    <a href="{% url 'clientcompanyone' myid %}" class="btn btn-outline-warning">Clientcompany</a>
+</div>
+  <div>
+        <h1 class="text-center mb-4 mt-4">{{name}} Previous Data</h1>
+
+
+        <table data-replace="jtable" id="example" aria-label="JS Datatable" data-locale="en" data-search="true">
+                
+                  <thead>
+                    <tr>
+                        <th>Name<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                        <th>Line1<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                        <th>Line2<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                        <th>Line3<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                        <th>Line4<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                        <th>Weight<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                        <th>Invoicenumber<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                        <th>Invoicedate<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                        <th>Template<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                        <th>Choose Template<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                        <th>Split<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                        <th>Action<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for sub in  subview %}
+                    <tr>
+                        <td>{{sub.name}}</td>
+                        <td>{{sub.line1}}</td>
+                        <td>{{sub.line2}}</td>
+                        <td>{{sub.line3}}</td>
+                        <td>{{sub.line4}}</td>
+                        <td>{{sub.weight}}</td>
+                        <td>{{sub.Invoicenumber}}</td>
+                        <td>
+                          {% with sub.invoicedate|date:"m-d-Y" as formatted_date %}
+                              {{ formatted_date }}
+                          {% endwith %}
+                        </td>
+                    
+                        <td><a href="/{{sub.urlname}}/{{sub.myid}}" class="btn btn-warning">Download</a></td>
+                        <td>
+                          <div class="dropdown">
+                            <button class="dropbtn">Invoice</button>
+                            <div class="dropdown-content">
+                              <a href="{% url 'createpdfsub' sub.myid %}">S&S Management</a>
+                              <a href="{% url 'createpdfsub_one' sub.myid %}">WP Services</a>
+                              <a href="{% url 'createpdfsub_two' sub.myid %}">Bina Solutions</a>
+                              <a href="{% url 'createpdfsub_three' sub.myid %}">D&G Solutions</a>
+                              <a href="{% url 'createpdfsub_four' sub.myid %}">KLP Constructions</a>
+                              <a href="{% url 'createpdfsub_five' sub.myid %}">KT Plastic</a>
+                              <a href="{% url 'createpdfsub_six' sub.myid %}">Revolution</a>
+                              <a href="{% url 'createpdfsub_seven' sub.myid %}">PWR</a>
+                              <a href="{% url 'createpdfsub_eight' sub.myid %}">B9</a>
+                            </div>
+                          </div>
+                      </td>
+                        <td><a href="{% url 'subcompnaysplit' sub.myid %}" class="btn btn-warning">Split</a></td>
+                        <td><a href="{% url 'previousdelete' sub.myid  %}" class="btn btn-danger">Delete</a></td>
+                    {% endfor %}
+                    </tr>
+                </tbody>
+
+
+              </table>
+
+
+  </div>
+
+</div>
+
+
+
+
+{% endblock %}
+

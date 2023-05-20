@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block title %} Home {% endblock %}
+{% load humanize %}
+{% block content %}  
+
+<style>
+    table{
+        width:100%;
+    }
+    .activebutton
+    {
+      background: #0DCAF0;
+      color:white;
+    }
+    .activesub
+    {
+      background: #5ADBB5;
+    }
+    
+</style>
+
+
+<div class="container formneed">
+    <div class="companyviewbutton mt-4 ms-4">
+        <a href="{% url 'subcompanyone' myid %}" class="btn btn-outline-info me-3">Subcompany</a>
+        <a href="{% url 'clientcompanyone' myid %}" class="btn btn-outline-warning activebutton">Clientcompany</a>
+  </div>
+  <div>
+        <h1 class="text-center mb-4 mt-4">{{name}} Previous Data</h1>
+
+
+        <table data-replace="jtable" id="example" aria-label="JS Datatable" data-locale="en" data-search="true">
+                
+                  <thead>
+                    <tr>
+                        <th>Name<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                        <th>Line1<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                        <th>Line2<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                        <th>Line3<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                        <th>Line4<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                        <th>Weight<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                        <th>Invoicenumber<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                        <th>Invoicedate<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                        <th>Template<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                        <th>Choose Template<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                        <th>Split<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                        <th>Action<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for sub in  subview %}
+                    <tr>
+                        <td>{{sub.name}}</td>
+                        <td>{{sub.line1}}</td>
+                        <td>{{sub.line2}}</td>
+                        <td>{{sub.line3}}</td>
+                        <td>{{sub.line4}}</td>
+                        <td>{{sub.weight}}</td>
+                        <td>{{sub.Invoicenumber}}</td>
+                        <td>
+                          {% with sub.invoicedate|date:"m-d-Y" as formatted_date %}
+                              {{ formatted_date }}
+                          {% endwith %}
+                        </td>
+
+                        <td><a href="/{{sub.urlname}}/{{sub.myid}}" class="btn btn-warning">Download</a></td>
+                        <td>
+                          <div class="dropdown">
+                            <button class="dropbtn">Invoice</button>
+                            <div class="dropdown-content">
+                            <a href="{% url 'createpdfclient' sub.myid %}">Template 1</a>
+                            </div>
+                          </div>
+                      </td>
+                        <td><a href="{% url 'subcompnaysplit' sub.myid %}" class="btn btn-warning">Split</a></td>
+                        <td><a href="{% url 'previousdelete_client' sub.id  %}" class="btn btn-danger">Delete</a></td>
+                    {% endfor %}
+                    </tr>
+                </tbody>
+
+
+              </table>
+
+
+  </div>
+
+</div>
+
+
+
+
+{% endblock %}
+

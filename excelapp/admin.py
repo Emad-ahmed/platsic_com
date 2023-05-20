@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import HeadCompany,SubCompany, ClientCompany, SplitCompnay
+from .models import HeadCompany,SubCompany, ClientCompany, SplitCompnay, PreviousDataSubCompany, PreviousDataClientCompany
 from import_export.admin import ImportExportModelAdmin
 
 @admin.register(HeadCompany)
@@ -16,4 +16,12 @@ class ClientCompanyAdmin(ImportExportModelAdmin):
 
 @admin.register(SplitCompnay)
 class SplitCompnayAdmin(ImportExportModelAdmin):
+    pass
+
+@admin.register(PreviousDataSubCompany)
+class PreviousDataSubCompanyAdmin(ImportExportModelAdmin):
+    pass
+
+@admin.register(PreviousDataClientCompany)
+class PreviousDataClientCompanyAdmin(ImportExportModelAdmin):
     pass
