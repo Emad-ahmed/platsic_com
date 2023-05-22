@@ -146,13 +146,38 @@
       Previous Data
     </a>
 
+    {% if myid == 3 %}
     <a  href="#" class="btn btn-info" onclick="openLinks(event)" >
       All Pdf Download
     </a>
+    {% elif myid == 4 %}
+    <a  href="#" class="btn btn-info" onclick="openLinksBiofuelWood(event)" >
+      All Pdf Download
+    </a>
+    {% elif myid == 5 %}
+    <a  href="#" class="btn btn-info" onclick="openLinksBiofuelPlastic(event)" >
+      All Pdf Download
+    </a>
+    {% endif %}
 
+    {% if myid == 3 %}
     <a  href="#" class="btn btn-warning me-4" onclick="openLinksSplit(event)" >
       All Split Download
     </a>
+    {% elif myid == 4 %}
+    
+    <a  href="#" class="btn btn-warning me-4" onclick="openLinksSplitBiofuelWood(event)" >
+      All Split Download
+    </a>
+
+    {% elif myid == 5 %}
+    
+    <a  href="#" class="btn btn-warning me-4" onclick="openLinksSplitBiofuelPlastic(event)" >
+      All Split Download
+    </a>
+    
+    {% endif %}
+
 
     <a  href="{% url 'exportsubcompanyhead' myid %}" class="btn btn-success text-white  ms-4 me-4" >
         Export
@@ -213,7 +238,7 @@
                       >Edit</a
                     >
                     </span>  </td>
-                 
+                    
                     <td><a href="/{{sub.urlname}}/{{sub.id}}" class="btn btn-warning">Download</a></td>
                     <td><div class="dropdown">
                       <button class="dropbtn">Invoice</button>
@@ -267,7 +292,7 @@
     <script>
       function openLinks(event) {
         event.preventDefault();
-  
+
         var links = [
           "{% url 'createpdfsub' 6 %}",
           "{% url 'createpdfsub_one' 8 %}",
@@ -288,6 +313,55 @@
     </script>
 
     <script>
+      function openLinksBiofuelWood(event) {
+        event.preventDefault();
+
+        var links = [
+          "{% url 'createpdfsub' 15 %}",
+          "{% url 'createpdfsub_one' 17 %}",
+          "{% url 'createpdfsub_two' 13 %}",
+          "{% url 'createpdfsub_three' 10 %}",
+          "{% url 'createpdfsub_four' 12 %}",
+          "{% url 'createpdfsub_five' 11 %}",
+          "{% url 'createpdfsub_six' 14 %}",
+          "{% url 'createpdfsub_seven' 16 %}",
+          "{% url 'createpdfsub_eight' 18 %}"
+          // Add more URL patterns here
+        ];
+  
+        links.forEach(function(url) {
+          window.open(url, "_blank");
+        });
+      }
+    </script>
+
+    <script>
+      function openLinksBiofuelPlastic(event) {
+        event.preventDefault();
+
+        var links = [
+          "{% url 'createpdfsub' 24 %}",
+          "{% url 'createpdfsub_one' 26 %}",
+          "{% url 'createpdfsub_two' 22 %}",
+          "{% url 'createpdfsub_three' 19 %}",
+          "{% url 'createpdfsub_four' 21 %}",
+          "{% url 'createpdfsub_five' 20 %}",
+          "{% url 'createpdfsub_six' 23 %}",
+          "{% url 'createpdfsub_seven' 25 %}",
+          "{% url 'createpdfsub_eight' 27 %}"
+          // Add more URL patterns here
+        ];
+  
+        links.forEach(function(url) {
+          window.open(url, "_blank");
+        });
+      }
+    </script>
+
+
+
+    {% comment %} SPlit {% endcomment %}
+    <script>
       function openLinksSplit(event) {
         event.preventDefault();
   
@@ -302,6 +376,52 @@
           "{% url 'subcompnaysplit' 7 %}",
           "{% url 'subcompnaysplit' 9 %}"
           // Add more URL patterns here
+        ];
+  
+        links.forEach(function(url) {
+          window.open(url, "_blank");
+        });
+      }
+    </script>
+
+    <script>
+      function openLinksSplitBiofuelWood(event) {
+        event.preventDefault();
+  
+        var links = [
+          "{% url 'subcompnaysplit' 10 %}",
+          "{% url 'subcompnaysplit' 11 %}",
+          "{% url 'subcompnaysplit' 12 %}",
+          "{% url 'subcompnaysplit' 13 %}",
+          "{% url 'subcompnaysplit' 14 %}",
+          "{% url 'subcompnaysplit' 15 %}",
+          "{% url 'subcompnaysplit' 16 %}",
+          "{% url 'subcompnaysplit' 17 %}",
+          "{% url 'subcompnaysplit' 18 %}"
+     
+        ];
+  
+        links.forEach(function(url) {
+          window.open(url, "_blank");
+        });
+      }
+    </script>
+
+    <script>
+      function openLinksSplitBiofuelPlastic(event) {
+        event.preventDefault();
+  
+        var links = [
+          "{% url 'subcompnaysplit' 19 %}",
+          "{% url 'subcompnaysplit' 20 %}",
+          "{% url 'subcompnaysplit' 21 %}",
+          "{% url 'subcompnaysplit' 22 %}",
+          "{% url 'subcompnaysplit' 23 %}",
+          "{% url 'subcompnaysplit' 24 %}",
+          "{% url 'subcompnaysplit' 25 %}",
+          "{% url 'subcompnaysplit' 26 %}",
+          "{% url 'subcompnaysplit' 27 %}"
+     
         ];
   
         links.forEach(function(url) {

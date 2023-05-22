@@ -93,16 +93,6 @@ def render_pdf_view_s_anda_s_management(request, id):
     pisa_status = pisa.CreatePDF(html, dest=response)
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
-    
-    zip_filename = f'{name}.zip'
-    with zipfile.ZipFile(zip_filename, 'w') as zip_file:
-        zip_file.writestr(f'{name}.pdf', response.content)
-
-    # Send the zip file as a response
-    with open(zip_filename, 'rb') as zip_file:
-        response = HttpResponse(zip_file.read(), content_type='application/zip')
-        response['Content-Disposition'] = f'attachment; filename="{name}.zip"'
-
     return response
 
 
@@ -120,14 +110,6 @@ def render_pdf_view_wp(request, id):
        html, dest=response)
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
-    zip_filename = f'{name}.zip'
-    with zipfile.ZipFile(zip_filename, 'w') as zip_file:
-        zip_file.writestr(f'{name}.pdf', response.content)
-
-    # Send the zip file as a response
-    with open(zip_filename, 'rb') as zip_file:
-        response = HttpResponse(zip_file.read(), content_type='application/zip')
-        response['Content-Disposition'] = f'attachment; filename="{name}.zip"'
     return response
 
 
@@ -142,18 +124,8 @@ def render_pdf_view_bina(request, id):
     html = template.render(context)
     pisa_status = pisa.CreatePDF(
        html, dest=response)
-   
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
-    zip_filename = f'{name}.zip'
-    with zipfile.ZipFile(zip_filename, 'w') as zip_file:
-        zip_file.writestr(f'{name}.pdf', response.content)
-
-    # Send the zip file as a response
-    with open(zip_filename, 'rb') as zip_file:
-        response = HttpResponse(zip_file.read(), content_type='application/zip')
-        response['Content-Disposition'] = f'attachment; filename="{name}.zip"'
-
     return response
 
 
@@ -166,22 +138,12 @@ def render_pdf_view_ds(request, id):
     response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
     template = get_template(template_path)
     html = template.render(context)
-
-    
     pisa_status = pisa.CreatePDF(
        html, dest=response)
-   
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     
-    zip_filename = f'{name}.zip'
-    with zipfile.ZipFile(zip_filename, 'w') as zip_file:
-        zip_file.writestr(f'{name}.pdf', response.content)
-
-    # Send the zip file as a response
-    with open(zip_filename, 'rb') as zip_file:
-        response = HttpResponse(zip_file.read(), content_type='application/zip')
-        response['Content-Disposition'] = f'attachment; filename="{name}.zip"'
+   
     return response
 
 
@@ -194,20 +156,10 @@ def render_pdf_view_klp(request, id):
     response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
     template = get_template(template_path)
     html = template.render(context)
-
     pisa_status = pisa.CreatePDF(
        html, dest=response)
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
-    zip_filename = f'{name}.zip'
-    with zipfile.ZipFile(zip_filename, 'w') as zip_file:
-        zip_file.writestr(f'{name}.pdf', response.content)
-
-    # Send the zip file as a response
-    with open(zip_filename, 'rb') as zip_file:
-        response = HttpResponse(zip_file.read(), content_type='application/zip')
-        response['Content-Disposition'] = f'attachment; filename="{name}.zip"'
-
     return response
 
 
@@ -220,22 +172,10 @@ def render_pdf_view_kt(request, id):
     response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
     template = get_template(template_path)
     html = template.render(context)
-
     pisa_status = pisa.CreatePDF(
        html, dest=response)
-   
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
-    
-    zip_filename = f'{name}.zip'
-    with zipfile.ZipFile(zip_filename, 'w') as zip_file:
-        zip_file.writestr(f'{name}.pdf', response.content)
-
-    # Send the zip file as a response
-    with open(zip_filename, 'rb') as zip_file:
-        response = HttpResponse(zip_file.read(), content_type='application/zip')
-        response['Content-Disposition'] = f'attachment; filename="{name}.zip"'
-
     return response
 
 
@@ -248,19 +188,10 @@ def render_pdf_view_Revolution(request, id):
     response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
     template = get_template(template_path)
     html = template.render(context)
-
     pisa_status = pisa.CreatePDF(
        html, dest=response)
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
-    zip_filename = f'{name}.zip'
-    with zipfile.ZipFile(zip_filename, 'w') as zip_file:
-        zip_file.writestr(f'{name}.pdf', response.content)
-
-    # Send the zip file as a response
-    with open(zip_filename, 'rb') as zip_file:
-        response = HttpResponse(zip_file.read(), content_type='application/zip')
-        response['Content-Disposition'] = f'attachment; filename="{name}.zip"'
     return response
 
 def render_pdf_view_PWR(request, id):
@@ -272,21 +203,10 @@ def render_pdf_view_PWR(request, id):
     response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
     template = get_template(template_path)
     html = template.render(context)
-
-    
     pisa_status = pisa.CreatePDF(
        html, dest=response)
-   
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
-    zip_filename = f'{name}.zip'
-    with zipfile.ZipFile(zip_filename, 'w') as zip_file:
-        zip_file.writestr(f'{name}.pdf', response.content)
-
-    # Send the zip file as a response
-    with open(zip_filename, 'rb') as zip_file:
-        response = HttpResponse(zip_file.read(), content_type='application/zip')
-        response['Content-Disposition'] = f'attachment; filename="{name}.zip"'
     return response
 
 
@@ -301,17 +221,16 @@ def render_pdf_view_B9(request, id):
     html = template.render(context)
     pisa_status = pisa.CreatePDF(
        html, dest=response)
-   
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     
-    zip_filename = f'{name}.zip'
-    with zipfile.ZipFile(zip_filename, 'w') as zip_file:
-        zip_file.writestr(f'{name}.pdf', response.content)
+    # zip_filename = f'{name}.zip'
+    # with zipfile.ZipFile(zip_filename, 'w') as zip_file:
+    #     zip_file.writestr(f'{name}.pdf', response.content)
 
-    with open(zip_filename, 'rb') as zip_file:
-        response = HttpResponse(zip_file.read(), content_type='application/zip')
-        response['Content-Disposition'] = f'attachment; filename="{name}.zip"'
+    # with open(zip_filename, 'rb') as zip_file:
+    #     response = HttpResponse(zip_file.read(), content_type='application/zip')
+    #     response['Content-Disposition'] = f'attachment; filename="{name}.zip"'
     return response
 
 def export_data_to_excel_subcompany(request):
@@ -718,14 +637,7 @@ def render_pdf_view_clientcompany(request, id):
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     
-    zip_filename = f'{name}.zip'
-    with zipfile.ZipFile(zip_filename, 'w') as zip_file:
-        zip_file.writestr(f'{name}.pdf', response.content)
-
-    # Send the zip file as a response
-    with open(zip_filename, 'rb') as zip_file:
-        response = HttpResponse(zip_file.read(), content_type='application/zip')
-        response['Content-Disposition'] = f'attachment; filename="{name}.zip"'
+    
     return response
 
 

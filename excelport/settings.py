@@ -101,16 +101,7 @@ DATABASES = {
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'ExcelPort',
-#         'USER': 'emad',
-#         'PASSWORD': 'amadking123',
-#         'HOST': 'postgres',  
-#         'PORT': '5432',  
-#     }
-# }
+
 
 
 
