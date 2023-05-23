@@ -427,21 +427,23 @@ class SubCompanySplit(View):
         for col_num, column_title in enumerate(columns):
             ws.write(row_num, col_num, column_title)
         value = float(valuenumber)
-        num_parts = totalfetch
+        
 
         total = value
-        n = num_parts
-        range_min = float(rangenumbermin)
-        range_max = float(rangenumber)
-     
-        numbers = []
-        for i in range(n):
-            num = random.uniform(range_min, range_max)
-            num = round(num, 2)  
-            numbers.append(num)
+        range_min = rangenumber
+        range_max = rangenumbermin
 
-        numbers.append(total - sum(numbers))
-        numbers = [round(num, 2) for num in numbers]
+        numbers = []
+
+        while total >= range_max:
+            num = random.uniform(range_min, range_max)
+            num = round(num, 2)
+            numbers.append(num)
+            total -= num
+
+        numbers.append(total) 
+
+
         splitcompanyview = SplitCompnay.objects.filter(sub_company = splitcompany).count()
         my_models_to_delete = SplitCompnay.objects.filter(sub_company = splitcompany).order_by('id')[:splitcompanyview]
         my_date = datetime.strptime(date, '%Y-%m-%d').date()
@@ -449,7 +451,7 @@ class SubCompanySplit(View):
             my_model.delete()
 
         drop = 0
-        for i in range(n+1):
+        for i in range(len(numbers)):
             if drop <= 5:
                 drop+=1
                 
@@ -495,22 +497,26 @@ class ClientCompanySplit(View):
         for col_num, column_title in enumerate(columns):
             ws.write(row_num, col_num, column_title)
         value = float(valuenumber)
-        num_parts = totalfetch
-        total = value
-        n = num_parts
-        range_min = float(rangenumbermin)
-        range_max = float(rangenumber)
-        numbers = []
-        for i in range(n):
-            num = random.uniform(range_min, range_max)
-            numbers.append(num)
+
         
-        numbers.append(total - sum(numbers))
-        numbers = [round(num, 2) for num in numbers]
-        numbers = numbers
+        total = value
+        range_min = rangenumber
+        range_max = rangenumbermin
+
+        numbers = []
+
+        while total >= range_max:
+            num = random.uniform(range_min, range_max)
+            num = round(num, 2)
+            numbers.append(num)
+            total -= num
+
+        numbers.append(total) 
+
+
         my_date = datetime.strptime(date, '%Y-%m-%d').date()
         drop = 0
-        for i in range(n+1):
+        for i in range(len(numbers)):
             if drop <= 5:
                 drop+=1
             else:
