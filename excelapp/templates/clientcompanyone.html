@@ -33,7 +33,7 @@
         <form action="{% url 'updatemyclientweight' %}" method="POST">
           {% csrf_token %}
           <input type="hidden" id="myInputWeight" name="myid">
-          <input type="number" name="weight" id="weight" class="form-control mb-3">
+          <input type="number" name="weight" step="0.01" id="weight" class="form-control mb-3">
           <div class="text-center">
               <button type="submit" class="btn btn-info col-6">Update Weight</button>
           </div>
@@ -161,6 +161,7 @@
           Export
       </a>
 
+      {% if myid == 3 %}
       <a  href="#" class="btn btn-primary exportbtn" onclick="openLinks(event)" >
         All Pdf Download
       </a>
@@ -168,13 +169,30 @@
       <a  href="#" class="btn btn-primary exportbtn me-4" onclick="openLinksSplit(event)" >
         All Split Download
       </a>
+      {% elif myid == 4 %}
+      <a  href="#" class="btn btn-primary exportbtn" onclick="openLinksBiofuelWood(event)" >
+        All Pdf Download
+      </a>
+  
+      <a  href="#" class="btn btn-primary exportbtn me-4" onclick="openLinksSplitBiofuelWood(event)" >
+        All Split Download
+      </a>
+      {% elif myid == 5 %}
+      <a  href="#" class="btn btn-primary exportbtn" onclick="openLinksBiofuelPlastic(event)" >
+        All Pdf Download
+      </a>
+  
+      <a  href="#" class="btn btn-primary exportbtn me-4" onclick="openLinksSplitBiofuelPlastic(event)" >
+        All Split Download
+      </a>
+      {% endif %}
   
     <table data-replace="jtable" id="example" aria-label="JS Datatable" data-locale="en" data-search="true">
       
       </div>
               <thead>
                   <tr>
-                      <th>Sno. <i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
+                     
                       <th>Name<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
                       <th>Line1<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
                       <th>Line2<i class="fa fa-arrow-circle-down" aria-hidden="true"></i></th>
@@ -193,7 +211,7 @@
               <tbody>
                   {% for sub in  clientview %}
                   <tr>
-                      <td>{{sub.id}}</td>
+                    
                       <td>{{sub.name}}</td>
                       <td>{{sub.line1}}</td>
                       <td>{{sub.line2}}</td>
@@ -272,17 +290,12 @@
       <script>
         function openLinks(event) {
           event.preventDefault();
-    
           var links = [
-            "{% url 'createpdfclient' 1 %}",
-            "{% url 'createpdfclient' 2 %}",
-            "{% url 'createpdfclient' 3 %}",
-            "{% url 'createpdfclient' 4 %}",
-            "{% url 'createpdfclient' 5 %}",
-            "{% url 'createpdfclient' 6 %}",
-            "{% url 'createpdfclient' 7 %}",
-            "{% url 'createpdfclient' 8 %}",
-            "{% url 'createpdfclient' 9 %}"
+            "{% url 'createpdfclient' 10 %}",
+            "{% url 'createpdfclient' 11 %}",
+            "{% url 'createpdfclient' 12 %}",
+            "{% url 'createpdfclient' 13 %}",
+            
             // Add more URL patterns here
           ];
     
@@ -295,18 +308,11 @@
       <script>
         function openLinksSplit(event) {
           event.preventDefault();
-    
           var links = [
-            "{% url 'clientcompnaysplit' 1 %}",
-            "{% url 'clientcompnaysplit' 2 %}",
-            "{% url 'clientcompnaysplit' 3 %}",
-            "{% url 'clientcompnaysplit' 4 %}",
-            "{% url 'clientcompnaysplit' 5 %}",
-            "{% url 'clientcompnaysplit' 6 %}",
-            "{% url 'clientcompnaysplit' 7 %}",
-            "{% url 'clientcompnaysplit' 8 %}",
-            "{% url 'clientcompnaysplit' 9 %}",
-            // Add more URL patterns here
+            "{% url 'clientcompnaysplit' 10 %}",
+            "{% url 'clientcompnaysplit' 11 %}",
+            "{% url 'clientcompnaysplit' 12 %}",
+            "{% url 'clientcompnaysplit' 13 %}",
           ];
     
           links.forEach(function(url) {
@@ -314,6 +320,84 @@
           });
         }
       </script>
+
+{% comment %} 2nd {% endcomment %}
+
+<script>
+  function openLinksBiofuelWood(event) {
+    event.preventDefault();
+    var links = [
+      "{% url 'createpdfclient_one' 14 %}",
+      "{% url 'createpdfclient_one' 15 %}",
+      "{% url 'createpdfclient_one' 16 %}",
+      "{% url 'createpdfclient_one' 17 %}",
+      "{% url 'createpdfclient_one' 18 %}"
+      
+      // Add more URL patterns here
+    ];
+
+    links.forEach(function(url) {
+      window.open(url, "_blank");
+    });
+  }
+</script>
+
+<script>
+  function openLinksSplitBiofuelWood(event) {
+    event.preventDefault();
+    var links = [
+      "{% url 'clientcompnaysplit' 14 %}",
+      "{% url 'clientcompnaysplit' 15 %}",
+      "{% url 'clientcompnaysplit' 16 %}",
+      "{% url 'clientcompnaysplit' 17 %}",
+      "{% url 'clientcompnaysplit' 18 %}"
+    ];
+
+    links.forEach(function(url) {
+      window.open(url, "_blank");
+    });
+  }
+</script>
+
+
+{% comment %} 3rd {% endcomment %}
+
+<script>
+  function openLinksBiofuelPlastic(event) {
+    event.preventDefault();
+    var links = [
+      "{% url 'createpdfclient_one' 19 %}",
+      "{% url 'createpdfclient_one' 20 %}",
+      "{% url 'createpdfclient_one' 21 %}",
+      "{% url 'createpdfclient_one' 22 %}",
+      "{% url 'createpdfclient_one' 23 %}"
+      
+      // Add more URL patterns here
+    ];
+
+    links.forEach(function(url) {
+      window.open(url, "_blank");
+    });
+  }
+</script>
+
+<script>
+  function openLinksSplitBiofuelPlastic(event) {
+    event.preventDefault();
+    var links = [
+      "{% url 'clientcompnaysplit' 19 %}",
+      "{% url 'clientcompnaysplit' 20 %}",
+      "{% url 'clientcompnaysplit' 21 %}",
+      "{% url 'clientcompnaysplit' 22 %}",
+      "{% url 'clientcompnaysplit' 23 %}"
+    ];
+
+    links.forEach(function(url) {
+      window.open(url, "_blank");
+    });
+  }
+</script>
+
 
 {% endblock %}
 

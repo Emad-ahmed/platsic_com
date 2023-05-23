@@ -565,7 +565,7 @@ class UpdateClinetViewWeight(View):
         my_instances = ClientCompany.objects.get(id = myid)
         subcomadd = PreviousDataClientCompany(myid = my_instances.id,head_company = my_instances.head_company, name = my_instances.name, line1 = my_instances.line1, line2=my_instances.line2, line3 = my_instances.line3, line4 = my_instances.line4, urlname = my_instances.urlname, weight = my_instances.weight, Invoicenumber = my_instances.Invoicenumber, invoicedate = my_instances.invoicedate, rangemin = my_instances.rangemin, rangemax = my_instances.rangemax)
         subcomadd.save()
-        my_instances.weight = weight
+        my_instances.weight = float(weight)
         my_instances.save()
         return redirect(request.META.get('HTTP_REFERER', '/'))
 
@@ -640,6 +640,23 @@ def render_pdf_view_clientcompany(request, id):
     
     return response
 
+
+def render_pdf_view_clientcompany_one(request, id):
+    clientcompany = ClientCompany.objects.get(id=id)
+    name = clientcompany.name
+    template_path = 'maintemplate2.html'
+    context = {'clientcompany': clientcompany}
+    response = HttpResponse(content_type='application/pdf')
+    response['Content-Disposition'] = f'attachment; filename="{name}.pdf"'
+    template = get_template(template_path)
+    html = template.render(context)
+    pisa_status = pisa.CreatePDF(
+       html, dest=response)
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    
+    
+    return response
 
 def import_excel(request):
     if request.method == 'POST' and request.FILES['file']:

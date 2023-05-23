@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        @page {
+            background: url(media/images/newplastic1.jpg);
+        }
+
+       
+    </style>
+</head>
+<body>
+    {% load math_tags %}
+    <div>.</div>
+    <div><p style="margin-left: 470pt; margin-top: 64pt; font-size:12px;">{{clientcompany.invoicedate}}</p></div>
+    <div><p style="margin-left: 470pt; margin-top: 36pt; font-size:12px;  margin-bottom:15pt;">NHBA</p></div>
+    <table>
+        <tr>
+            <td>
+                <p></p>
+                <p style="margin-top: 200pt !important; margin-left: 72pt; font-size:11px;">{{clientcompany.head_company.name}}</p>
+                <p style="margin-left: 72pt; font-size:11px;">{{clientcompany.head_company.line1}}</p>
+                <p style="margin-left: 72pt; font-size:11px;">{{clientcompany.head_company.line2}}</p>
+                <p style="margin-left: 72pt; font-size:11px;">{{clientcompany.head_company.line3}}</p>
+                <p style="margin-left: 72pt; font-size:11px;">{{clientcompany.head_company.line4}}</p>
+            </td>
+            <td>
+                <p></p>
+                <p></p>
+                <p style="margin-top: 170pt !important; margin-left: -50pt; font-size:11px;">{{clientcompany.name}}</p>
+                <p style="margin-left: -50pt; font-size:11px;">{{clientcompany.line1}}</p>
+                <p style="margin-left: -50pt; font-size:11px;">{{clientcompany.line2}}</p>
+                <p style="margin-left: -50pt; font-size:11px;">{{clientcompany.line3}}</p>
+                <p style="margin-left: -50pt; font-size:11px;">{{clientcompany.line4}}</p>
+            </td>
+        </tr>
+    </table>
+
+    <table style="margin-top: 67pt;">
+        <tr>
+            <td><p style="margin-left: 130pt; font-size:12px">{{clientcompany.head_company.description}}</p></td>
+            <td> <p style="margin-left: 230pt; font-size:12px">{{clientcompany.weight}}</p> </td>
+            <td><p style="margin-left: 140pt; font-size:12px">£{{clientcompany.head_company.unit_price}}</p></td>
+            <td><p style="margin-left: 53pt; font-size:12px">{% with a=clientcompany.weight b=clientcompany.head_company.unit_price %}
+                £{{a|mul:b}}       
+            {% endwith %}</p></td>
+        </tr>
+    </table>
+   
+    <p style="margin-top: 172pt; margin-left: 500pt; font-size:12px;">{% with a=clientcompany.weight b=clientcompany.head_company.unit_price %}
+
+        £{{a|mul:b}}       
+     
+    {% endwith %}</p>
+    <p style="margin-left: 55.7rem;  font-size:12px; margin-top: 1.4rem; margin-bottom: 0.5rem !important;">{% with a=clientcompany.weight b=clientcompany.head_company.unit_price %}
+        £{{ a|vat_amount_show:b }}    
+    {% endwith %}</p>
+
+    <p style="margin-left: 500pt; font-size:12px;">{{clientcompany.weight}}</p>
+    <p style="margin-left: 55rem;  font-size:12px; margin-top: 1.8rem; margin-bottom: 0.5rem !important; font-weight:bolder">{% with a=clientcompany.weight b=clientcompany.head_company.unit_price %}
+        £{{ a|multiply_and_add_vat:b|add:a }}    
+    {% endwith %}</p>
+</body>
+</html>

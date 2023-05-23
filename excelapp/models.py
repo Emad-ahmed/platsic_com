@@ -58,7 +58,7 @@ class ClientCompany(models.Model):
     line2 = models.CharField(max_length=150)
     line3 = models.CharField(max_length=150)
     line4 = models.CharField(max_length=150)
-    weight = models.IntegerField(null=True, blank=True)
+    weight = models.FloatField(null=True, blank=True)
     Invoicenumber = models.IntegerField(null=True, blank=True)
     urlname = models.CharField(max_length=150, null=True, blank=True)
     date = models.DateField(auto_now_add=True)

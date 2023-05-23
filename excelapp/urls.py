@@ -33,7 +33,8 @@ urlpatterns = [
     path('createpdfsub_eight/<int:id>/', render_pdf_view_B9, name="createpdfsub_eight"),
 
     path('createpdfclient/<int:id>/', render_pdf_view_clientcompany, name="createpdfclient"),
-
+    path('createpdfclient_one/<int:id>/', render_pdf_view_clientcompany_one, name="createpdfclient_one"),
+    
     path('exportcompany/', export_data_to_excel_headcompany, name="exportcompany"),
     path('exportsubcompany/', export_data_to_excel_subcompany, name="exportsubcompany"),
     path('exportclientcompany/', export_data_to_excel_clientcompany, name="exportclientcompany"),
@@ -50,7 +51,7 @@ urlpatterns = [
 
     path('subcompnaysplit/<int:id>/', SubCompanySplit.as_view(), name="subcompnaysplit"),
     path('clientcompnaysplit/<int:id>/', ClientCompanySplit.as_view(), name="clientcompnaysplit"),
-
+    
     path('updatemyclientweight/', UpdateClinetViewWeight.as_view(), name="updatemyclientweight"),
     path('updatemyclientinvoice/', UpdateClinetViewInvoice.as_view(), name="updatemyclientinvoice"),
     path('updatemyclientinvoicedate/', UpdateClinetViewDate.as_view(), name="updatemyclientinvoicedate"),

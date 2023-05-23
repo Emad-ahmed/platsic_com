@@ -79,7 +79,7 @@ class ClientCompanyForm(forms.ModelForm):
 class ClientcompanyUpdateForm(forms.ModelForm):
     class Meta:
         model = ClientCompany
-        fields = ('head_company',  'name', 'line1', 'line2', 'line3', 'line4', 'Invoicenumber', 'invoicedate', 'rangemin', 'rangemax')
+        fields = ('head_company',  'name', 'line1', 'line2', 'line3', 'line4', 'Invoicenumber', 'invoicedate', 'urlname', 'rangemin', 'rangemax')
 
         widgets = {
             'head_company': forms.Select(attrs={'class': 'form-control'}),
@@ -88,6 +88,7 @@ class ClientcompanyUpdateForm(forms.ModelForm):
             'line2': forms.TextInput(attrs={'class': 'form-control', 'placeholder' : 'line2'}),
             'line3': forms.TextInput(attrs={'class': 'form-control', 'placeholder' : 'line3'}),
             'line4': forms.TextInput(attrs={'class': 'form-control', 'placeholder' : 'line4'}),
+            'urlname': forms.TextInput(attrs={'class': 'form-control', 'placeholder' : 'urlname'}),
             'rangemin': forms.NumberInput(attrs={'class': 'form-control', 'placeholder' : 'Min'}),
             'rangemax': forms.NumberInput(attrs={'class': 'form-control',  'placeholder' : 'Max'}),
             'Invoicenumber': forms.NumberInput(attrs={'class': 'form-control',  'placeholder' : 'Max'}),

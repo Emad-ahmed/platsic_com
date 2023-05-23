@@ -5,7 +5,9 @@ register = template.Library()
 @register.filter(name='add')
 def add(value, arg):
     try:
-        return int(value) + int(arg)
+        number = float(value) + float(arg)
+        formated_number = format(number, ".2f")
+        return formated_number
     except (ValueError, TypeError):
         return ""
 
@@ -33,3 +35,4 @@ def vat_amount_show(value1, value2):
     vat_amount = (product * vat_percentage) / 100
     
     return vat_amount
+
