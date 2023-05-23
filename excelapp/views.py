@@ -483,7 +483,7 @@ class ClientCompanySplit(View):
         rangenumbermin = splitcompany.rangemax
         date = splitcompany.invoicedate
         date = str(date)
-        totalfetch = int(valuenumber)/float(rangenumber)
+        totalfetch = float(valuenumber)/float(rangenumber)
         totalfetch = floor(totalfetch)
         placelist = ["BT1 1AA", "BT1 1AL", "BT1 1AR", "BT1 1BG", "BT1 1BW", "BT1 1DA", "BT1 1DJ", "BT1 1DN", "BT1 1FF", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH", "BT1 1DN", "BT1 1FF", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH", "BT1 1FJ", "BT1 1FH"]
         response = HttpResponse(content_type='application/ms-excel')
@@ -494,7 +494,7 @@ class ClientCompanySplit(View):
         columns = ['date_time', 'drop_time', 'vehicle', 'drop', 'weight']
         for col_num, column_title in enumerate(columns):
             ws.write(row_num, col_num, column_title)
-        value = int(valuenumber)
+        value = float(valuenumber)
         num_parts = totalfetch
         total = value
         n = num_parts
