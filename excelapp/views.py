@@ -223,14 +223,7 @@ def render_pdf_view_B9(request, id):
        html, dest=response)
     if pisa_status.err:
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
-    
-    # zip_filename = f'{name}.zip'
-    # with zipfile.ZipFile(zip_filename, 'w') as zip_file:
-    #     zip_file.writestr(f'{name}.pdf', response.content)
 
-    # with open(zip_filename, 'rb') as zip_file:
-    #     response = HttpResponse(zip_file.read(), content_type='application/zip')
-    #     response['Content-Disposition'] = f'attachment; filename="{name}.zip"'
     return response
 
 def export_data_to_excel_subcompany(request):
@@ -238,7 +231,7 @@ def export_data_to_excel_subcompany(request):
     response = HttpResponse(content_type='application/ms-excel')
     response['Content-Disposition'] = 'attachment; filename="subcompany.xls"'
     wb = xlwt.Workbook(encoding='utf-8')
-    ws = wb.add_sheet('Sheet1')
+    ws = wb.add_sheet('DATA SHEET')
     row_num = 0
     columns = ['name', 'line1', 'line2', 'line3', 'line4', 'weight', 'Invoicenumber', 'date', 'invoicedate']
     for col_num, column_title in enumerate(columns):
@@ -262,7 +255,7 @@ def export_data_to_excel_subcompany_head(request,id):
     response = HttpResponse(content_type='application/ms-excel')
     response['Content-Disposition'] = 'attachment; filename="subcompany.xls"'
     wb = xlwt.Workbook(encoding='utf-8')
-    ws = wb.add_sheet('Sheet1')
+    ws = wb.add_sheet('DATA SHEET')
     row_num = 0
     columns = ['name', 'line1', 'line2', 'line3', 'line4', 'weight', 'Invoicenumber', 'date', 'invoicedate']
     for col_num, column_title in enumerate(columns):
@@ -285,7 +278,7 @@ def export_data_to_excel_splitcompany(request, id):
     response = HttpResponse(content_type='application/ms-excel')
     response['Content-Disposition'] = f'attachment; filename="{subcom.name}aplit.xls"'
     wb = xlwt.Workbook(encoding='utf-8')
-    ws = wb.add_sheet('Sheet1')
+    ws = wb.add_sheet('SALE SHEET')
     row_num = 0
     columns = ['date_time', 'drop_time', 'vehicle', 'drop', 'weight']
     for col_num, column_title in enumerate(columns):
@@ -421,7 +414,7 @@ class SubCompanySplit(View):
         response = HttpResponse(content_type='application/ms-excel')
         response['Content-Disposition'] = f'attachment; filename="{splitcompany.name}aplit.xls"'
         wb = xlwt.Workbook(encoding='utf-8')
-        ws = wb.add_sheet('Sheet1')
+        ws = wb.add_sheet('DATA SHEET')
         row_num = 0
         columns = ['date_time', 'drop_time', 'vehicle', 'drop', 'weight']
         for col_num, column_title in enumerate(columns):
@@ -491,7 +484,7 @@ class ClientCompanySplit(View):
         response = HttpResponse(content_type='application/ms-excel')
         response['Content-Disposition'] = f'attachment; filename="{splitcompany.name}aplit.xls"'
         wb = xlwt.Workbook(encoding='utf-8')
-        ws = wb.add_sheet('Sheet1')
+        ws = wb.add_sheet('SALE SHEET')
         row_num = 0
         columns = ['date_time', 'drop_time', 'vehicle', 'drop', 'weight']
         for col_num, column_title in enumerate(columns):
