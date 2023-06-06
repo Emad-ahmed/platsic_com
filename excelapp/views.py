@@ -294,35 +294,49 @@ def export_data_to_excel_splitcompany(request, id):
     return response
 
 
+from datetime import datetime, timedelta
+
 def updatesubview(request, id):
     number = request.POST.get("upadtenumber")
     numberview = request.POST.get("numberview")
     mydate = request.POST.get("date")
+ 
     filternumber = int(numberview)
-    headcom = HeadCompany.objects.get(id = id)
+    headcom = HeadCompany.objects.get(id=id)
     mynum = int(number)
     number_to_divide = mynum
-    my_instances = SubCompany.objects.filter(head_company = headcom)[:filternumber]
+    my_instances = SubCompany.objects.filter(head_company=headcom)[:filternumber]
     part_sizes = []
     mul = 1
 
     for i in my_instances:
-        subcomadd = PreviousDataSubCompany(myid = i.id,head_company = i.head_company, name = i.name, line1 = i.line1, line2=i.line2, line3 = i.line3, line4 = i.line4, urlname = i.urlname, weight = i.weight, Invoicenumber = i.Invoicenumber, invoicedate = i.invoicedate, rangemin = i.rangemin, rangemax = i.rangemax)
+        subcomadd = PreviousDataSubCompany(myid=i.id, head_company=i.head_company, name=i.name, line1=i.line1, line2=i.line2, line3=i.line3, line4=i.line4, urlname=i.urlname, weight=i.weight, Invoicenumber=i.Invoicenumber, invoicedate=i.invoicedate, rangemin=i.rangemin, rangemax=i.rangemax)
         subcomadd.save()
         sumprint = mul * 4
+       
         part_sizes.append(sumprint)
-        mul+=1 
+        mul += 1 
 
     part_sizes.reverse()
     total_size = sum(part_sizes)
-    for instance, item2 in zip(my_instances, part_sizes):
-        number = random.randint(200, 300)
-        part = (item2 / total_size) * number_to_divide
-        instance.weight = part
-        instance.Invoicenumber = number
-        instance.invoicedate = mydate
-        instance.save()
+
+    mydate_obj = datetime.strptime(mydate, "%Y-%m-%d")
     
+    counter = 0
+    for instance, item2 in zip(my_instances, part_sizes):
+        number = random.randint(7, 15)
+        invoicenumber = instance.Invoicenumber + number
+        
+        counter += 1
+        if counter % 2 == 0:  # Check if counter is a multiple of 2
+            mydate_obj += timedelta(days=1)  # Add 1 day to the date
+
+        part = (item2 / total_size) * number_to_divide
+        instance.Weight = part
+        instance.Invoicenumber = invoicenumber
+        instance.invoicedate = mydate_obj.strftime("%Y-%m-%d")  # Assign the modified date
+        instance.save()
+
     return redirect(f'/subcompanyone/{id}/')
 
 class SubCompanyOneView(View):
