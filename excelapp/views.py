@@ -418,7 +418,7 @@ class SubCompanySplit(View):
         splitcompany = SubCompany.objects.get(id = id)
         valuenumber = splitcompany.weight
         rangenumber = splitcompany.rangemin
-        rangenumbermin = splitcompany.rangemax
+        rangenumbermax = splitcompany.rangemax
         date = splitcompany.invoicedate
         date = str(date)
         totalfetch = float(valuenumber)/float(rangenumber)
@@ -433,21 +433,25 @@ class SubCompanySplit(View):
         for col_num, column_title in enumerate(columns):
             ws.write(row_num, col_num, column_title)
         value = float(valuenumber)
-        
 
-        total = value
-        range_min = rangenumber
-        range_max = rangenumbermin
-
+        range_min = float(8)
+        range_max = float(14)
+        total = float(valuenumber)
         numbers = []
 
-        while total >= range_max:
+        while total > range_max or total < range_min:
             num = random.uniform(range_min, range_max)
             num = round(num, 2)
-            numbers.append(num)
+            if total - num < range_min:
+                num = total - range_min
+            numbers.append(float(num))
             total -= num
 
-        numbers.append(total) 
+        numbers.append(float(total))
+
+        # Format numbers to two decimal places
+        numbers = [f"{num:.2f}" for num in numbers]
+        
 
 
         splitcompanyview = SplitCompnay.objects.filter(sub_company = splitcompany).count()
@@ -470,8 +474,7 @@ class SubCompanySplit(View):
             drop_time = current_time
             vehicle = placelist[i]
             drop = drop
-            if numbers[i] > 0:
-                weight = numbers[i]
+            weight = numbers[i]
             new_date = date_time.strftime('%d-%m-%Y')
             new_time = drop_time.strftime('%H:%M')
             row_num += 1
@@ -505,19 +508,26 @@ class ClientCompanySplit(View):
         value = float(valuenumber)
 
         
-        total = value
-        range_min = rangenumber
-        range_max = rangenumbermin
+        
+       
 
+        range_min = float(8)
+        range_max = float(14)
+        total = float(valuenumber)
         numbers = []
 
-        while total >= range_max:
+        while total > range_max or total < range_min:
             num = random.uniform(range_min, range_max)
             num = round(num, 2)
-            numbers.append(num)
+            if total - num < range_min:
+                num = total - range_min
+            numbers.append(float(num))
             total -= num
 
-        numbers.append(total) 
+        numbers.append(float(total))
+
+       
+        numbers = [f"{num:.2f}" for num in numbers]
 
 
         my_date = datetime.strptime(date, '%Y-%m-%d').date()
@@ -532,8 +542,8 @@ class ClientCompanySplit(View):
             drop_time = current_time
             vehicle = placelist[i]
             drop = drop
-            if numbers[i] > 1:
-                weight = numbers[i]
+            
+            weight = numbers[i]
             new_date = date_time.strftime('%d-%m-%Y')
             new_time = drop_time.strftime('%H:%M')
             row_num += 1
