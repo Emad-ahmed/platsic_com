@@ -326,7 +326,6 @@ def updatesubview(request, id):
     for instance, item2 in zip(my_instances, part_sizes):
         number = random.randint(7, 15)
         invoicenumber = instance.Invoicenumber + number
-        
         counter += 1
         if counter % 2 == 0:  # Check if counter is a multiple of 2
             mydate_obj += timedelta(days=1)  # Add 1 day to the date
@@ -623,8 +622,16 @@ def updateclientview(request, id):
     mydate = request.POST.get("date")
     headcom = HeadCompany.objects.get(id = id)
     my_instances = ClientCompany.objects.filter(head_company = headcom)
+    mydate_obj = datetime.strptime(mydate, "%Y-%m-%d")
+    counter = 0
     for instance in my_instances:
-        instance.invoicedate = mydate
+        counter += 1
+        if counter % 2 == 0:  # Check if counter is a multiple of 2
+            mydate_obj += timedelta(days=1) 
+        number = random.randint(7, 15)
+        invoicenumber = instance.Invoicenumber + number
+        instance.invoicedate = mydate_obj.strftime("%Y-%m-%d") 
+        instance.Invoicenumber = invoicenumber
         instance.save()
     return redirect(f'/clientcompanyone/{id}/')
 
@@ -709,12 +716,21 @@ def import_excel(request):
                 pass
             
         return redirect(request.META.get('HTTP_REFERER', '/'))
-
+from datetime import datetime, timedelta
 class PreviousSubCom(View):
     def get(self, request, id):
         headcom = HeadCompany.objects.get(id=id)
         subview = PreviousDataSubCompany.objects.filter(head_company__id = id)
         return render(request, 'previoussubcom.html', {'subview' : subview, 'myid' : id, 'name': headcom.name})
+    def post(self, request, id):
+        headcom = HeadCompany.objects.get(id=id)
+        current_date = request.POST['date']
+        current_date = datetime.strptime(current_date, '%Y-%m-%d').date()
+        start_date = current_date - timedelta(days=current_date.weekday())
+        end_date = start_date + timedelta(days=6)
+        records = PreviousDataSubCompany.objects.filter(invoicedate__range=[start_date, end_date])
+        return render(request, 'previoussubcom.html', {'subview' : records, 'myid' : id, 'name': headcom.name})
+
 
 
 class PreviousSubComDelete(View):

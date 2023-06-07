@@ -29,7 +29,12 @@
   <div>
         <h1 class="text-center mb-4 mt-4">{{name}} Previous Data</h1>
 
-
+        <form action="" method="POST">
+          {% csrf_token %}
+          <label for="weekday">Select Days:</label>
+          <input type="date" class="form-control" name="date">
+          <button type="submit" class="btn btn-warning">Search</button>
+        </form>
         <table data-replace="jtable" id="example" aria-label="JS Datatable" data-locale="en" data-search="true">
                 
                   <thead>
